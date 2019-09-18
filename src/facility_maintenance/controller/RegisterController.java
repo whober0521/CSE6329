@@ -7,6 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import company_management.controller.String;
+import company_management.data.CompanyDAO;
+import company_management.model.Company;
+import company_management.model.CompanyErrorMsgs;
+import company_management.model.EmployeeErrorMsgs;
 import facility_maintenance.data.UsersDAO;
 import facility_maintenance.model.*;
 
@@ -39,7 +45,10 @@ public class RegisterController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		String action = request.getParameter("action"), url="";
 		User user = new User();
-		
+//		CompanyErrorMsgs CerrorMsgs = new CompanyErrorMsgs();
+//		int selectedCompanyIndex;
+//		session.removeAttribute("errorMsgs");
+
 		user.setUser(
 				request.getParameter("username"),
 				request.getParameter("pwd"),
@@ -58,9 +67,18 @@ public class RegisterController extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("user", user);
 		
-		UsersDAO.insert(user);
+		if (!CerrorMsgs.getErrorMsg().equals("")) {
+			// if error messages
+//			getCompanyParam(request,company);
+//			session.setAttribute("errorMsgs", CerrorMsgs);
+		}
+		else {
+			// if no error messages
+			UsersDAO.insert(user);
+//			EmployeeErrorMsgs EemperrorMsgs = new EmployeeErrorMsgs();
+//			session.setAttribute("errorMsgs", EemperrorMsgs);
+		}
 		
 		getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);	
 	}
-
 }

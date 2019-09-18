@@ -4,17 +4,28 @@ body {
   margin-top: 40px;
 }
 
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
 * {
   box-sizing: border-box;
 }
 
 /* Add padding to containers */
 .container {
-  padding: 16px;
-  background-color: white;
-}
-
-.container1 {
   padding: 25px;
   background-color: white;
 }
@@ -24,7 +35,6 @@ body {
 label{
   margin-left: 250px;
 }
-
 
 input[type=text], input[type=password] {
   width: 70%;
