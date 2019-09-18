@@ -18,12 +18,12 @@
 			</center>
 		</div><br>
 		
-		<form method="post" action="LogInController">
+		<form method="post" action="HomeController">
 			<br><br>
 			<label for="username"><b>Username: </b></label><br>
-			<input type="text" name="email" placeholder="Enter your email" size="40"><br><br>
+			<input type="text" name="email" placeholder="Enter your username" size="20"><br><br>
 			<label for="password"><b>Password: </b></label><br>
-			<input type="text" name="password" placeholder="Enter your password" size="40"><br><br><br><br>
+			<input type="text" name="password" placeholder="Enter your password" size="20"><br><br><br><br>
 			<center>
 				<button type="submit" style="padding-right: 50px; padding-left: 50px; padding-top: 25px; padding-bottom: 25px; border-radius:200px;">
 					<b>Sign in</b>
@@ -31,7 +31,7 @@
 			</center><br><br>
 			
 			<div class="container signin">
-				<p>Not a member? <a href="signup.html">Sign up</a>.</p>
+				<p>Not a member? <a href="signup.jsp">Sign up</a>.</p>
 			</div>
 		</form>
 	</div>

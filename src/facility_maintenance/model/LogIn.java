@@ -1,4 +1,4 @@
-package FacilityMaintenance.model;
+package facility_maintenance.model;
 
 public class LogIn {
 	private String username = "";
