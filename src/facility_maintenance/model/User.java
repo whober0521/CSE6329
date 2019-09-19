@@ -121,9 +121,9 @@ public class User implements Serializable{
 	
 	public void validate (String action, User user, UserErrorMsgs errorMsgs) {
 		errorMsgs.setUsernameError(validateUserName(action, user.getUsername()));
-		errorMsgs.setPasswordError(validatePassWord(user.getPassword()));
 		
 		if (action.equalsIgnoreCase("register")) {
+			errorMsgs.setPasswordError(validatePassWord(user.getPassword()));
 			errorMsgs.setRoleError(validateRole(user.getRole()));
 			errorMsgs.setUtaidError(validateUTAid(user.getUtaid()));
 			errorMsgs.setFnameError(validateFirstName(user.getFname()));
@@ -135,6 +135,8 @@ public class User implements Serializable{
 			errorMsgs.setStateError(validateState(user.getState()));
 		}
 		else if (action.equalsIgnoreCase("login")) {
+			errorMsgs.setPasswordError(validatePassWord(user.getPassword()));
+			
 			if(errorMsgs.getUsernameError().equals("") && errorMsgs.getPasswordError().equals("")) {
 				User _user = UsersDAO.getUser(user.getUsername());
 				
@@ -157,8 +159,10 @@ public class User implements Serializable{
 			if (action.equalsIgnoreCase("register") && _user.getUsername()!=null) {
 				result="User Name already in database";
 			}
-			else if (action.equalsIgnoreCase("login") && _user.getUsername()==null) {
-				result="User Name not in database";		
+			else if (action.equalsIgnoreCase("login") || action.equalsIgnoreCase("search")) {
+				if(_user.getUsername()==null) {
+					result="User Name not in database";
+				}
 			}
 		}
 		

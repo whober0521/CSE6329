@@ -36,14 +36,19 @@ public class UserController extends HttpServlet {
 		String action = request.getParameter("action"), url="";
 		HttpSession session = request.getSession();
 		
-		session.removeAttribute("user");
+		session.removeAttribute("search");
 		session.removeAttribute("errorMsgs");
 		
 		if (action.equalsIgnoreCase("register") ) {
-			url="/signup.jsp";
+			session.removeAttribute("user");
+			url="/register.jsp";
 		}
 		else if (action.equalsIgnoreCase("logout") ) {
+			session.removeAttribute("user");
 			url="/logout.jsp";
+		}
+		else if (action.equalsIgnoreCase("search") ) {
+			url="/userSearch.jsp";
 		}
 		
 		getServletContext().getRequestDispatcher(url).forward(request, response);		
@@ -55,9 +60,9 @@ public class UserController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action"), url="";
 		HttpSession session = request.getSession();
-		User user = new User();
 		UserErrorMsgs errorMsgs = new UserErrorMsgs();
-//		int selectedCompanyIndex;
+		User user = new User();
+		
 		session.removeAttribute("errorMsgs");
 		
 		if (action.equalsIgnoreCase("register") ) {
@@ -80,7 +85,7 @@ public class UserController extends HttpServlet {
 			if (!errorMsgs.getErrorMsg().equals("")) {
 				// if error messages				
 				session.setAttribute("errorMsgs", errorMsgs);
-				url="/signup.jsp";
+				url="/register.jsp";
 			}
 			else {
 				// if no error messages
@@ -118,6 +123,20 @@ public class UserController extends HttpServlet {
 				session.setAttribute("user", user);
 				session.setAttribute("errorMsgs", errorMsgs);
 				url="/index.jsp";				
+			}
+		}
+		else if (action.equalsIgnoreCase("search") ) {
+			String username = request.getParameter("username");
+			user.setUser(username,"","","","","","","","","","");
+			user.validate(action, user, errorMsgs);
+			
+			if (errorMsgs.getErrorMsg().equals("")) {
+
+			}
+			else {
+				session.setAttribute("search", user);
+				session.setAttribute("errorMsgs", errorMsgs);
+				url="/userSearch.jsp";				
 			}
 		}
 

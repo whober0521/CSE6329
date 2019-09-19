@@ -17,7 +17,7 @@
 		<h2>UTA Mac Facility Maintenance System</h2>
 	</center>
 	
-	<h4> Admin Home page</h4>
+	<h4> Admin page</h4>
 	<div align="right">
 		<a href="admin.jsp">Home</a>&nbsp;
 		<a href="#">View profile</a>&nbsp;
@@ -28,6 +28,18 @@
 	
 	<div class="text-l"></div><br>
 	
-	<h1>WELCOME, <c:out value='${user.username}'/></h1>
+	<form action="UserController?action=search" method="post">
+		<br><br>
+		<label for="search"><b>Search here: </b></label><br>
+		<input type="text" placeholder="Enter username" name="username" value="<c:out value='${search.username}'/>" size="40px"><br><br><br><br>
+		<input name="usernameError"  value="<c:out value='${errorMsgs.usernameError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
+		
+		<center>
+			<button type="submit" style="padding-right: 50px; padding-left: 50px; padding-top: 25px; padding-bottom: 25px; border-radius:200px;">
+				<b>Search</b>
+			</button>
+		</center><br><br>
+		<hr>
+	</form>
 </body>
 </html>
