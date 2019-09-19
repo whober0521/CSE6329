@@ -108,7 +108,7 @@ public class UserController extends HttpServlet {
 					  url="/user.jsp";
 				    break;
 				  case "F":
-					  url="/companySearchResults.jsp";
+					  url="/manager.jsp";
 				    break;
 				  case "A":
 					  url="/admin.jsp";
