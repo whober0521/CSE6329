@@ -92,7 +92,7 @@ public class UserController extends HttpServlet {
 				
 				switch(user.getRole()) {
 				  case "U":
-					  url="/companySearchResults.jsp";
+					  url="/user.jsp";
 				    break;
 				  case "F":
 					  url="/companySearchResults.jsp";
