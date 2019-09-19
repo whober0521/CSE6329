@@ -13,9 +13,10 @@
 		<center><h2>UTA Mac Facility Maintenance System</h2></center>
 		<center><h2>Report a Problem</h2></center>
 		
-		<form action="" method="post">
+		<form action="MARController?action=report" method="post">
 			<div>
 				<label for="name" placeholder = "Name">Name of the facility:</label>
+				<input type="hidden" id="oldfacility" value="<c:out value='${MAR.facility}'/>"/>
 				<select name="facility">
 					<option>Multipurpose rooms</option>
 					<option>5 Indoor basketball courts</option>
@@ -28,21 +29,25 @@
 					<option>Table Tennis</option>
 					<option>2 Outdoor Basketball Courts</option>
 				</select>
+				<input name="facilityError"  value="<c:out value='${errorMsgs.facilityError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
 			</div>
 			
 			<div>
 				<label for="urgency" placeholder ="urgency">urgency:</label>
+				<input type="hidden" id="oldurgency" value="<c:out value='${MAR.urgency}'/>"/>
 				<select name="urgency">
 					<option>Unusable</option>
 					<option>Major</option>
 					<option>Medium</option>
 					<option>Minor</option>
 				</select>
+				<input name="urgencyError"  value="<c:out value='${errorMsgs.urgencyError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
 			</div>
 			
 			<div>
 				<label for="msg">Problem description:</label>
-				<textarea id="msg" name="description"></textarea>
+				<textarea id="msg" name="description" value="<c:out value='${MAR.description}'/>"></textarea>
+				<input name="descriptionError"  value="<c:out value='${errorMsgs.descriptionError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
 			</div>
 			
 			<div class="button">
@@ -51,4 +56,16 @@
 		</form>
 	</div>
 </body>
+
+<script>
+$(document).ready(function () {
+	if($('#oldfacility').val() != ""){
+		$('#facility').val($('#oldfacility').val());
+	}
+	
+	if($('#oldurgency').val() != ""){
+		$('#urgency').val($('#oldurgency').val());
+	}
+});
+</script>
 </html>

@@ -36,7 +36,7 @@
 			</center><br><br>
 			
 			<div class="container signin">
-				<p>Not a member? <a href="UserController">Sign up</a>.</p>
+				<p>Not a member? <a href="UserController?action=register">Sign up</a>.</p>
 			</div>
 		</form>
 	</div>
