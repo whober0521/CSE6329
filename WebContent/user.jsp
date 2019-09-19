@@ -19,10 +19,10 @@
 	<h4> User Home page</h4>
 	
 	<div align="right">
-		<a href="user_homescreen.html">Home</a>&nbsp;
+		<a href="user.jsp">Home</a>&nbsp;
 		<a href="#">View profile</a>&nbsp;
 		<a href="#">Update Profile</a>&nbsp;
-		<a href="MAR_Form.html">Create Problem Report</a>&nbsp;
+		<a href="report.jsp">Create Problem Report</a>&nbsp;
 		<a href="#">Search Problem Reports</a>&nbsp;
 		<a href="UserController?action=logout">Logout</a>
 		<hr>

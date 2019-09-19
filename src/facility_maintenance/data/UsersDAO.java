@@ -87,7 +87,7 @@ public class UsersDAO {
 			queryString += "', `utaid` = '" + user.getUtaid();
 			queryString += "', `fname` = '" + user.getFname();
 			queryString += "', `lname` = '" + user.getLname();
-			queryString += "', `utaid` = '" + user.getEmail();
+			queryString += "', `email` = '" + user.getEmail();
 			queryString += "', `phone` = '" + user.getPhone();
 			queryString += "', `address` = '" + user.getAddress();
 			queryString += "', `city` = '" + user.getCity();

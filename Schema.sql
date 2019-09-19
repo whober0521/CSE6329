@@ -13,3 +13,10 @@ CREATE TABLE `facility_maintenance`.`users` (
   `city` VARCHAR(50) NOT NULL,
   `state` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`username`));
+
+CREATE TABLE `facility_maintenance`.`mars` (
+  `idx` INT NOT NULL AUTO_INCREMENT,
+  `facility` VARCHAR(45) NOT NULL,
+  `urgency` VARCHAR(10) NOT NULL,
+  `description` VARCHAR(500) NULL,
+  PRIMARY KEY (`idx`));

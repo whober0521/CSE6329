@@ -161,13 +161,13 @@ public class UserController extends HttpServlet {
 			if (!errorMsgs.getErrorMsg().equals("")) {
 				// if error messages				
 				session.setAttribute("errorMsgs", errorMsgs);
-				url="/userUpdate.jsp";
 			}
 			else {
 				// if no error messages
 				UsersDAO.update(user);
-				url="/userUpdate.jsp";
 			}
+			
+			url="/userUpdate.jsp";
 		}
 
 		getServletContext().getRequestDispatcher(url).forward(request, response);		
