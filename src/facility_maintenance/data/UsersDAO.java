@@ -12,9 +12,38 @@ import facility_maintenance.util.SQLConnection;
 public class UsersDAO {
 	static SQLConnection DBMgr = SQLConnection.getInstance();
 	
-	public static void insert(User user) {
+	//search user with username
+	public static User getUser (String username)  {
+		String queryString = "SELECT * from users WHERE `username`='"+username+"';";
 		Connection conn = SQLConnection.getDBConnection();
+		Statement stmt = null;
+		
+		User user = new User(); 
+		
+		try {
+			stmt = conn.createStatement();
+			ResultSet users = stmt.executeQuery(queryString);
+			
+			while (users.next()) {
+				String _username = users.getString("username");
+				String _password = users.getString("password");
+				String _role  = users.getString("role");
+				
+				user.setUsername(_username);
+				user.setPassword(_password);
+				user.setRole(_role);
+			} 
+		}
+		catch (SQLException e) {
+			
+		}
+		
+		return user;
+	}
+	
+	public static void insert(User user) {
 		String queryString = "INSERT INTO users (`username`, `password`, `role`, `utaid`, `fname`, `lname`, `email`, `phone`, `address`, `city`, `state`) ";
+		Connection conn = SQLConnection.getDBConnection();
 		Statement stmt = null;
 		
 		try {
@@ -77,9 +106,5 @@ public class UsersDAO {
 //	//determine if companyID is unique
 //	public static Boolean CompanyIDunique(String idComp)  {  
 //			return (ReturnMatchingCompaniesList(" SELECT * from COMPANY WHERE IDCOMPANY = '"+idComp+"' ORDER BY company_name").isEmpty());
-//	}
-//	//search company with company ID
-//	public static ArrayList<Company>   searchCompany (String idComp)  {  
-//			return ReturnMatchingCompaniesList(" SELECT * from COMPANY WHERE IDCOMPANY = '"+idComp+"' ORDER BY company_name");
 //	}
 }

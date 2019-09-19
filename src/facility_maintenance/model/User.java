@@ -1,7 +1,6 @@
 package facility_maintenance.model;
 
 import java.io.Serializable;
-
 import facility_maintenance.data.UsersDAO;
 
 public class User implements Serializable{
@@ -120,27 +119,48 @@ public class User implements Serializable{
 		return state;
 	}
 	
-	public void validate (User user, UserErrorMsgs errorMsgs) {
-		errorMsgs.setUsernameError(validateUserName(user.getUsername()));
+	public void validate (String action, User user, UserErrorMsgs errorMsgs) {
+		errorMsgs.setUsernameError(validateUserName(action, user.getUsername()));
 		errorMsgs.setPasswordError(validatePassWord(user.getPassword()));
-		errorMsgs.setRoleError(validateRole(user.getRole()));
-		errorMsgs.setUtaidError(validateUTAid(user.getUtaid()));
-		errorMsgs.setFnameError(validateFirstName(user.getFname()));
-		errorMsgs.setLnameError(validateLastName(user.getLname()));
-		errorMsgs.setEmailError(validateEmail(user.getEmail()));
-		errorMsgs.setPhoneError(validatePhone(user.getPhone()));
-		errorMsgs.setAddressError(validateAddress(user.getAddress()));
-		errorMsgs.setCityError(validateCity(user.getCity()));
-		errorMsgs.setStateError(validateState(user.getState()));
-
+		
+		if (action.equalsIgnoreCase("register")) {
+			errorMsgs.setRoleError(validateRole(user.getRole()));
+			errorMsgs.setUtaidError(validateUTAid(user.getUtaid()));
+			errorMsgs.setFnameError(validateFirstName(user.getFname()));
+			errorMsgs.setLnameError(validateLastName(user.getLname()));
+			errorMsgs.setEmailError(validateEmail(user.getEmail()));
+			errorMsgs.setPhoneError(validatePhone(user.getPhone()));
+			errorMsgs.setAddressError(validateAddress(user.getAddress()));
+			errorMsgs.setCityError(validateCity(user.getCity()));
+			errorMsgs.setStateError(validateState(user.getState()));
+		}
+		else if (action.equalsIgnoreCase("login")) {
+			if(errorMsgs.getUsernameError().equals("") && errorMsgs.getPasswordError().equals("")) {
+				User _user = UsersDAO.getUser(user.getUsername());
+				
+				if(!_user.getPassword().equals(user.getPassword()))
+					errorMsgs.setPasswordError("Incorrect Password");			
+			}
+		}
+		
 		errorMsgs.setErrorMsg();
 	}
 	
-	private String validateUserName(String username) {
+	private String validateUserName(String action, String username) {
 		String result="";
 		
 		if(!username.matches("[a-zA-Z]{3,20}"))
 			result="Your User Name must between 3 and 20 alphabets.";
+		else {
+			User _user = UsersDAO.getUser(username);
+			
+			if (action.equalsIgnoreCase("register") && _user.getUsername()!=null) {
+				result="User Name already in database";
+			}
+			else if (action.equalsIgnoreCase("login") && _user.getUsername()==null) {
+				result="User Name not in database";		
+			}
+		}
 		
 		return result;
 	}
