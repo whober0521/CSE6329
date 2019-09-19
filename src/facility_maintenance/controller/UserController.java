@@ -131,12 +131,42 @@ public class UserController extends HttpServlet {
 			user.validate(action, user, errorMsgs);
 			
 			if (errorMsgs.getErrorMsg().equals("")) {
-
+				user = UsersDAO.getUser(username);
+				session.setAttribute("update", user);
+				url="/userUpdate.jsp";	
 			}
 			else {
 				session.setAttribute("search", user);
 				session.setAttribute("errorMsgs", errorMsgs);
 				url="/userSearch.jsp";				
+			}
+		}
+		else if (action.equalsIgnoreCase("update") ) {
+			user.setUser(
+					request.getParameter("username"),
+					request.getParameter("pwd"),
+					request.getParameter("role"),
+					request.getParameter("utaid"),
+					request.getParameter("fname"),
+					request.getParameter("lname"),
+					request.getParameter("email"),
+					request.getParameter("phone"),
+					request.getParameter("address"),
+					request.getParameter("city"),
+					request.getParameter("state"));
+			
+			user.validate(action, user, errorMsgs);
+			session.setAttribute("update", user);
+
+			if (!errorMsgs.getErrorMsg().equals("")) {
+				// if error messages				
+				session.setAttribute("errorMsgs", errorMsgs);
+				url="/userUpdate.jsp";
+			}
+			else {
+				// if no error messages
+				UsersDAO.update(user);
+				url="/userUpdate.jsp";
 			}
 		}
 
