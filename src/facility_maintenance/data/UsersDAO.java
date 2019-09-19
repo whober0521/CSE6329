@@ -20,12 +20,12 @@ public class UsersDAO {
 		try {
 			stmt = conn.createStatement();
 			queryString += " VALUES ('"
-					+ user.getUserName()  + "','"
-					+ user.getPassWord() + "','"		
+					+ user.getUsername()  + "','"
+					+ user.getPassword() + "','"		
 					+ user.getRole() + "','"
-					+ user.getUTAid()  + "','"
-					+ user.getFirstName() + "','"
-					+ user.getLastName() + "','"
+					+ user.getUtaid()  + "','"
+					+ user.getFname() + "','"
+					+ user.getLname() + "','"
 					+ user.getEmail()  + "','"
 					+ user.getPhone() + "','"
 					+ user.getAddress() + "','"

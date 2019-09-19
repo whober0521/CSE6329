@@ -31,7 +31,8 @@
 			<input name="passwordError"  value="<c:out value='${errorMsgs.passwordError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
 			
 			<label for="role"><b>Role:</b></label>
-			<select name="role">
+			<input type="hidden" id="oldrole" value="<c:out value='${user.role}'/>"/>
+			<select name="role" id="role">
 				<option value="U">User</option>
 				<option value="F">Facility Manager</option>
 				<option value="A">Admin</option>
@@ -63,12 +64,14 @@
 			<input type="hidden" name="country" id="countryId" value="US"/>
 			
 			<label for="state"><b>State:</b></label>
+			<input type="hidden" id="oldstate" value="<c:out value='${user.state}'/>"/>
 			<select name="state" class="states order-alpha" id="stateId">
 				<option value="">Select State</option>
 			</select><br>
 			<input name="stateError"  value="<c:out value='${errorMsgs.stateError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
 			
 			<label for="city"><b>City:</b></label>
+			<input type="hidden" id="oldcity" value="<c:out value='${user.city}'/>"/>
 			<select name="city" class="cities order-alpha" id="cityId">
 				<option value="">Select City</option>
 			</select><br>
@@ -91,4 +94,25 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="//geodata.solutions/includes/statecity.js"></script>
+<script>
+$(document).ready(function () {
+	if($('#oldrole').val() != ""){
+		$('#role').val($('#oldrole').val());
+	}
+	
+	if($('#oldstate').val() != ""){
+		setTimeout(function(){
+			$('#stateId').val($('#oldstate').val());
+			$('#stateId').change();
+
+			if($('#oldcity').val() != ""){
+				
+				setTimeout(function(){
+					$('#cityId').val($('#oldcity').val());
+				}, 2000);
+			}
+		}, 2000);
+	}
+});
+</script>
 </html>

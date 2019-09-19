@@ -30,8 +30,11 @@ public class UserController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session = request.getSession();
+		
+		session.removeAttribute("user");
+		
+		getServletContext().getRequestDispatcher("/signup.jsp").forward(request, response);		
 	}
 
 	/**

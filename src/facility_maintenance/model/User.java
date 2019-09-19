@@ -175,8 +175,8 @@ public class User implements Serializable{
 	private String validateFirstName(String fname) {
 		String result="";
 		
-		if(!fname.matches("[a-z]{1,40} "))
-			result="Your User Name must between 1 and 40 alphabets.";
+		if(!fname.matches("[a-zA-Z]{1,40}"))
+			result="Your First Name must between 1 and 40 alphabets.";
 		
 		return result;
 	}
@@ -184,8 +184,8 @@ public class User implements Serializable{
 	private String validateLastName(String lname) {
 		String result="";
 		
-		if(!lname.matches("[a-zA-Z]{1,20}}"))
-			result="Your User Name must between 1 and 20 alphabets.";
+		if(!lname.matches("[a-zA-Z]{1,20}"))
+			result="Your Last Name must between 1 and 20 alphabets.";
 		
 		return result;
 	}
