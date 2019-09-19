@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import facility_maintenance.data.UsersDAO;
+import facility_maintenance.data.MARsDAO;
 import facility_maintenance.model.MAR;
 import facility_maintenance.model.MARErrorMsgs;
 
@@ -63,8 +63,8 @@ public class MARController extends HttpServlet {
 			}
 			else {
 				// if no error messages
-//				UsersDAO.insert(user);
-//				url="/index.jsp";
+				MARsDAO.insert(mar);
+				url="/user.jsp";
 			}
 		}
 
