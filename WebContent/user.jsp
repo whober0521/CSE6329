@@ -24,12 +24,12 @@
 		<a href="#">Update Profile</a>&nbsp;
 		<a href="MAR_Form.html">Create Problem Report</a>&nbsp;
 		<a href="#">Search Problem Reports</a>&nbsp;
-		<a href="logout.html">Logout</a>
+		<a href="UserController?action=logout">Logout</a>
 		<hr>
 	</div>
 	
 	<div class="text-l"></div><br>
 	
-	<h1>WELCOME</h1>
+	<h1>WELCOME, <c:out value='${user.username}'/></h1>
 </body>
 </html>

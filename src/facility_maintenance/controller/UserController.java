@@ -33,12 +33,20 @@ public class UserController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String action = request.getParameter("action"), url="";
 		HttpSession session = request.getSession();
 		
 		session.removeAttribute("user");
 		session.removeAttribute("errorMsgs");
 		
-		getServletContext().getRequestDispatcher("/signup.jsp").forward(request, response);		
+		if (action.equalsIgnoreCase("register") ) {
+			url="/signup.jsp";
+		}
+		else if (action.equalsIgnoreCase("logout") ) {
+			url="/logout.jsp";
+		}
+		
+		getServletContext().getRequestDispatcher(url).forward(request, response);		
 	}
 
 	/**
