@@ -19,12 +19,12 @@ public class User implements Serializable{
 	
 	public void setUser (String username, String password, String role, String utaid, 
 			String fname, String lname, String email, String phone, String address, String city, String state) {
-		setUserName(username);
-		setPassWord(password);
+		setUsername(username);
+		setPassword(password);
 		setRole(role);
-		setUTAid(utaid);
-		setFirstName(fname);
-		setLastName(lname);
+		setUtaid(utaid);
+		setFname(fname);
+		setLname(lname);
 		setEmail(email);
 		setPhone(phone);
 		setAddress(address);
@@ -32,19 +32,19 @@ public class User implements Serializable{
 		setState(state);
 	}
 	
-	public void setUserName(String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
 	
-	public String getUserName() {
+	public String getUsername() {
 		return username;
 	}
 	
-	public void setPassWord(String password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 	
-	public String getPassWord() {
+	public String getPassword() {
 		return password;
 	}
 	
@@ -56,27 +56,27 @@ public class User implements Serializable{
 		return role;
 	}
 	
-	public void setUTAid(String utaid) {
+	public void setUtaid(String utaid) {
 		this.utaid = utaid;
 	}
 	
-	public String getUTAid() {
+	public String getUtaid() {
 		return utaid;
 	}
 	
-	public void setFirstName(String fname) {
+	public void setFname(String fname) {
 		this.fname = fname;
 	}
 	
-	public String getFirstName() {
+	public String getFname() {
 		return fname;
 	}
 	
-	public void setLastName(String lname) {
+	public void setLname(String lname) {
 		this.lname = lname;
 	}
 	
-	public String getLastName() {
+	public String getLname() {
 		return lname;
 	}	
 	
@@ -118,103 +118,120 @@ public class User implements Serializable{
 	
 	public String getState() {
 		return state;
-	}	
+	}
 	
-	
+	public void validate (User user, UserErrorMsgs errorMsgs) {
+		errorMsgs.setUsernameError(validateUserName(user.getUsername()));
+		errorMsgs.setPasswordError(validatePassWord(user.getPassword()));
+		errorMsgs.setRoleError(validateRole(user.getRole()));
+		errorMsgs.setUtaidError(validateUTAid(user.getUtaid()));
+		errorMsgs.setFnameError(validateFirstName(user.getFname()));
+		errorMsgs.setLnameError(validateLastName(user.getLname()));
+		errorMsgs.setEmailError(validateEmail(user.getEmail()));
+		errorMsgs.setPhoneError(validatePhone(user.getPhone()));
+		errorMsgs.setAddressError(validateAddress(user.getAddress()));
+		errorMsgs.setCityError(validateCity(user.getCity()));
+		errorMsgs.setStateError(validateState(user.getState()));
 
-//	public void validateCompany (String action, Company company, CompanyErrorMsgs errorMsgs) {
-//		if (action.equals("saveCompany")) {
-//			errorMsgs.setCompanyIDerror(validateIdcompany(action,company.getIdcompany()));
-//			errorMsgs.setCompanyNameError(validateCompany_name(company.getCompany_name()));
-//			errorMsgs.setPhoneError(validatePhone(company.getPhone()));
-//			errorMsgs.setEmailError(validateEmail(company.getEmail()));
-//			errorMsgs.setErrorMsg();
-//		}
-//		else
-//			if (action.equals("searchCompany")) {
-//				if (company_name.equals("") && idcompany.equals("")) 
-//					errorMsgs.setCompanyNameError("Both Company Name and Company ID cannot be blank");
-//				else
-//					if (!idcompany.equals(""))
-//						errorMsgs.setCompanyIDerror(validateIdcompany(action, idcompany));
-//				errorMsgs.setErrorMsg();				
-//			}
-//			else { //action=searchEmployee
-//				if (idcompany.equals("")) 
-//					errorMsgs.setCompanyIDerror("Company ID cannot be blank");
-//				else
-//					errorMsgs.setCompanyIDerror(validateIdcompany(action,idcompany));
-//				errorMsgs.setErrorMsg();
-//			}
-//	}
-//
-//	private String validateIdcompany(String action, String idcompany) {
-//		String result="";
-//		if (!isTextAnInteger(idcompany))
-//			result="Your company ID must be a number";
-//		else
-//			if (action.equals("saveCompany")) {
-//				if (!stringSize(idcompany,3,16))
-//					result= "Your Company Id must between 3 and 16 digits";
-//				else
-//					if (!CompanyDAO.CompanyIDunique(idcompany))
-//						result="Company ID already in database";
-//			}
-//		return result;
-//	}
-//	
-//	private String validateCompany_name(String company_name) {
-//		String result="";
-//		if (!stringSize(company_name,3,45))
-//			result= "Your Company Name must between 3 and 45 digits";
-//		else
-//			if (Character.isLowerCase(company_name.charAt(0)))
-//				result="Your company name must start with a capital letter";
-//		return result;		
-//	}
-//	
-//	private String validatePhone(String phone) {
-//		String result="";
-//		if (phone.length()!=10)
-//			result="Phone number must be 10 digits in length";
-//		else
-//			if (!isTextAnInteger(phone))
-//				result="Phone number must be a number";
-//		return result;		
-//	}
-//	
-//	private String validateEmail(String email) {
-//		String result="",extension="";
-//		if (!email.contains("@"))
-//			result = "Email address needs to contain @";
-//		else
-//			if (!stringSize(email,7,45))
-//				result="Email address must be between 7 and 45 characters long";
-//			else {
-//				extension = email.substring(email.length()-4, email.length());
-//				if (!extension.equals(".org") && !extension.equals(".edu") && !extension.equals(".com") 
-//						&& !extension.equals(".net") && !extension.equals(".gov") && !extension.equals(".mil"))
-//					result = "Invalid domain name";				
-//			}
-//		return result;		
-//	}
-//
-////	This section is for general purpose methods used internally in this class
-//	
-//	private boolean stringSize(String string, int min, int max) {
-//		return string.length()>=min && string.length()<=max;
-//	}
-//	private boolean isTextAnInteger (String string) {
-//        boolean result;
-//		try
-//        {
-//            Long.parseLong(string);
-//            result=true;
-//        } 
-//        catch (NumberFormatException e) 
-//        {
-//            result=false;
-//        }
-//		return result;
-//	}
+		errorMsgs.setErrorMsg();
+	}
+	
+	private String validateUserName(String username) {
+		String result="";
+		
+		if(!username.matches("[a-zA-Z]{3,20}"))
+			result="Your User Name must between 3 and 20 alphabets.";
+		
+		return result;
+	}
+	
+	private String validatePassWord(String password) {
+		String result="";
+		
+		if(!password.matches("[^\\d]{1}\\w{1,19}"))
+			result="Your Password must between 1 and 20 alphabets or numbers and cannot start with digit.";
+		
+		return result;
+	}
+	
+	private String validateRole(String role) {
+		String result="";
+		
+		if(role.length()==0)
+			result="Please select a Role.";
+		
+		return result;
+	}
+	
+	private String validateUTAid(String utaid) {
+		String result="";
+		
+		if(!utaid.matches("\\d{10,10}"))
+			result="Your UTA Id must be 10 numbers.";
+		
+		return result;
+	}
+	
+	private String validateFirstName(String fname) {
+		String result="";
+		
+		if(!fname.matches("[a-z]{1,40} "))
+			result="Your User Name must between 1 and 40 alphabets.";
+		
+		return result;
+	}
+	
+	private String validateLastName(String lname) {
+		String result="";
+		
+		if(!lname.matches("[a-zA-Z]{1,20}}"))
+			result="Your User Name must between 1 and 20 alphabets.";
+		
+		return result;
+	}
+	
+	private String validateEmail(String email) {
+		String result="";
+		
+		if(!email.matches("[\\w\\.]+@[\\w\\.]+"))
+			result="Your Email must between 2 and 100 alphabets or '.', and must have @ .";
+		
+		return result;
+	}
+	
+	private String validatePhone(String phone) {
+		String result="";
+		
+		if(!phone.matches("\\d{10,10}"))
+			result="Your Phone must be 10 numbers.";
+		
+		return result;
+	}
+	
+	private String validateAddress(String address) {
+		String result="";
+		
+		if(!address.matches("[\\w\\s\\.]{1,200}"))
+			result="Your Address must between 1 and 200 alphabets or spaces.";
+		
+		return result;
+	}
+	
+	private String validateCity(String city) {
+		String result="";
+		
+		if(city.length()==0)
+			result="Please select a City.";
+		
+		return result;
+	}
+	
+	private String validateState(String state) {
+		String result="";
+		
+		if(state.length()==0)
+			result="Please select a State.";
+		
+		return result;
+	}
 }

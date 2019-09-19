@@ -60,9 +60,9 @@ public class RegisterController extends HttpServlet {
 				request.getParameter("phone"),
 				request.getParameter("address"),
 				request.getParameter("city"),
-				request.getParameter("state"));  
+				request.getParameter("state"));
 		
-		//	company.validateCompany(action,company,CerrorMsgs);
+		user.validateCompany(user,CerrorMsgs);
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("user", user);
