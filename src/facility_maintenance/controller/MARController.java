@@ -31,8 +31,20 @@ public class MARController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String action = request.getParameter("action"), url="";
+		HttpSession session = request.getSession();
+		
+		session.removeAttribute("MAR");
+		session.removeAttribute("errorMsgs");
+		
+		if (action.equalsIgnoreCase("report") ) {
+			url="/report.jsp";
+		}
+		else if (action.equalsIgnoreCase("search") ) {
+			url="/MARSearch.jsp";
+		}
+		
+		getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
 
 	/**
