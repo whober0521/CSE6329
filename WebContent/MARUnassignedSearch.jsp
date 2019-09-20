@@ -26,14 +26,14 @@
 			<a href="#">Available facilities</a>&nbsp;
 			<a href="#">Search facility</a>&nbsp;
 			<a href="#">Add new facility</a>&nbsp;
-			<a href="MARController?action=search">Reported problems</a>&nbsp;
+			<a href="MARUnassignedSearch.jsp">Reported problems</a>&nbsp;
 			<a href="#">Repairers details</a>&nbsp;
 			<a href="UserController?action=logout">Logout</a>
 			<hr>
 		</div>
 		
 		<div class="text-l"></div><br>
-		<form action="MARController?action=search" method="post">
+		<form action="MARController?action=search_fm" method="post">
 			<br><br>
 			<label for="search"><b>MAR number:</b></label><br>
 			<input type="text" name="idx" placeholder="Enter MAR number" size="40px" value="<c:out value='${MAR.idx}'/>"><br>

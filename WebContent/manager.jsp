@@ -24,7 +24,7 @@
 			<a href="#">Available facilities</a>&nbsp;
 			<a href="#">Search facility</a>&nbsp;
 			<a href="#">Add new facility</a>&nbsp;
-			<a href="MARController?action=search">Reported problems</a>&nbsp;
+			<a href="MARUnassignedSearch.jsp">Reported problems</a>&nbsp;
 			<a href="#">Repairers details</a>&nbsp;
 			<a href="UserController?action=logout">Logout</a>
 			<hr>

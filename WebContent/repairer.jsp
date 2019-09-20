@@ -20,7 +20,7 @@
 	<div align="right">
 		<a href="repairer.jsp">Home</a>&nbsp;
 		<a href="#">Request Repair Reservation</a>&nbsp;
-		<a href="View_My_Assigned_Repairs.html">View My Reserved Repairs</a>&nbsp;
+		<a href="MARAssignedSearch.jsp">View My Reserved Repairs</a>&nbsp;
 		<a href="UserController?action=logout">Logout</a>
 		<hr>
 	</div>

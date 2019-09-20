@@ -41,8 +41,8 @@ public class MARController extends HttpServlet {
 		if (action.equalsIgnoreCase("report") ) {
 			url="/report.jsp";
 		}
-		else if (action.equalsIgnoreCase("search") ) {
-			url="/MARSearch.jsp";
+		else if (action.equalsIgnoreCase("search_fm") ) {
+			url="/MARUnassigned.jsp";
 		}
 		
 		getServletContext().getRequestDispatcher(url).forward(request, response);
@@ -84,7 +84,7 @@ public class MARController extends HttpServlet {
 				url="/user.jsp";
 			}
 		}
-		else if (action.equalsIgnoreCase("search") ) {
+		else if (action.equalsIgnoreCase("search_fm") ) {
 			mar.setMAR(
 					request.getParameter("idx"),
 					request.getParameter("facilitytype"),
@@ -99,7 +99,7 @@ public class MARController extends HttpServlet {
 				// if error messages
 				session.setAttribute("MAR", mar);
 				session.setAttribute("errorMsgs", errorMsgs);
-				url="/MARSearch.jsp";
+				url="/MARUnassignedSearch.jsp";
 			}
 			else {
 				// if no error messages
@@ -123,7 +123,7 @@ public class MARController extends HttpServlet {
 			else {
 				// if no error messages
 				MARsDAO.assign(mar);
-				url="/MARSearch.jsp";
+				url="/MARUnassignedSearch.jsp";
 			}
 		}
 

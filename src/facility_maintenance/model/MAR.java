@@ -111,7 +111,7 @@ public class MAR implements Serializable{
 			errorMsgs.setUrgencyError(validateUrgency(mar.getUrgency()));
 			errorMsgs.setDescriptionError(validateDescription(mar.getDescription()));
 		}
-		else if(action.equalsIgnoreCase("search")) {
+		else if(action.equalsIgnoreCase("search_fm")) {
 			errorMsgs.setIdxError(validateIdx(mar.getIdx()));
 			errorMsgs.setRepairerError(validateRepairer(mar.getRepairer()));
 			errorMsgs.setReportDateError(validateReportDate(mar.getReportdate()));
