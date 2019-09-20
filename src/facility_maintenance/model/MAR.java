@@ -1,36 +1,58 @@
 package facility_maintenance.model;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import facility_maintenance.data.UsersDAO;
+import facility_maintenance.data.MARsDAO;
 
 public class MAR implements Serializable{
-	private int idx;
-	private String facility;
+	private String idx;
+	private String facilitytype;
+	private String facilityname;
 	private String urgency;
 	private String description;
-	
-	public void setMAR (int idx, String facility, String urgency, String description) {
+	private String repairer;
+	private String reportdate;
+	private String reporttime;
+
+	public void setMAR (String idx, String facilitytype, String facilityname, String urgency, String description, 
+			String repairer, String reportdate, String reporttime) {
 		setIdx(idx);
-		setFacility(facility);
+		setFacilitytype(facilitytype);
+		setFacilityname(facilityname);
 		setUrgency(urgency);
 		setDescription(description);
+		setRepairer(repairer);
+		setReportdate(reportdate);
+		setReporttime(reporttime);
 	}
 	
-	public void setIdx(int idx) {
+	public void setIdx(String idx) {
 		this.idx = idx;
 	}
 	
-	public int getIdx() {
+	public String getIdx() {
 		return idx;
 	}
 	
-	public void setFacility(String facility) {
-		this.facility = facility;
+	public void setFacilitytype(String facilitytype) {
+		this.facilitytype = facilitytype;
 	}
 	
-	public String getFacility() {
-		return facility;
+	public String getFacilitytype() {
+		return facilitytype;
+	}
+	
+	public void setFacilityname(String facilityname) {
+		this.facilityname = facilityname;
+	}
+	
+	public String getFacilityname() {
+		return facilityname;
 	}
 	
 	public void setUrgency(String urgency) {
@@ -49,19 +71,64 @@ public class MAR implements Serializable{
 		return description;
 	}
 	
+	public void setRepairer(String repairer) {
+		this.repairer = repairer;
+	}
+	
+	public String getRepairer() {
+		return repairer;
+	}
+	
+	public void setReportdate(String reportdate) {
+		this.reportdate = reportdate;
+	}
+	
+	public String getReportdate() {
+		return reportdate;
+	}
+	
+	public void setReporttime(String reporttime) {
+		this.reporttime = reporttime;
+	}
+	
+	public String getReporttime() {
+		return reporttime;
+	}
+	
 	public void validate (String action, MAR mar, MARErrorMsgs errorMsgs) {
-		errorMsgs.setFacilityError(validateFacility(mar.getFacility()));
-		errorMsgs.setUrgencyError(validateUrgency(mar.getUrgency()));
-		errorMsgs.setDescriptionError(validateDescription(mar.getDescription()));
-		
+		if (action.equalsIgnoreCase("report")) {
+			errorMsgs.setFacilityNameError(validateFacilityName(mar.getFacilityname()));
+			errorMsgs.setUrgencyError(validateUrgency(mar.getUrgency()));
+			errorMsgs.setDescriptionError(validateDescription(mar.getDescription()));
+		}
+		else if(action.equalsIgnoreCase("search")) {
+			errorMsgs.setIdxError(validateIdx(mar.getIdx()));
+			errorMsgs.setRepairerError(validateRepairer(mar.getRepairer()));
+			errorMsgs.setReportDateError(validateReportDate(mar.getReportdate()));
+		}
+
 		errorMsgs.setErrorMsg();
 	}
 	
-	private String validateFacility(String facility) {
+	private String validateIdx(String idx) {
+		String result="";
+		
+		if(idx.length()!=0)
+		{
+			MAR mar = MARsDAO.getMAR(idx);
+			
+			if(mar.getIdx()==null) 
+				result="MAR Number not in database";
+		}
+		
+		return result;
+	}
+	
+	private String validateFacilityName(String facility) {
 		String result="";
 		
 		if(facility.length()==0)
-			result="Please select a Facility.";
+			result="Please select a Facility Name.";
 		
 		return result;
 	}
@@ -83,100 +150,34 @@ public class MAR implements Serializable{
 		
 		return result;
 	}
-//	
-//	private String validateUserName(String action, String username) {
-//		String result="";
-//		
-//		if(!username.matches("[a-zA-Z]{3,20}"))
-//			result="Your User Name must between 3 and 20 alphabets.";
-//		else {
-//			User _user = UsersDAO.getUser(username);
-//			
-//			if (action.equalsIgnoreCase("register") && _user.getUsername()!=null) {
-//				result="User Name already in database";
-//			}
-//			else if (action.equalsIgnoreCase("login") || action.equalsIgnoreCase("search")) {
-//				if(_user.getUsername()==null) {
-//					result="User Name not in database";
-//				}
-//			}
-//		}
-//		
-//		return result;
-//	}
-//	
-//	private String validatePassWord(String password) {
-//		String result="";
-//		
-//		if(!password.matches("[^\\d]{1}\\w{1,19}"))
-//			result="Your Password must between 1 and 20 alphabets or numbers and cannot start with digit.";
-//		
-//		return result;
-//	}
-//	
-//	private String validateRole(String role) {
-//		String result="";
-//		
-//		if(role.length()==0)
-//			result="Please select a Role.";
-//		
-//		return result;
-//	}
-//	
-//	private String validateUTAid(String utaid) {
-//		String result="";
-//		
-//		if(!utaid.matches("\\d{10,10}"))
-//			result="Your UTA Id must be 10 numbers.";
-//		
-//		return result;
-//	}
-//	
-//	private String validateFirstName(String fname) {
-//		String result="";
-//		
-//		if(!fname.matches("[a-zA-Z]{1,40}"))
-//			result="Your First Name must between 1 and 40 alphabets.";
-//		
-//		return result;
-//	}
-//	
-//	private String validateLastName(String lname) {
-//		String result="";
-//		
-//		if(!lname.matches("[a-zA-Z]{1,20}"))
-//			result="Your Last Name must between 1 and 20 alphabets.";
-//		
-//		return result;
-//	}
-//	
-//	private String validateEmail(String email) {
-//		String result="";
-//		
-//		if(!email.matches("[\\w\\.]+@[\\w\\.]+"))
-//			result="Your Email must between 2 and 100 alphabets or '.', and must have @ .";
-//		
-//		return result;
-//	}
-//	
-//	private String validatePhone(String phone) {
-//		String result="";
-//		
-//		if(!phone.matches("\\d{10,10}"))
-//			result="Your Phone must be 10 numbers.";
-//		
-//		return result;
-//	}
-//	
+	
+	private String validateRepairer(String repairer) {
+		String result="";
+		
+		if(repairer.length()!=0)
+		{
+			User user = UsersDAO.getUser(repairer);
+			
+			if(user.getUsername()==null || user.getRole()!="R")
+				result="Repairer not in database";
+		}
 
-//	
-//	private String validateCity(String city) {
-//		String result="";
-//		
-//		if(city.length()==0)
-//			result="Please select a City.";
-//		
-//		return result;
-//	}
-
+		return result;
+	}
+	
+	private String validateReportDate(String date) {
+		String result="";
+		
+		if(date.length()!=0)
+		{
+			try {
+				Date d = new SimpleDateFormat("MM/dd/yyyy").parse(date);  
+			}
+			catch (Exception e) {
+				result="Incorrect date format, should MM/dd/yyyy";
+			}
+		}
+		
+		return result;
+	}	
 }

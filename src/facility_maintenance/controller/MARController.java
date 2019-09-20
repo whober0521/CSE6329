@@ -59,10 +59,10 @@ public class MARController extends HttpServlet {
 		session.removeAttribute("errorMsgs");
 		
 		if (action.equalsIgnoreCase("report") ) {
-			mar.setMAR(-1,
-					request.getParameter("facility"),
+			mar.setMAR("-1", "",
+					request.getParameter("facilityname"),
 					request.getParameter("urgency"),
-					request.getParameter("description"));
+					request.getParameter("description"),"", "", "");
 			
 			mar.validate(action, mar, errorMsgs);
 			
@@ -72,6 +72,30 @@ public class MARController extends HttpServlet {
 				// if error messages				
 				session.setAttribute("errorMsgs", errorMsgs);
 				url="/report.jsp";
+			}
+			else {
+				// if no error messages
+				MARsDAO.insert(mar);
+				url="/user.jsp";
+			}
+		}
+		else if (action.equalsIgnoreCase("search") ) {
+			mar.setMAR(
+					request.getParameter("idx"),
+					request.getParameter("facilitytype"),
+					request.getParameter("facilityname"), "", "",
+					request.getParameter("repairer"),
+					request.getParameter("reportdate"),
+					request.getParameter("reporttime"));
+			
+			mar.validate(action, mar, errorMsgs);
+			
+			session.setAttribute("MAR", mar);
+
+			if (!errorMsgs.getErrorMsg().equals("")) {
+				// if error messages				
+				session.setAttribute("errorMsgs", errorMsgs);
+				url="/MARSearch.jsp";
 			}
 			else {
 				// if no error messages

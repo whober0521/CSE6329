@@ -16,7 +16,11 @@ CREATE TABLE `facility_maintenance`.`users` (
 
 CREATE TABLE `facility_maintenance`.`mars` (
   `idx` INT NOT NULL AUTO_INCREMENT,
-  `facility` VARCHAR(45) NOT NULL,
+  `facilitytype` VARCHAR(45) NULL,
+  `facilityname` VARCHAR(45) NOT NULL,
   `urgency` VARCHAR(10) NOT NULL,
   `description` VARCHAR(500) NULL,
+  `repairer` VARCHAR(20) NULL,
+  `reportdate` DATE NOT NULL,
+  `reporttime` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idx`));

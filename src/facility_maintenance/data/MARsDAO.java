@@ -12,16 +12,16 @@ public class MARsDAO {
 	static SQLConnection DBMgr = SQLConnection.getInstance();
 	
 	public static void insert(MAR mar) {
-		String queryString = "INSERT INTO `mars` (`facility`, `urgency`, `description`) ";
+		String queryString = "INSERT INTO `mars` (`facilityname`, `urgency`, `description`, `reportdate`, `reporttime`) ";
 		Connection conn = SQLConnection.getDBConnection();
 		Statement stmt = null;
 
 		try {
 			stmt = conn.createStatement();
 			queryString += " VALUES ('"
-					+ mar.getFacility()  + "','"
+					+ mar.getFacilityname()  + "','"
 					+ mar.getUrgency() + "','"
-					+ mar.getDescription() + "')";
+					+ mar.getDescription() + "', CURDATE(), CURTIME());";
 			
 			stmt.executeUpdate(queryString);
 			conn.commit();
@@ -31,39 +31,36 @@ public class MARsDAO {
 			
 		}
 	} 
-//		
-//		//search user with username
-//		public static User getUser (String username)  {
-//			String queryString = "SELECT * from `users` WHERE `username`='"+username+"';";
-//			Connection conn = SQLConnection.getDBConnection();
-//			Statement stmt = null;
-//			
-//			User user = new User(); 
-//			
-//			try {
-//				stmt = conn.createStatement();
-//				ResultSet users = stmt.executeQuery(queryString);
-//				
-//				while (users.next()) {
-//					user.setUser(users.getString("username"),
-//					users.getString("password"),
-//					users.getString("role"),
-//					users.getString("utaid"),
-//					users.getString("fname"),
-//					users.getString("lname"),
-//					users.getString("email"),
-//					users.getString("phone"),
-//					users.getString("address"),
-//					users.getString("city"),
-//					users.getString("state"));
-//				} 
-//			}
-//			catch (SQLException e) {
-//				
-//			}
-//			
-//			return user;
-//		}
+	
+	//search MAR with idx
+	public static MAR getMAR (String idx)  {
+		String queryString = "SELECT * from `mars` WHERE `idx`='"+idx+"';";
+		Connection conn = SQLConnection.getDBConnection();
+		Statement stmt = null;
+		MAR mar = new MAR(); 
+		
+		try {
+			stmt = conn.createStatement();
+			ResultSet mars = stmt.executeQuery(queryString);
+			
+			while (mars.next()) {
+				mar.setMAR(
+						mars.getString("idx"),
+						mars.getString("facilitytype"),
+						mars.getString("facilityname"),
+						mars.getString("urgency"),
+						mars.getString("description"),
+						mars.getString("repairer"),
+						mars.getString("reportdate"),
+						mars.getString("reporttime"));
+			} 
+		}
+		catch (SQLException e) {
+			
+		}
+		
+		return mar;
+	}
 //		
 //
 //		

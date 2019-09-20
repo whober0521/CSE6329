@@ -16,8 +16,8 @@
 		<form action="MARController?action=report" method="post">
 			<div>
 				<label for="name" placeholder = "Name">Name of the facility:</label>
-				<input type="hidden" id="oldfacility" value="<c:out value='${MAR.facility}'/>"/>
-				<select name="facility">
+				<input type="hidden" id="oldfacilityname" value="<c:out value='${MAR.facilityname}'/>"/>
+				<select name="facilityname" id="facilityname">
 					<option>Multipurpose rooms</option>
 					<option>5 Indoor basketball courts</option>
 					<option>9 Volleyball courts</option>
@@ -29,13 +29,13 @@
 					<option>Table Tennis</option>
 					<option>2 Outdoor Basketball Courts</option>
 				</select>
-				<input name="facilityError"  value="<c:out value='${errorMsgs.facilityError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
+				<input name="facilityNameError"  value="<c:out value='${errorMsgs.facilityNameError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
 			</div>
 			
 			<div>
 				<label for="urgency" placeholder ="urgency">urgency:</label>
 				<input type="hidden" id="oldurgency" value="<c:out value='${MAR.urgency}'/>"/>
-				<select name="urgency">
+				<select name="urgency" id="urgency">
 					<option>Unusable</option>
 					<option>Major</option>
 					<option>Medium</option>
@@ -59,8 +59,8 @@
 
 <script>
 $(document).ready(function () {
-	if($('#oldfacility').val() != ""){
-		$('#facility').val($('#oldfacility').val());
+	if($('#oldfacilityname').val() != ""){
+		$('#facilityname').val($('#oldfacilityname').val());
 	}
 	
 	if($('#oldurgency').val() != ""){

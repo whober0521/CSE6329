@@ -3,20 +3,30 @@ package facility_maintenance.model;
 public class MARErrorMsgs {
 	private String errorMsg;
 	private String idxError;
-	private String facilityError;
+	private String facilityTypeError;
+	private String facilityNameError;
 	private String urgencyError;
 	private String descriptionError;
+	private String repairerError;
+	private String reportDateError;
+	private String reportTimeError;
 	
 	public MARErrorMsgs() {
 		this.errorMsg = "";
 		this.idxError = "";
-		this.facilityError = "";
+		this.facilityTypeError = "";
+		this.facilityNameError = "";
 		this.urgencyError = "";
 		this.descriptionError = "";
+		this.repairerError = "";
+		this.reportDateError = "";
+		this.reportTimeError = "";
 	}
 	
 	public void setErrorMsg() {
-		if (!idxError.equals("") || !facilityError.equals("") || !urgencyError.equals("") || !descriptionError.equals(""))
+		if (!idxError.equals("") || !facilityTypeError.equals("") || !facilityNameError.equals("") ||
+				!urgencyError.equals("") || !descriptionError.equals("") || !repairerError.equals("") ||
+				!reportDateError.equals("") || !reportTimeError.equals(""))
 			this.errorMsg = "Please correct the following errors";
 	}
 	
@@ -32,12 +42,20 @@ public class MARErrorMsgs {
 		return idxError;
 	}
 	
-	public void setFacilityError(String facilityError) {
-		this.facilityError = facilityError;
+	public void setFacilityTypeError(String facilityTypeError) {
+		this.facilityTypeError = facilityTypeError;
 	}
 	
-	public String getFacilityError() {
-		return facilityError;
+	public String getFacilityTypeError() {
+		return facilityTypeError;
+	}
+	
+	public void setFacilityNameError(String facilityNameError) {
+		this.facilityNameError = facilityNameError;
+	}
+	
+	public String getFacilityNameError() {
+		return facilityNameError;
 	}
 	
 	public void setUrgencyError(String urgencyError) {
@@ -54,5 +72,29 @@ public class MARErrorMsgs {
 	
 	public String getDescriptionError() {
 		return descriptionError;
+	}
+	
+	public void setRepairerError(String repairerError) {
+		this.repairerError = repairerError;
+	}
+	
+	public String getRepairerError() {
+		return repairerError;
+	}
+	
+	public void setReportDateError(String reportDateError) {
+		this.reportDateError = reportDateError;
+	}
+	
+	public String getReportDateError() {
+		return reportDateError;
+	}
+	
+	public void setReportTimeError(String reportTimeError) {
+		this.reportTimeError = reportTimeError;
+	}
+	
+	public String getReportTimeError() {
+		return reportTimeError;
 	}
 }
