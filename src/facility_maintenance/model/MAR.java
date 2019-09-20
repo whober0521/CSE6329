@@ -116,6 +116,9 @@ public class MAR implements Serializable{
 			errorMsgs.setRepairerError(validateRepairer(mar.getRepairer()));
 			errorMsgs.setReportDateError(validateReportDate(mar.getReportdate()));
 		}
+		else if(action.equalsIgnoreCase("assign")) {
+			errorMsgs.setRepairerError(validateRepairer(mar.getRepairer()));
+		}
 
 		errorMsgs.setErrorMsg();
 	}
@@ -168,8 +171,8 @@ public class MAR implements Serializable{
 		{
 			User user = UsersDAO.getUser(repairer);
 			
-			if(user.getUsername()==null || user.getRole()!="R")
-				result="Repairer not in database";
+			if(user.getUsername()==null || !user.getRole().equalsIgnoreCase("R"))
+				result="Repairer (" + repairer + ") not in database";
 		}
 
 		return result;

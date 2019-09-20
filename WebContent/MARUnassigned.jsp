@@ -32,6 +32,8 @@
 		</div>
 		<hr>
 		
+		<input name="repairerError"  value="<c:out value='${errorMsgs.repairerError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
+
 		<table>
 			<tr>
 				<th>Facility type</th>

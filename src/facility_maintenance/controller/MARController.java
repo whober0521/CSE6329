@@ -107,6 +107,25 @@ public class MARController extends HttpServlet {
 				url="/MARUnassigned.jsp";
 			}
 		}
+		else if (action.equalsIgnoreCase("assign") ) {
+			mar.setMAR(
+					request.getParameter("idx"), "", "", "", "", "", "", "",
+					request.getParameter("repairer"));
+			
+			mar.validate(action, mar, errorMsgs);
+
+			if (!errorMsgs.getErrorMsg().equals("")) {
+				// if error messages
+				session.setAttribute("MARs", MARsDAO.getUnassigned(mar));
+				session.setAttribute("errorMsgs", errorMsgs);
+				url="/MARUnassigned.jsp";
+			}
+			else {
+				// if no error messages
+				MARsDAO.assign(mar);
+				url="/MARSearch.jsp";
+			}
+		}
 
 		getServletContext().getRequestDispatcher(url).forward(request, response);		
 	}

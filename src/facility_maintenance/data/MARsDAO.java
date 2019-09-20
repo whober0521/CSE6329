@@ -12,28 +12,6 @@ import facility_maintenance.util.SQLConnection;
 public class MARsDAO {
 	static SQLConnection DBMgr = SQLConnection.getInstance();
 	
-	public static void insert(MAR mar) {
-		String queryString = "INSERT INTO `mars` (`facilityname`, `urgency`, `description`, `reporter`, `reportdate`, `reporttime`) ";
-		Connection conn = SQLConnection.getDBConnection();
-		Statement stmt = null;
-
-		try {
-			stmt = conn.createStatement();
-			queryString += " VALUES ('"
-					+ mar.getFacilityname()  + "','"
-					+ mar.getUrgency() + "','"
-					+ mar.getDescription() + "','"
-					+ mar.getReporter() + "', CURDATE(), CURTIME());";
-			
-			stmt.executeUpdate(queryString);
-			conn.commit();
-		}
-		catch (SQLException e) 
-		{
-			
-		}
-	} 
-	
 	//search MAR with idx
 	public static MAR getMAR (String idx)  {
 		String queryString = "SELECT * from `mars` WHERE `idx`='"+idx+"';";
@@ -129,38 +107,43 @@ public class MARsDAO {
 		
 		return result;
 	}
+	
+	public static void insert(MAR mar) {
+		String queryString = "INSERT INTO `mars` (`facilityname`, `urgency`, `description`, `reporter`, `reportdate`, `reporttime`) ";
+		Connection conn = SQLConnection.getDBConnection();
+		Statement stmt = null;
+
+		try {
+			stmt = conn.createStatement();
+			queryString += " VALUES ('"
+					+ mar.getFacilityname()  + "','"
+					+ mar.getUrgency() + "','"
+					+ mar.getDescription() + "','"
+					+ mar.getReporter() + "', CURDATE(), CURTIME());";
+			
+			stmt.executeUpdate(queryString);
+			conn.commit();
+		}
+		catch (SQLException e) 
+		{
+			
+		}
+	} 
+	
+	public static void assign(MAR mar) {
+		String queryString = "UPDATE `mars` SET `repairer` = '" + mar.getRepairer() + "' WHERE `idx` = '" + mar.getIdx() + "';";
+		Connection conn = SQLConnection.getDBConnection();
+		Statement stmt = null;
 		
-//		
-//
-//		
-//		public static void update(User user) {
-//			String queryString = "UPDATE `users` SET ";
-//			Connection conn = SQLConnection.getDBConnection();
-//			Statement stmt = null;
-//			
-//			try {
-//				stmt = conn.createStatement();
-//				
-//				queryString += " `password` = '" + user.getPassword();
-//				queryString += "', `role` = '" + user.getRole();
-//				queryString += "', `utaid` = '" + user.getUtaid();
-//				queryString += "', `fname` = '" + user.getFname();
-//				queryString += "', `lname` = '" + user.getLname();
-//				queryString += "', `email` = '" + user.getEmail();
-//				queryString += "', `phone` = '" + user.getPhone();
-//				queryString += "', `address` = '" + user.getAddress();
-//				queryString += "', `city` = '" + user.getCity();
-//				queryString += "', `state` = '" + user.getState();			
-//				queryString += "'  WHERE `username`='" + user.getUsername() + "';";
-//				
-//				stmt.executeUpdate(queryString);
-//				conn.commit();
-//			}
-//			catch (SQLException e) 
-//			{
-//				
-//			}
-//		} 
+		try {
+			stmt = conn.createStatement();
+			stmt.executeUpdate(queryString);
+			conn.commit();
+		}
+		catch (SQLException e) {
+			
+		}
+	} 
 		
 //		private static ArrayList<Company> ReturnMatchingCompaniesList (String queryString) {
 //			ArrayList<Company> companyListInDB = new ArrayList<Company>();
