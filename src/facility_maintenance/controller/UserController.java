@@ -102,7 +102,7 @@ public class UserController extends HttpServlet {
 			if (errorMsgs.getErrorMsg().equals("")) {
 				user = UsersDAO.getUser(username);
 				session.setAttribute("user", user);
-				
+
 				switch(user.getRole()) {
 				  case "U":
 					  url="/user.jsp";
@@ -120,8 +120,8 @@ public class UserController extends HttpServlet {
 				}
 			}
 			else {
-				session.setAttribute("user", user);
 				session.setAttribute("errorMsgs", errorMsgs);
+				session.setAttribute("user", user);
 				url="/index.jsp";				
 			}
 		}

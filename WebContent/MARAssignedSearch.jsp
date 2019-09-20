@@ -9,6 +9,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="stylesheet" type="text/css" href="advse.css">
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="/resources/demos/style.css">
 </head>
 
 <body>
@@ -29,6 +31,7 @@
 		<div class="text-l"></div><br>
 		
 		<form action="MARController?action=search_r" method="post">
+			<input type="hidden" name="repairer" value="<c:out value='${username}'/>"/>
 			<br><br>
 
 			<label for="date"><b>Date:</b></label>

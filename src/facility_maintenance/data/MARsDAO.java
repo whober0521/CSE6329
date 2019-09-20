@@ -108,6 +108,53 @@ public class MARsDAO {
 		return result;
 	}
 	
+	public static ArrayList<MAR> getAssigned(MAR mar) {
+		String queryString = "SELECT * from mars WHERE repairer = '" + mar.getRepairer() + "' ";
+		ArrayList<String> where = new ArrayList<String>();
+		
+		if (!mar.getReportdate().equals("")) {
+			where.add(" `reportdate`='" + mar.getReportdate() + "' ");
+		}
+		
+		if (!mar.getReporttime().equals("")) {
+			where.add(" `reporttime`>='" + mar.getReporttime() + "' ");
+		}
+		
+		if(where.size()!=0)
+			queryString += " AND ("+ String.join(" OR ", where) + ")";
+
+		ArrayList<MAR> result = new ArrayList<MAR>();
+		Connection conn = SQLConnection.getDBConnection();
+		Statement stmt = null;
+		
+		try {
+			stmt = conn.createStatement();
+			ResultSet mars = stmt.executeQuery(queryString);
+			
+			while (mars.next()) {
+				MAR _mar = new MAR();
+				
+				_mar.setMAR(
+						mars.getString("idx"),
+						mars.getString("facilitytype"),
+						mars.getString("facilityname"),
+						mars.getString("urgency"),
+						mars.getString("description"),
+						mars.getString("reporter"),
+						mars.getString("reportdate"),
+						mars.getString("reporttime"),
+						mars.getString("repairer"));
+				
+				result.add(_mar);	
+			}
+		}
+		catch (SQLException e) {
+			
+		}
+		
+		return result;
+	}
+	
 	public static void insert(MAR mar) {
 		String queryString = "INSERT INTO `mars` (`facilityname`, `urgency`, `description`, `reporter`, `reportdate`, `reporttime`) ";
 		Connection conn = SQLConnection.getDBConnection();

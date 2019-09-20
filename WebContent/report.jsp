@@ -12,8 +12,9 @@
 	<div class="container">
 		<center><h2>UTA Mac Facility Maintenance System</h2></center>
 		<center><h2>Report a Problem</h2></center>
-		
+
 		<form action="MARController?action=report" method="post">
+			<input type="hidden" name="reporter" value="<c:out value='${username}'/>"/>
 			<div>
 				<label for="name" placeholder = "Name">Name of the facility:</label>
 				<input type="hidden" id="oldfacilityname" value="<c:out value='${MAR.facilityname}'/>"/>

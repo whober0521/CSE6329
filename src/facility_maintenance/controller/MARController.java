@@ -32,9 +32,10 @@ public class MARController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getParameter("action"), url="";
+		String action = request.getParameter("action"), url="", username = request.getParameter("username");
 		HttpSession session = request.getSession();
 		
+		session.setAttribute("username", username);
 		session.removeAttribute("MAR");
 		session.removeAttribute("errorMsgs");
 		
@@ -42,7 +43,10 @@ public class MARController extends HttpServlet {
 			url="/report.jsp";
 		}
 		else if (action.equalsIgnoreCase("search_fm") ) {
-			url="/MARUnassigned.jsp";
+			url="/MARUnassignedSearch.jsp";
+		}
+		else if (action.equalsIgnoreCase("search_r") ) {
+			url="/MARAssignedSearch.jsp";
 		}
 		
 		getServletContext().getRequestDispatcher(url).forward(request, response);
@@ -56,18 +60,15 @@ public class MARController extends HttpServlet {
 		HttpSession session = request.getSession();
 		MARErrorMsgs errorMsgs = new MARErrorMsgs();
 		MAR mar = new MAR();
-		
+
 		session.removeAttribute("errorMsgs");
 		
 		if (action.equalsIgnoreCase("report") ) {
-			User user = new User();
-			session.setAttribute("user", user);
-
 			mar.setMAR("-1", "",
 					request.getParameter("facilityname"),
 					request.getParameter("urgency"),
 					request.getParameter("description"),
-					user.getUsername(), "", "", "");
+					request.getParameter("reporter"), "", "", "");
 			
 			mar.validate(action, mar, errorMsgs);
 			
@@ -124,6 +125,26 @@ public class MARController extends HttpServlet {
 				// if no error messages
 				MARsDAO.assign(mar);
 				url="/MARUnassignedSearch.jsp";
+			}
+		}
+		else if (action.equalsIgnoreCase("search_r") ) {
+			mar.setMAR("", "", "", "", "", "",
+					request.getParameter("reportdate"),
+					request.getParameter("reporttime"),
+					request.getParameter("repairer"));
+			
+			mar.validate(action, mar, errorMsgs);
+
+			if (!errorMsgs.getErrorMsg().equals("")) {
+				// if error messages
+				session.setAttribute("MAR", mar);
+				session.setAttribute("errorMsgs", errorMsgs);
+				url="/MARAssignedSearch.jsp";
+			}
+			else {
+				// if no error messages
+				session.setAttribute("MARs", MARsDAO.getAssigned(mar));
+				url="/MARAssigned.jsp";
 			}
 		}
 
