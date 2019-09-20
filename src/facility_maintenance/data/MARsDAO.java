@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import facility_maintenance.model.MAR;
 import facility_maintenance.util.SQLConnection;
@@ -12,7 +13,7 @@ public class MARsDAO {
 	static SQLConnection DBMgr = SQLConnection.getInstance();
 	
 	public static void insert(MAR mar) {
-		String queryString = "INSERT INTO `mars` (`facilityname`, `urgency`, `description`, `reportdate`, `reporttime`) ";
+		String queryString = "INSERT INTO `mars` (`facilityname`, `urgency`, `description`, `reporter`, `reportdate`, `reporttime`) ";
 		Connection conn = SQLConnection.getDBConnection();
 		Statement stmt = null;
 
@@ -21,7 +22,8 @@ public class MARsDAO {
 			queryString += " VALUES ('"
 					+ mar.getFacilityname()  + "','"
 					+ mar.getUrgency() + "','"
-					+ mar.getDescription() + "', CURDATE(), CURTIME());";
+					+ mar.getDescription() + "','"
+					+ mar.getReporter() + "', CURDATE(), CURTIME());";
 			
 			stmt.executeUpdate(queryString);
 			conn.commit();
@@ -43,16 +45,17 @@ public class MARsDAO {
 			stmt = conn.createStatement();
 			ResultSet mars = stmt.executeQuery(queryString);
 			
-			while (mars.next()) {
+			while (mars.next()) {				
 				mar.setMAR(
 						mars.getString("idx"),
 						mars.getString("facilitytype"),
 						mars.getString("facilityname"),
 						mars.getString("urgency"),
 						mars.getString("description"),
-						mars.getString("repairer"),
+						mars.getString("reporter"),
 						mars.getString("reportdate"),
-						mars.getString("reporttime"));
+						mars.getString("reporttime"),
+						mars.getString("repairer"));
 			} 
 		}
 		catch (SQLException e) {
@@ -61,6 +64,72 @@ public class MARsDAO {
 		
 		return mar;
 	}
+	
+	public static ArrayList<MAR> getUnassigned(MAR mar) {
+		String queryString = "SELECT * from mars WHERE repairer is NULL ";
+		
+		if (!mar.getIdx().equals("")) {
+			queryString += " AND `idx`='" + mar.getIdx() + "' ";
+		}
+		else {
+			ArrayList<String> where = new ArrayList<String>();
+			
+			if (!mar.getFacilitytype().equals("")) {
+				where.add(" `facilitytype`='" + mar.getFacilitytype() + "' ");
+			}
+			
+			if (!mar.getFacilityname().equals("")) {
+				where.add(" `facilityname`='" + mar.getFacilityname() + "' ");
+			}
+			
+			if (!mar.getRepairer().equals("")) {
+				where.add(" `repairer`='" + mar.getRepairer() + "' ");
+			}
+			
+			if (!mar.getReportdate().equals("")) {
+				where.add(" `reportdate`='" + mar.getReportdate() + "' ");
+			}
+			
+			if (!mar.getReporttime().equals("")) {
+				where.add(" `reporttime`>='" + mar.getReporttime() + "' ");
+			}
+			
+			if(where.size()!=0)
+				queryString += " AND ("+ String.join(" OR ", where) + ")";
+		}
+
+		ArrayList<MAR> result = new ArrayList<MAR>();
+		Connection conn = SQLConnection.getDBConnection();
+		Statement stmt = null;
+		
+		try {
+			stmt = conn.createStatement();
+			ResultSet mars = stmt.executeQuery(queryString);
+			
+			while (mars.next()) {
+				MAR _mar = new MAR();
+				
+				_mar.setMAR(
+						mars.getString("idx"),
+						mars.getString("facilitytype"),
+						mars.getString("facilityname"),
+						mars.getString("urgency"),
+						mars.getString("description"),
+						mars.getString("reporter"),
+						mars.getString("reportdate"),
+						mars.getString("reporttime"),
+						mars.getString("repairer"));
+				
+				result.add(_mar);	
+			}
+		}
+		catch (SQLException e) {
+			
+		}
+		
+		return result;
+	}
+		
 //		
 //
 //		
@@ -112,15 +181,7 @@ public class MARsDAO {
 //			} catch (SQLException e) {}
 //			return companyListInDB;
 //		}
-	//	
 
-	//
-
-	//	
-//		public static ArrayList<Company>  listCompanies() {  
-//				return ReturnMatchingCompaniesList(" SELECT * from COMPANY ORDER BY company_name");
-//		}
-	//	
 //		//search companies
 //		public static ArrayList<Company>  searchCompanies(String companyname)  {  
 //				return ReturnMatchingCompaniesList(" SELECT * from COMPANY WHERE company_name LIKE '%"+companyname+"%' ORDER BY idcompany");

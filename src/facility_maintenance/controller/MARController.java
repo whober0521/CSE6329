@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import facility_maintenance.data.MARsDAO;
 import facility_maintenance.model.MAR;
 import facility_maintenance.model.MARErrorMsgs;
+import facility_maintenance.model.User;
 
 /**
  * Servlet implementation class MARController
@@ -59,10 +60,14 @@ public class MARController extends HttpServlet {
 		session.removeAttribute("errorMsgs");
 		
 		if (action.equalsIgnoreCase("report") ) {
+			User user = new User();
+			session.setAttribute("user", user);
+
 			mar.setMAR("-1", "",
 					request.getParameter("facilityname"),
 					request.getParameter("urgency"),
-					request.getParameter("description"),"", "", "");
+					request.getParameter("description"),
+					user.getUsername(), "", "", "");
 			
 			mar.validate(action, mar, errorMsgs);
 			
@@ -83,24 +88,23 @@ public class MARController extends HttpServlet {
 			mar.setMAR(
 					request.getParameter("idx"),
 					request.getParameter("facilitytype"),
-					request.getParameter("facilityname"), "", "",
-					request.getParameter("repairer"),
+					request.getParameter("facilityname"), "", "", "",
 					request.getParameter("reportdate"),
-					request.getParameter("reporttime"));
+					request.getParameter("reporttime"),
+					request.getParameter("repairer"));
 			
 			mar.validate(action, mar, errorMsgs);
-			
-			session.setAttribute("MAR", mar);
 
 			if (!errorMsgs.getErrorMsg().equals("")) {
-				// if error messages				
+				// if error messages
+				session.setAttribute("MAR", mar);
 				session.setAttribute("errorMsgs", errorMsgs);
 				url="/MARSearch.jsp";
 			}
 			else {
 				// if no error messages
-				MARsDAO.insert(mar);
-				url="/user.jsp";
+				session.setAttribute("MARs", MARsDAO.getUnassigned(mar));
+				url="/MARUnassigned.jsp";
 			}
 		}
 

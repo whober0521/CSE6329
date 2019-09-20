@@ -20,7 +20,8 @@ CREATE TABLE `facility_maintenance`.`mars` (
   `facilityname` VARCHAR(45) NOT NULL,
   `urgency` VARCHAR(10) NOT NULL,
   `description` VARCHAR(500) NULL,
-  `repairer` VARCHAR(20) NULL,
+  `reporter` VARCHAR(20) NULL,
   `reportdate` DATE NOT NULL,
   `reporttime` VARCHAR(45) NOT NULL,
+  `repairer` VARCHAR(20) NULL,
   PRIMARY KEY (`idx`));
