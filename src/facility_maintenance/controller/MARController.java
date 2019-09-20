@@ -68,7 +68,7 @@ public class MARController extends HttpServlet {
 					request.getParameter("facilityname"),
 					request.getParameter("urgency"),
 					request.getParameter("description"),
-					request.getParameter("reporter"), "", "", "");
+					request.getParameter("reporter"), "", "", "", "");
 			
 			mar.validate(action, mar, errorMsgs);
 			
@@ -92,7 +92,7 @@ public class MARController extends HttpServlet {
 					request.getParameter("facilityname"), "", "", "",
 					request.getParameter("reportdate"),
 					request.getParameter("reporttime"),
-					request.getParameter("repairer"));
+					request.getParameter("repairer"), "");
 			
 			mar.validate(action, mar, errorMsgs);
 
@@ -111,7 +111,7 @@ public class MARController extends HttpServlet {
 		else if (action.equalsIgnoreCase("assign") ) {
 			mar.setMAR(
 					request.getParameter("idx"), "", "", "", "", "", "", "",
-					request.getParameter("repairer"));
+					request.getParameter("repairer"), "");
 			
 			mar.validate(action, mar, errorMsgs);
 
@@ -131,7 +131,7 @@ public class MARController extends HttpServlet {
 			mar.setMAR("", "", "", "", "", "",
 					request.getParameter("reportdate"),
 					request.getParameter("reporttime"),
-					request.getParameter("repairer"));
+					request.getParameter("repairer"), "");
 			
 			mar.validate(action, mar, errorMsgs);
 

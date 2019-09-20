@@ -53,7 +53,7 @@
 					<td><c:out value='${item.reportdate}'/></td>
 					<td><c:out value='${item.idx}'/></td>
 					<td><c:out value='${item.repairer}'/></td>
-					<td></td>
+					<td><c:out value='${item.assigndate}'/></td>
 					<td></td>
 				</form>
 			</tr>

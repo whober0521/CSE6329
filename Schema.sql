@@ -24,4 +24,5 @@ CREATE TABLE `facility_maintenance`.`mars` (
   `reportdate` DATE NOT NULL,
   `reporttime` VARCHAR(45) NOT NULL,
   `repairer` VARCHAR(20) NULL,
+  `assigndate` DATE NULL,
   PRIMARY KEY (`idx`));

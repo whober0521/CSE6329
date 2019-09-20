@@ -33,7 +33,8 @@ public class MARsDAO {
 						mars.getString("reporter"),
 						mars.getString("reportdate"),
 						mars.getString("reporttime"),
-						mars.getString("repairer"));
+						mars.getString("repairer"),
+						mars.getString("assigndate"));
 			} 
 		}
 		catch (SQLException e) {
@@ -96,7 +97,8 @@ public class MARsDAO {
 						mars.getString("reporter"),
 						mars.getString("reportdate"),
 						mars.getString("reporttime"),
-						mars.getString("repairer"));
+						mars.getString("repairer"),
+						mars.getString("assigndate"));
 				
 				result.add(_mar);	
 			}
@@ -143,7 +145,8 @@ public class MARsDAO {
 						mars.getString("reporter"),
 						mars.getString("reportdate"),
 						mars.getString("reporttime"),
-						mars.getString("repairer"));
+						mars.getString("repairer"),
+						mars.getString("assigndate"));
 				
 				result.add(_mar);	
 			}
@@ -178,7 +181,9 @@ public class MARsDAO {
 	} 
 	
 	public static void assign(MAR mar) {
-		String queryString = "UPDATE `mars` SET `repairer` = '" + mar.getRepairer() + "' WHERE `idx` = '" + mar.getIdx() + "';";
+		String queryString = "UPDATE `mars` SET `repairer` = '" + mar.getRepairer() + 
+				"', `assigndate` = CURDATE() WHERE `idx` = '" + mar.getIdx() + "';";
+
 		Connection conn = SQLConnection.getDBConnection();
 		Statement stmt = null;
 		
@@ -191,34 +196,4 @@ public class MARsDAO {
 			
 		}
 	} 
-		
-//		private static ArrayList<Company> ReturnMatchingCompaniesList (String queryString) {
-//			ArrayList<Company> companyListInDB = new ArrayList<Company>();
-//			
-//			Statement stmt = null;
-//			Connection conn = SQLConnection.getDBConnection();  
-//			try {
-//				stmt = conn.createStatement();
-//				ResultSet companyList = stmt.executeQuery(queryString);
-//				while (companyList.next()) {
-//					Company company = new Company(); 
-//					company.setIdcompany(companyList.getString("idcompany"));
-//					company.setCompany_name(companyList.getString("company_name"));
-//					company.setPhone(companyList.getString("phone"));
-//					company.setEmail(companyList.getString("email"));  
-//					companyListInDB.add(company);	
-//				}
-//			} catch (SQLException e) {}
-//			return companyListInDB;
-//		}
-
-//		//search companies
-//		public static ArrayList<Company>  searchCompanies(String companyname)  {  
-//				return ReturnMatchingCompaniesList(" SELECT * from COMPANY WHERE company_name LIKE '%"+companyname+"%' ORDER BY idcompany");
-//		}
-	//	
-//		//determine if companyID is unique
-//		public static Boolean CompanyIDunique(String idComp)  {  
-//				return (ReturnMatchingCompaniesList(" SELECT * from COMPANY WHERE IDCOMPANY = '"+idComp+"' ORDER BY company_name").isEmpty());
-//		}
 }
