@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <head>
 	<title>Problem Report page</title>
-	<link rel="stylesheet" type="text/css" href="homepage.css">
+	<link rel="stylesheet" type="text/css" href="advse.css">
 </head>
 
 <body>
