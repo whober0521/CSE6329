@@ -26,7 +26,7 @@
 			<input name="usernameError"  value="<c:out value='${errorMsgs.usernameError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
 			
 			<label for="password"><b>Password: </b></label><br>
-			<input type="text" name="password" placeholder="Enter your password" size="20"value="<c:out value='${user.password}'/>"><br><br><br><br>
+			<input type="password" name="password" placeholder="Enter your password" size="20"value="<c:out value='${user.password}'/>"><br><br><br><br>
 			<input name="passwordError"  value="<c:out value='${errorMsgs.passwordError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
 			
 			<center>
