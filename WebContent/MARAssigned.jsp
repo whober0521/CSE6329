@@ -31,11 +31,11 @@
 		<table>
 			<tr>
 				<th>Facility type</th>
-				<th>Name</th>
+				<th>Facility Name</th>
 				<th>Urgency</th>
 				<th>Description</th>
 				<th>Reported By</th>
-				<th>Date</th>
+				<th>Report Date</th>
 				<th>MAR number</th>
 				<th>Assigned to</th>
 				<th>Assigned date</th>
