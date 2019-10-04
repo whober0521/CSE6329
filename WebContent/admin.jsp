@@ -20,7 +20,7 @@
 	<h4> Admin Home page</h4>
 	<div align="right">
 		<a href="admin.jsp">Home</a>&nbsp;
-		<a href="#">View profile</a>&nbsp;
+		<a href="#">Update profile</a>&nbsp;
 		<a href="UserController?action=search">Search user</a>&nbsp;
 		<a href="UserController?action=logout">Logout</a>
 		<hr>
