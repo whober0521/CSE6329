@@ -20,8 +20,7 @@
 		<h4> Facility Manager Home page</h4>
 		<div align="right">
 			<a href="manager.jsp">Home</a>&nbsp;
-			<a href="#">View profile</a>&nbsp;
-			<a href="#">Available facilities</a>&nbsp;
+			<a href="#">Update profile</a>&nbsp;
 			<a href="#">Search facility</a>&nbsp;
 			<a href="#">Add new facility</a>&nbsp;
 			<a href="MARUnassignedSearch.jsp">Reported problems</a>&nbsp;
