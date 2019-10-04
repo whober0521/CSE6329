@@ -18,6 +18,7 @@
 		
 		<h4> Repairer Home page</h4>
 		<div align="right">
+			<a href="#">Update profile</a>
 			<a href="repairer.jsp">Home</a>&nbsp;
 			<a href="#">Request Repair Reservation</a>&nbsp;
 			<a href="MARController?action=search_r&username=<c:out value='${user.username}'/>">View My Reserved Repairs</a>&nbsp;
