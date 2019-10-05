@@ -20,7 +20,7 @@
 	
 	<div align="right">
 		<a href="UserController?action=home&role=U&username=<c:out value='${username}'/>">Home</a>&nbsp;
-		<a href="#">Update Profile</a>&nbsp;
+		<a href="UserUpdateProfile.jsp">Update Profile</a>&nbsp;
 		<a href="UserController?action=logout">Logout</a>
 		<hr>
 	</div>
