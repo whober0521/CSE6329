@@ -11,8 +11,7 @@ import facility_maintenance.data.MARsDAO;
 
 public class MAR implements Serializable{
 	private String idx;
-	private String facilitytype;
-	private String facilityname;
+	private String facility;
 	private String urgency;
 	private String description;
 	private String reporter;
@@ -21,13 +20,12 @@ public class MAR implements Serializable{
 	private String repairer;
 	private String assigndate;
 
-	public void setMAR (String idx, String facilitytype, String facilityname, String urgency, String description, 
+	public void setMAR (String idx, String facility, String description, String urgency, 
 			String reporter, String reportdate, String reporttime, String repairer, String assigndate) {
 		setIdx(idx);
-		setFacilitytype(facilitytype);
-		setFacilityname(facilityname);
-		setUrgency(urgency);
+		setFacility(facility);
 		setDescription(description);
+		setUrgency(urgency);
 		setReporter(reporter);
 		setReportdate(reportdate);
 		setReporttime(reporttime);
@@ -43,20 +41,12 @@ public class MAR implements Serializable{
 		return idx;
 	}
 	
-	public void setFacilitytype(String facilitytype) {
-		this.facilitytype = facilitytype;
+	public void setFacility(String facility) {
+		this.facility = facility;
 	}
 	
-	public String getFacilitytype() {
-		return facilitytype;
-	}
-	
-	public void setFacilityname(String facilityname) {
-		this.facilityname = facilityname;
-	}
-	
-	public String getFacilityname() {
-		return facilityname;
+	public String getFacility() {
+		return facility;
 	}
 	
 	public void setUrgency(String urgency) {
@@ -117,8 +107,6 @@ public class MAR implements Serializable{
 	
 	public void validate (String action, MAR mar, MARErrorMsgs errorMsgs) {
 		if (action.equalsIgnoreCase("report")) {
-			errorMsgs.setFacilityNameError(validateFacilityName(mar.getFacilityname()));
-			errorMsgs.setUrgencyError(validateUrgency(mar.getUrgency()));
 			errorMsgs.setDescriptionError(validateDescription(mar.getDescription()));
 		}
 		else if(action.equalsIgnoreCase("search_fm")) {
@@ -143,24 +131,6 @@ public class MAR implements Serializable{
 			if(mar.getIdx()==null) 
 				result="MAR Number not in database";
 		}
-		
-		return result;
-	}
-	
-	private String validateFacilityName(String facility) {
-		String result="";
-		
-		if(facility.length()==0)
-			result="Please select a Facility Name.";
-		
-		return result;
-	}
-	
-	private String validateUrgency(String urgency) {
-		String result="";
-		
-		if(urgency.length()==0)
-			result="Please select Urgency.";
 		
 		return result;
 	}

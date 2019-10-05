@@ -19,9 +19,9 @@
 	<h4> User Home page</h4>
 	
 	<div align="right">
-		<a href="user.jsp">Home</a>&nbsp;
+		<a href="UserController?action=home&role=U&username=<c:out value='${username}'/>">Home</a>&nbsp;
 		<a href="#">Update Profile</a>&nbsp;
-		<a href="MARController?action=report&username=<c:out value='${user.username}'/>">Create Problem Report</a>&nbsp;
+		<a href="MARController?action=report&username=<c:out value='${username}'/>">Create Problem Report</a>&nbsp;
 		<a href="#">Search Problem Reports</a>&nbsp;
 		<a href="UserController?action=logout">Logout</a>
 		<hr>
@@ -29,6 +29,6 @@
 	
 	<div class="text-l"></div><br>
 	
-	<h1>WELCOME, <c:out value='${user.username}'/></h1>
+	<h1>WELCOME, <c:out value='${username}'/></h1>
 </body>
 </html>

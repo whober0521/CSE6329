@@ -124,7 +124,6 @@ public class User implements Serializable{
 		
 		if (action.equalsIgnoreCase("register") || action.equalsIgnoreCase("update")) {
 			errorMsgs.setPasswordError(validatePassWord(user.getPassword()));
-			errorMsgs.setRoleError(validateRole(user.getRole()));
 			errorMsgs.setUtaidError(validateUTAid(user.getUtaid()));
 			errorMsgs.setFnameError(validateFirstName(user.getFname()));
 			errorMsgs.setLnameError(validateLastName(user.getLname()));
@@ -132,7 +131,6 @@ public class User implements Serializable{
 			errorMsgs.setPhoneError(validatePhone(user.getPhone()));
 			errorMsgs.setAddressError(validateAddress(user.getAddress()));
 			errorMsgs.setCityError(validateCity(user.getCity()));
-			errorMsgs.setStateError(validateState(user.getState()));
 		}
 		else if (action.equalsIgnoreCase("login")) {
 			errorMsgs.setPasswordError(validatePassWord(user.getPassword()));
@@ -177,16 +175,7 @@ public class User implements Serializable{
 		
 		return result;
 	}
-	
-	private String validateRole(String role) {
-		String result="";
-		
-		if(role.length()==0)
-			result="Please select a Role.";
-		
-		return result;
-	}
-	
+
 	private String validateUTAid(String utaid) {
 		String result="";
 		
@@ -244,17 +233,8 @@ public class User implements Serializable{
 	private String validateCity(String city) {
 		String result="";
 		
-		if(city.length()==0)
-			result="Please select a City.";
-		
-		return result;
-	}
-	
-	private String validateState(String state) {
-		String result="";
-		
-		if(state.length()==0)
-			result="Please select a State.";
+		if(!city.matches("[\\w\\s\\.]{1,50}"))
+			result="Your City must between 1 and 50 alphabets or spaces.";
 		
 		return result;
 	}

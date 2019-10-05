@@ -17,32 +17,12 @@
 			<input type="hidden" name="reporter" value="<c:out value='${username}'/>"/>
 			<div>
 				<label for="name" placeholder = "Name">Name of the facility:</label>
-				<input type="hidden" id="oldfacilityname" value="<c:out value='${MAR.facilityname}'/>"/>
-				<select name="facilityname" id="facilityname">
-					<option>Multipurpose rooms</option>
-					<option>5 Indoor basketball courts</option>
-					<option>9 Volleyball courts</option>
-					<option>Indoor soccer gymnasium</option>
-					<option>5 Racquetball courts</option>
-					<option>10 Badminton courts</option>
-					<option>Table Tennis</option>
-					<option>Indoor soccer gymnasium</option>
-					<option>Table Tennis</option>
-					<option>2 Outdoor Basketball Courts</option>
+				<select name="facility">
+					<c:forEach items="${facilities}" var="item" varStatus="status">
+						<option><c:out value='${item}'/></option>
+					</c:forEach>
 				</select>
 				<input name="facilityNameError"  value="<c:out value='${errorMsgs.facilityNameError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
-			</div>
-			
-			<div>
-				<label for="urgency" placeholder ="urgency">urgency:</label>
-				<input type="hidden" id="oldurgency" value="<c:out value='${MAR.urgency}'/>"/>
-				<select name="urgency" id="urgency">
-					<option>Unusable</option>
-					<option>Major</option>
-					<option>Medium</option>
-					<option>Minor</option>
-				</select>
-				<input name="urgencyError"  value="<c:out value='${errorMsgs.urgencyError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
 			</div>
 			
 			<div>
@@ -57,16 +37,4 @@
 		</form>
 	</div>
 </body>
-
-<script>
-$(document).ready(function () {
-	if($('#oldfacilityname').val() != ""){
-		$('#facilityname').val($('#oldfacilityname').val());
-	}
-	
-	if($('#oldurgency').val() != ""){
-		$('#urgency').val($('#oldurgency').val());
-	}
-});
-</script>
 </html>

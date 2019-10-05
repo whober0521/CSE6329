@@ -8,10 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import facility_maintenance.data.MARsDAO;
+import facility_maintenance.data.*;
 import facility_maintenance.model.MAR;
 import facility_maintenance.model.MARErrorMsgs;
-import facility_maintenance.model.User;
 
 /**
  * Servlet implementation class MARController
@@ -40,6 +39,7 @@ public class MARController extends HttpServlet {
 		session.removeAttribute("errorMsgs");
 		
 		if (action.equalsIgnoreCase("report") ) {
+			session.setAttribute("facilities", FacilitiesDAO.getNames());
 			url="/report.jsp";
 		}
 		else if (action.equalsIgnoreCase("search_fm") ) {
@@ -64,11 +64,12 @@ public class MARController extends HttpServlet {
 		session.removeAttribute("errorMsgs");
 		
 		if (action.equalsIgnoreCase("report") ) {
-			mar.setMAR("-1", "",
-					request.getParameter("facilityname"),
-					request.getParameter("urgency"),
-					request.getParameter("description"),
-					request.getParameter("reporter"), "", "", "", "");
+			String reporter = request.getParameter("reporter");
+			
+			mar.setMAR("-1",
+					request.getParameter("facility"),
+					request.getParameter("description"), "",
+					reporter, "", "", "", "");
 			
 			mar.validate(action, mar, errorMsgs);
 			
@@ -82,14 +83,14 @@ public class MARController extends HttpServlet {
 			else {
 				// if no error messages
 				MARsDAO.insert(mar);
+				session.setAttribute("username", reporter);
 				url="/user.jsp";
 			}
 		}
 		else if (action.equalsIgnoreCase("search_fm") ) {
 			mar.setMAR(
 					request.getParameter("idx"),
-					request.getParameter("facilitytype"),
-					request.getParameter("facilityname"), "", "", "",
+					request.getParameter("facility"), "", "", "",
 					request.getParameter("reportdate"),
 					request.getParameter("reporttime"),
 					request.getParameter("repairer"), "");
@@ -110,7 +111,7 @@ public class MARController extends HttpServlet {
 		}
 		else if (action.equalsIgnoreCase("assign") ) {
 			mar.setMAR(
-					request.getParameter("idx"), "", "", "", "", "", "", "",
+					request.getParameter("idx"), "", "", "", "", "", "",
 					request.getParameter("repairer"), "");
 			
 			mar.validate(action, mar, errorMsgs);
@@ -128,7 +129,7 @@ public class MARController extends HttpServlet {
 			}
 		}
 		else if (action.equalsIgnoreCase("search_r") ) {
-			mar.setMAR("", "", "", "", "", "",
+			mar.setMAR("", "", "", "", "",
 					request.getParameter("reportdate"),
 					request.getParameter("reporttime"),
 					request.getParameter("repairer"), "");

@@ -8,9 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import company_management.controller.ArrayList;
-import company_management.data.CompanyDAO;
-import company_management.model.Company;
 import facility_maintenance.model.UserErrorMsgs;
 import facility_maintenance.model.User;
 import facility_maintenance.data.UsersDAO;
@@ -38,14 +35,33 @@ public class UserController extends HttpServlet {
 		
 		session.removeAttribute("search");
 		session.removeAttribute("errorMsgs");
-		
+
 		if (action.equalsIgnoreCase("register") ) {
 			session.removeAttribute("user");
 			url="/register.jsp";
 		}
+		else if (action.equalsIgnoreCase("home") ) {
+			session.setAttribute("username", request.getParameter("username"));
+
+			switch(request.getParameter("role")) {
+			  case "U":
+				  url="/user.jsp";
+			    break;
+			  case "F":
+				  url="/manager.jsp";
+			    break;
+			  case "A":
+				  url="/admin.jsp";
+			    break;
+			  case "R":
+				  url="/repairer.jsp";
+			    break;
+			  default:			
+			}
+		}
 		else if (action.equalsIgnoreCase("logout") ) {
-			session.removeAttribute("user");
-			url="/logout.jsp";
+			session.removeAttribute("username");
+			url="/index.jsp";
 		}
 		else if (action.equalsIgnoreCase("search") ) {
 			url="/userSearch.jsp";
@@ -101,7 +117,7 @@ public class UserController extends HttpServlet {
 			
 			if (errorMsgs.getErrorMsg().equals("")) {
 				user = UsersDAO.getUser(username);
-				session.setAttribute("user", user);
+				session.setAttribute("username", user.getUsername());
 
 				switch(user.getRole()) {
 				  case "U":

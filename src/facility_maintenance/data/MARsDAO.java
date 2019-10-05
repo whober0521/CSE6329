@@ -26,8 +26,7 @@ public class MARsDAO {
 			while (mars.next()) {				
 				mar.setMAR(
 						mars.getString("idx"),
-						mars.getString("facilitytype"),
-						mars.getString("facilityname"),
+						mars.getString("facility"),
 						mars.getString("urgency"),
 						mars.getString("description"),
 						mars.getString("reporter"),
@@ -53,13 +52,13 @@ public class MARsDAO {
 		else {
 			ArrayList<String> where = new ArrayList<String>();
 			
-			if (!mar.getFacilitytype().equals("")) {
-				where.add(" `facilitytype`='" + mar.getFacilitytype() + "' ");
-			}
-			
-			if (!mar.getFacilityname().equals("")) {
-				where.add(" `facilityname`='" + mar.getFacilityname() + "' ");
-			}
+//			if (!mar.getFacilitytype().equals("")) {
+//				where.add(" `facilitytype`='" + mar.getFacilitytype() + "' ");
+//			}
+//			
+//			if (!mar.getFacilityname().equals("")) {
+//				where.add(" `facilityname`='" + mar.getFacilityname() + "' ");
+//			}
 			
 			if (!mar.getRepairer().equals("")) {
 				where.add(" `repairer`='" + mar.getRepairer() + "' ");
@@ -138,8 +137,7 @@ public class MARsDAO {
 				
 				_mar.setMAR(
 						mars.getString("idx"),
-						mars.getString("facilitytype"),
-						mars.getString("facilityname"),
+						mars.getString("facility"),
 						mars.getString("urgency"),
 						mars.getString("description"),
 						mars.getString("reporter"),
@@ -159,15 +157,14 @@ public class MARsDAO {
 	}
 	
 	public static void insert(MAR mar) {
-		String queryString = "INSERT INTO `mars` (`facilityname`, `urgency`, `description`, `reporter`, `reportdate`, `reporttime`) ";
+		String queryString = "INSERT INTO `mars` (`facility`, `description`, `reporter`, `reportdate`, `reporttime`) ";
 		Connection conn = SQLConnection.getDBConnection();
 		Statement stmt = null;
 
 		try {
 			stmt = conn.createStatement();
 			queryString += " VALUES ('"
-					+ mar.getFacilityname()  + "','"
-					+ mar.getUrgency() + "','"
+					+ mar.getFacility()  + "','"
 					+ mar.getDescription() + "','"
 					+ mar.getReporter() + "', CURDATE(), CURTIME());";
 			
