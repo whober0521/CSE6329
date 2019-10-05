@@ -14,10 +14,6 @@
 <body>
 	<form action="UserController?action=register" method="post">
 		<div class="container">
-			<center>
-				<h1>Register</h1>
-				<p>Please fill in this form to create an account.</p>
-			</center><br>
 			<input name="errMsg"  value="<c:out value='${errorMsgs.errorMsg}'/>" type="text"  style ="background-color: white; color: red; border: none; width:800px" disabled="disabled"><br>
 			<label for="username"><b>Username:</b></label><br>
 			<input type="text" placeholder="Enter your username" name="username" value="<c:out value='$disabled='disabled'/>"><br>
