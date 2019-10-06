@@ -13,21 +13,21 @@
 
 <body>
 	<div class="container">
-	<center>
-		<h2>UTA Mac Facility Maintenance System</h2>
-	</center>
-	
-	<h4> Admin Home page</h4>
-	<div align="right">
-		<a href="admin.jsp">Home</a>&nbsp;
-		<a href="#">Update profile</a>&nbsp;
-		<a href="UserController?action=search">Search user</a>&nbsp;
-		<a href="UserController?action=logout">Logout</a>
-		<hr>
+		<center>
+			<h2>UTA Mac Facility Maintenance System</h2>
+		</center>
+		
+		<h4> Admin Home page</h4>
+		<div align="right">
+			<a href="UserController?action=home&role=A&username=<c:out value='${username}'/>">Home</a>&nbsp;
+			<a href="#">Update profile</a>&nbsp;
+			<a href="UserController?action=search">Search user</a>&nbsp;
+			<a href="UserController?action=logout">Logout</a>
+			<hr>
+		</div>
+		
+		<div class="text-l"></div><br>
+		<h1>WELCOME, <c:out value='${username}'/></h1>
 	</div>
-	
-	<div class="text-l"></div><br>
-	
-	<h1>WELCOME, <c:out value='${user.username}'/></h1>
 </body>
 </html>

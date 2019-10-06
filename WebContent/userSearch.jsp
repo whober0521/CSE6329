@@ -13,33 +13,33 @@
 
 <body>
 	<div class="container">
-	<center>
-		<h2>UTA Mac Facility Maintenance System</h2>
-	</center>
-	
-	<h4> Admin page</h4>
-	<div align="right">
-		<a href="admin.jsp">Home</a>&nbsp;
-		<a href="#">View profile</a>&nbsp;
-		<a href="UserController?action=search">Search user</a>&nbsp;
-		<a href="UserController?action=logout">Logout</a>
-		<hr>
-	</div>
-	
-	<div class="text-l"></div><br>
-	
-	<form action="UserController?action=search" method="post">
-		<br><br>
-		<label for="search"><b>Search here: </b></label><br>
-		<input type="text" placeholder="Enter username" name="username" value="<c:out value='${search.username}'/>" size="40px"><br><br><br><br>
-		<input name="usernameError"  value="<c:out value='${errorMsgs.usernameError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
-		
 		<center>
-			<button type="submit" style="padding-right: 50px; padding-left: 50px; padding-top: 25px; padding-bottom: 25px; border-radius:200px;">
-				<b>Search</b>
-			</button>
-		</center><br><br>
-		<hr>
-	</form>
+			<h2>UTA Mac Facility Maintenance System</h2>
+		</center>
+		
+		<h4> Admin page</h4>
+		<div align="right">
+			<a href="UserController?action=home&role=A&username=<c:out value='${username}'/>">Home</a>&nbsp;
+			<a href="#">Update profile</a>&nbsp;
+			<a href="UserController?action=search">Search user</a>&nbsp;
+			<a href="UserController?action=logout">Logout</a>
+			<hr>
+		</div>
+		
+		<div class="text-l"></div><br>
+		
+		<form action="UserController?action=search" method="post">
+			<br><br>
+			<label for="search"><b>Search here: </b></label><br>
+			<input type="text" placeholder="Enter username" name="username" value="<c:out value='${search.username}'/>" size="40px"><br><br><br><br>
+			<input name="usernameError"  value="<c:out value='${errorMsgs.usernameError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
+			
+			<center>
+				<button type="submit" style="padding-right: 50px; padding-left: 50px; padding-top: 25px; padding-bottom: 25px; border-radius:200px;">
+					<b>Search</b>
+				</button>
+			</center><br><br><hr>
+		</form>
+	</div>
 </body>
 </html>
