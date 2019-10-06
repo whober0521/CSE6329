@@ -59,6 +59,11 @@ public class UserController extends HttpServlet {
 			  default:			
 			}
 		}
+		else if (action.equalsIgnoreCase("profile") ) {
+			User user = UsersDAO.getUser(request.getParameter("username"));
+			session.setAttribute("user", user);
+			url="/profile.jsp";	
+		}
 		else if (action.equalsIgnoreCase("logout") ) {
 			session.removeAttribute("username");
 			url="/index.jsp";
@@ -140,6 +145,34 @@ public class UserController extends HttpServlet {
 				session.setAttribute("user", user);
 				url="/index.jsp";				
 			}
+		}
+		else if (action.equalsIgnoreCase("profile") ) {
+			user.setUser(
+					request.getParameter("username"),
+					request.getParameter("pwd"),
+					request.getParameter("role"),
+					request.getParameter("utaid"),
+					request.getParameter("fname"),
+					request.getParameter("lname"),
+					request.getParameter("email"),
+					request.getParameter("phone"),
+					request.getParameter("address"),
+					request.getParameter("city"),
+					request.getParameter("state"));
+			
+			user.validate(action, user, errorMsgs);
+			session.setAttribute("user", user);
+
+			if (!errorMsgs.getErrorMsg().equals("")) {
+				// if error messages				
+				session.setAttribute("errorMsgs", errorMsgs);
+			}
+			else {
+				// if no error messages
+				UsersDAO.update(user);
+			}
+			
+			url="/profile.jsp";
 		}
 		else if (action.equalsIgnoreCase("search") ) {
 			String username = request.getParameter("username");

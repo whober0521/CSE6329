@@ -122,7 +122,7 @@ public class User implements Serializable{
 	public void validate (String action, User user, UserErrorMsgs errorMsgs) {
 		errorMsgs.setUsernameError(validateUserName(action, user.getUsername()));
 		
-		if (action.equalsIgnoreCase("register") || action.equalsIgnoreCase("update")) {
+		if (action.equalsIgnoreCase("register") || action.equalsIgnoreCase("profile")|| action.equalsIgnoreCase("update")) {
 			errorMsgs.setPasswordError(validatePassWord(user.getPassword()));
 			errorMsgs.setUtaidError(validateUTAid(user.getUtaid()));
 			errorMsgs.setFnameError(validateFirstName(user.getFname()));

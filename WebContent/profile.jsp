@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <head>
-	<title>Registration</title>
+	<title>Update Profile</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -12,18 +12,12 @@
 </head>
 
 <body>
-	<form action="UserController?action=register" method="post">
+	<form action="UserController?action=profile" method="post">
 		<div class="container">
-			<center>
-				<h1>Register</h1>
-				<p>Please fill in this form to create an account.</p>
-			</center><br>
-			
 			<input name="errMsg"  value="<c:out value='${errorMsgs.errorMsg}'/>" type="text"  style ="background-color: white; color: red; border: none; width:800px" disabled="disabled"><br>
+			
 			<label for="username"><b>Username:</b></label><br>
 			<input type="text" placeholder="Enter your username" name="username" value="<c:out value='${user.username}'/>"><br>
-			<input name="usernameError"  value="<c:out value='${errorMsgs.usernameError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
-						
 			
 			<label for="password"><b>Password:</b></label><br>
 			<input type="password" placeholder="Enter your password" name="pwd" value="<c:out value='${user.password}'/>"><br>
@@ -36,7 +30,7 @@
 				<option value="A">Admin</option>
 				<option value="R">Repairer</option>			
 			</select><br>
-
+			
 			<label for="utaid"><b>UTA ID:</b></label><br>
 			<input type="text" placeholder="Enter your UTA ID" name="utaid" value="<c:out value='${user.utaid}'/>"><br>
 			<input name="utaidError"  value="<c:out value='${errorMsgs.utaidError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
@@ -121,12 +115,8 @@
 			</select><br>
 			
 			<center>
-				<button type="submit" style="padding-right: 50px; padding-left: 50px; padding-top: 25px; padding-bottom: 25px; border-radius:200px;"><b>Register</b></button>
+				<button type="submit" style="padding-right: 50px; padding-left: 50px; padding-top: 25px; padding-bottom: 25px; border-radius:200px;"><b>Update</b></button>
 			</center>
-		</div>
-		
-		<div class="container signin">
-			<p>Already have an account? <a href="index.jsp">Sign in</a>.</p>
 		</div>
 	</form>
 </body>
