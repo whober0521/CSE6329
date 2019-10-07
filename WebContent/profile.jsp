@@ -17,7 +17,7 @@
 			<input name="errMsg"  value="<c:out value='${errorMsgs.errorMsg}'/>" type="text"  style ="background-color: white; color: red; border: none; width:800px" disabled="disabled"><br>
 			
 			<label for="username"><b>Username:</b></label><br>
-			<input type="text" placeholder="Enter your username" name="username" value="<c:out value='${user.username}'/>"><br>
+			<input type="text" disabled="disabled"/>"><br>
 			
 			<label for="password"><b>Password:</b></label><br>
 			<input type="password" placeholder="Enter your password" name="pwd" value="<c:out value='${user.password}'/>"><br>
