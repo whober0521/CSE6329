@@ -38,14 +38,32 @@
 			<tr>
 				<th>Facility type</th>
 				<th>Name</th>
-				<th>Urgency</th>
+				<th>Urgency</th><br>
+                                <select>
+                                <option value="#">Unusable</option>
+                                <option value="#">Major</option>
+                                <option value="#">Medium</option>
+                                <option value="#">Minor</option>
+                                 </select>
 				<th>Description</th>
 				<th>Reported By</th>
 				<th>Date</th>
 				<th>MAR number</th>
-				<th>Assigned to</th>
+				<th>Assigned to</th><br>
+				<select>
+				<option value="#"> </option>
+				<option value="#"> </option>
+				<option value="#"> </option>
+				</select>
 				<th>Assigned date</th>
-				<th>Estimate of repair</th>
+				<th>Estimate of repair</th><br>
+                                 <select>
+                               <option value="#">30 mins</option>
+                               <option value="#">1 hour</option>
+                               <option value="#">1 day</option>
+                               <option value="#">2 day</option>
+				<option value="#">7 day</option>	 
+                               </select>
 				<th></th>
 			</tr>
 			
