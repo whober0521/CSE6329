@@ -140,30 +140,8 @@ public class MAR implements Serializable{
 		if (action.equalsIgnoreCase("report")) {
 			errorMsgs.setDescriptionError(validateDescription(mar.getDescription()));
 		}
-		else if(action.equalsIgnoreCase("search_fm")) {
-			errorMsgs.setIdxError(validateIdx(mar.getIdx()));
-			errorMsgs.setRepairerError(validateRepairer(mar.getRepairer()));
-			errorMsgs.setReportDateError(validateReportDate(mar.getReportdate()));
-		}
-		else if(action.equalsIgnoreCase("assign")) {
-			errorMsgs.setRepairerError(validateRepairer(mar.getRepairer()));
-		}
 
 		errorMsgs.setErrorMsg();
-	}
-	
-	private String validateIdx(String idx) {
-		String result="";
-		
-		if(idx.length()!=0)
-		{
-			MAR mar = MARsDAO.getMAR(idx);
-			
-			if(mar.getIdx()==null) 
-				result="MAR Number not in database";
-		}
-		
-		return result;
 	}
 	
 	private String validateDescription(String description) {
@@ -174,34 +152,4 @@ public class MAR implements Serializable{
 		
 		return result;
 	}
-	
-	private String validateRepairer(String repairer) {
-		String result="";
-		
-		if(repairer.length()!=0)
-		{
-			User user = UsersDAO.getUser(repairer);
-			
-			if(user.getUsername()==null || !user.getRole().equalsIgnoreCase("R"))
-				result="Repairer (" + repairer + ") not in database";
-		}
-
-		return result;
-	}
-	
-	private String validateReportDate(String date) {
-		String result="";
-		
-		if(date.length()!=0)
-		{
-			try {
-				Date d = new SimpleDateFormat("MM/dd/yyyy").parse(date);  
-			}
-			catch (Exception e) {
-				result="Incorrect date format, should MM/dd/yyyy";
-			}
-		}
-		
-		return result;
-	}	
 }

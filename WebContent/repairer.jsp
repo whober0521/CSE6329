@@ -18,16 +18,16 @@
 		
 		<h4> Repairer Home page</h4>
 		<div align="right">
+			<a href="UserController?action=home&role=R&username=<c:out value='${username}'/>">Home</a>&nbsp;
 			<a href="#">Update profile</a>
-			<a href="repairer.jsp">Home</a>&nbsp;
 			<a href="#">Request Repair Reservation</a>&nbsp;
-			<a href="MARController?action=search_r&username=<c:out value='${user.username}'/>">View My Reserved Repairs</a>&nbsp;
+			<a href="MARController?action=reserved&username=<c:out value='${username}'/>">View My Reserved Repairs</a>&nbsp;
 			<a href="UserController?action=logout">Logout</a>
 			<hr>
 		</div>
 	
 		<div class="text-l"></div><br>
-		<h1>WELCOME, <c:out value='${user.username}'/></h1>
+		<h1>WELCOME, <c:out value='${username}'/></h1>
 	</div>
 </body>
 </html>

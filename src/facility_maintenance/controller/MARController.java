@@ -50,15 +50,15 @@ public class MARController extends HttpServlet {
 			session.setAttribute("types", FacilitiesDAO.getTypes());
 			session.setAttribute("names", FacilitiesDAO.getNames());
 			session.setAttribute("repairers", UsersDAO.getRepairers());
-			url="/MARAssigned.jsp";
+			url="/assigned.jsp";
 		}
 		else if (action.equalsIgnoreCase("MARManager") ) {
 			session.setAttribute("MAR", MARsDAO.getMAR(request.getParameter("idx")));
 			session.setAttribute("repairers", UsersDAO.getRepairers());
 			url="/MARManager.jsp";
 		}
-		else if (action.equalsIgnoreCase("search_r") ) {
-			url="/MARAssignedSearch.jsp";
+		else if (action.equalsIgnoreCase("reserved") ) {
+			url="/reserved.jsp";
 		}
 		
 		getServletContext().getRequestDispatcher(url).forward(request, response);
@@ -112,19 +112,19 @@ public class MARController extends HttpServlet {
 			session.setAttribute("MARs", MARsDAO.getUnassigned());
 			url="/MARsManager.jsp";
 		}
-		else if (action.equalsIgnoreCase("assigned") ) {
-			session.setAttribute("username", request.getParameter("username"));
-			mar.setMAR(
-					request.getParameter("idx"),
-					request.getParameter("facilitytype"),
-					request.getParameter("facilityname"), "", "", "", "", "",
-					request.getParameter("repairer"),
+
+		else if (action.equalsIgnoreCase("reserved") ) {
+			String username = request.getParameter("username");
+			
+			mar.setMAR("", "", "" , "", "", "", "", "", username,
 					request.getParameter("assigndate"),
 					request.getParameter("assigntime"), "");
 			
+			session.setAttribute("username", username);
 			session.setAttribute("MARs", MARsDAO.getAssigned(mar));
-			url="/MARsManager.jsp";
+			url="/MARsRepairer.jsp";
 		}
+		
 //		else if (action.equalsIgnoreCase("search_r") ) {
 //			mar.setMAR("", "", "", "", "",
 //					request.getParameter("reportdate"),

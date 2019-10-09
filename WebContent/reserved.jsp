@@ -20,27 +20,26 @@
 		</center>
 		
 		<h4> Repairer page</h4>
-		<div align="right">		
-			<a href="repairer.jsp">Home</a>&nbsp;
+		<div align="right">
+			<a href="UserController?action=home&role=R&username=<c:out value='${username}'/>">Home</a>&nbsp;
+			<a href="#">Update profile</a>
 			<a href="#">Request Repair Reservation</a>&nbsp;
-			<a href="MARAssignedSearch.jsp">View My Reserved Repairs</a>&nbsp;
+			<a href="MARController?action=reserved&username=<c:out value='${username}'/>">View My Reserved Repairs</a>&nbsp;
 			<a href="UserController?action=logout">Logout</a>
 			<hr>
 		</div>
 		
 		<div class="text-l"></div><br>
 		
-		<form action="MARController?action=search_r" method="post">
-			<input type="hidden" name="repairer" value="<c:out value='${username}'/>"/>
+		<form action="MARController?action=reserved" method="post">
 			<br><br>
-
-			<label for="date"><b>Date:</b></label>
-			<input type="text" id="reportdate" name="reportdate" value="<c:out value='${MAR.reportdate}'/>"><br>
-			<input name="reportDateError"  value="<c:out value='${errorMsgs.reportDateError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
+			<input type="hidden" name="username" value="<c:out value='${username}'/>"/>
 			
+			<label for="date"><b>Date:</b></label>
+			<input type="date" name="assigndate" value="<c:out value='${MAR.assigndate}'/>"><br>
+
 			<label for="time"><b>Time:</b></label>
-			<input type="hidden" id="oldtime" value="<c:out value='${MAR.reporttime}'/>"/>
-			<select name="reporttime" id="reporttime">
+			<select name="assigntime" id="assigntime">
 				<option>00:00</option>
 				<option>01:00</option>
 				<option>02:00</option>
@@ -66,8 +65,7 @@
 				<option>22:00</option>
 				<option>23:00</option>
 			</select>
-			<input name="reportTimeError"  value="<c:out value='${errorMsgs.reportTimeError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
-
+			
 			<center>
 				<button type="submit" style="padding-right: 50px; padding-left: 50px; padding-top: 25px; padding-bottom: 25px; border-radius:200px;">
 					<b>Search</b>
@@ -77,17 +75,4 @@
 		</form>
 	</div>
 </body>
-
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-<script>
-$(document).ready(function () {
-	$( "#reportdate" ).datepicker();
-	
-	if($('#oldtime').val() != ""){
-		$('#reporttime').val($('#oldtime').val());
-	}
-});
-</script>
 </html>
