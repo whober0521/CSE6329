@@ -19,15 +19,14 @@
 		
 		<h4> Admin Home page</h4>
 		<div align="right">
-			<a href="UserController?action=home&role=A&username=<c:out value='${username}'/>">Home</a>&nbsp;
-			<a href="#">Update profile</a>&nbsp;
-			<a href="UserController?action=search">Search user</a>&nbsp;
+			<a href="UserController?action=home&role=A&admin=<c:out value='${username}'/><c:out value='${admin}'/>">Home</a>&nbsp;
+			<a href="UserController?action=search&admin=<c:out value='${username}'/><c:out value='${admin}'/>">Search user</a>&nbsp;
 			<a href="UserController?action=logout">Logout</a>
 			<hr>
 		</div>
 		
 		<div class="text-l"></div><br>
-		<h1>WELCOME, <c:out value='${username}'/></h1>
+		<h1>WELCOME, <c:out value='${username}'/><c:out value='${admin}'/></h1>
 	</div>
 </body>
 </html>

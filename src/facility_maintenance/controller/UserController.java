@@ -47,11 +47,12 @@ public class UserController extends HttpServlet {
 			  case "U":
 				  url="/user.jsp";
 			    break;
+			  case "A":
+				  session.setAttribute("admin", request.getParameter("admin"));
+				  url="/admin.jsp";
+			    break;
 			  case "F":
 				  url="/manager.jsp";
-			    break;
-			  case "A":
-				  url="/admin.jsp";
 			    break;
 			  case "R":
 				  url="/repairer.jsp";
@@ -69,6 +70,7 @@ public class UserController extends HttpServlet {
 			url="/index.jsp";
 		}
 		else if (action.equalsIgnoreCase("search") ) {
+			session.setAttribute("admin", request.getParameter("admin"));
 			url="/userSearch.jsp";
 		}
 		
@@ -178,6 +180,8 @@ public class UserController extends HttpServlet {
 			String username = request.getParameter("username");
 			user.setUser(username,"","","","","","","","","","");
 			user.validate(action, user, errorMsgs);
+			
+			session.setAttribute("admin", request.getParameter("admin"));
 			
 			if (errorMsgs.getErrorMsg().equals("")) {
 				user = UsersDAO.getUser(username);

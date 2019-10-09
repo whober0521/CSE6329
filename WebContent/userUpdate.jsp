@@ -18,9 +18,8 @@
 		
 		<h4> Admin page</h4>
 		<div align="right">
-			<a href="UserController?action=home&role=A&username=<c:out value='${username}'/>">Home</a>&nbsp;
-			<a href="#">Update profile</a>&nbsp;
-			<a href="UserController?action=search">Search user</a>&nbsp;
+			<a href="UserController?action=home&role=A&admin=<c:out value='${username}'/><c:out value='${admin}'/>">Home</a>&nbsp;
+			<a href="UserController?action=search&admin=<c:out value='${username}'/><c:out value='${admin}'/>">Search user</a>&nbsp;
 			<a href="UserController?action=logout">Logout</a>
 			<hr>
 		</div>
@@ -29,6 +28,7 @@
 			<div class="container">
 				<center><h1>Profile</h1></center><br>
 				<input name="errMsg"  value="<c:out value='${errorMsgs.errorMsg}'/>" type="text"  style ="background-color: white; color: red; border: none; width:800px" disabled="disabled"><br>
+				<input type="hidden" name="admin" value="<c:out value='${admin}'/>">
 				
 				<label for="username"><b>Username:</b></label><br>
 				<input type="hidden" name="username" value="<c:out value='${update.username}'/>"/>
