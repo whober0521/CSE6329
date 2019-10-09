@@ -23,8 +23,8 @@
 			<a href="#">Update profile</a>&nbsp;
 			<a href="#">Search facility</a>&nbsp;
 			<a href="#">Add new facility</a>&nbsp;
-			 <a href="#">View Assignment Problems</a>&nbsp;
-			  <a href="#">View Unassigned Problems</a>&nbsp;
+			<a href="#">View Assignment Problems</a>&nbsp;
+			<a href="MARController?action=unassigned">View Unassigned Problems</a>&nbsp;
 			<a href="#">Repairers details</a>&nbsp;
 			<a href="UserController?action=logout">Logout</a>
 			<hr>
@@ -32,7 +32,7 @@
 		
 		<div class="text-l"></div><br>
 		
-		<h1>WELCOME, <c:out value='${user.username}'/></h1>
+		<h1>WELCOME, <c:out value='${username}'/></h1>
 	</div>
 </body>
 </html>

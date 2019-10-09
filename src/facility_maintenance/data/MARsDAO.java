@@ -43,6 +43,40 @@ public class MARsDAO {
 		return mar;
 	}
 	
+	public static ArrayList<MAR> getUnassigned() {
+		String queryString = "SELECT * from mars WHERE repairer is NULL ";
+		ArrayList<MAR> result = new ArrayList<MAR>();
+		Connection conn = SQLConnection.getDBConnection();
+		Statement stmt = null;
+		
+		try {
+			stmt = conn.createStatement();
+			ResultSet mars = stmt.executeQuery(queryString);
+			
+			while (mars.next()) {
+				MAR _mar = new MAR();
+				
+				_mar.setMAR(
+						mars.getString("idx"),
+						mars.getString("facility"),
+						mars.getString("urgency"),
+						mars.getString("description"),
+						mars.getString("reporter"),
+						mars.getString("reportdate"),
+						mars.getString("reporttime"),
+						mars.getString("repairer"),
+						mars.getString("assigndate"));
+
+				result.add(_mar);	
+			}
+		}
+		catch (SQLException e) {
+			
+		}
+		
+		return result;
+	}
+	
 	public static ArrayList<MAR> getUnassigned(MAR mar) {
 		String queryString = "SELECT * from mars WHERE repairer is NULL ";
 		
