@@ -29,7 +29,7 @@
 		<tr>
 			<td><c:out value='${item.idx}'/></td>
 			<td><a href="MARController?action=MARManager&idx=<c:out value='${item.idx}'/>&username=<c:out value='${username}'/>">View</a></td>
-			<td><a href="MARController?action=MARManager&idx=<c:out value='${item.idx}'/>&username=<c:out value='${username}'/>">Cancel</a></td>
+			<td><a href="MARController?action=cancel&idx=<c:out value='${item.idx}'/>&username=<c:out value='${username}'/>">Cancel</a></td>
 		</tr>
 		</c:forEach>
 	</table>

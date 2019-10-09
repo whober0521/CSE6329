@@ -12,7 +12,6 @@ import facility_maintenance.util.SQLConnection;
 public class MARsDAO {
 	static SQLConnection DBMgr = SQLConnection.getInstance();
 	
-	//search MAR with idx
 	public static MAR getMAR (String idx)  {
 		String queryString = "SELECT * FROM mars " +
 							 "LEFT OUTER JOIN facilities ON mars.facility LIKE CONCAT(facilities.ID, '%') " + 
@@ -137,54 +136,6 @@ public class MARsDAO {
 		return result;
 	}
 	
-	
-//	public static ArrayList<MAR> getAssigned(MAR mar) {
-//		String queryString = "SELECT * from mars WHERE repairer = '" + mar.getRepairer() + "' ";
-//		ArrayList<String> where = new ArrayList<String>();
-//		
-//		if (!mar.getReportdate().equals("")) {
-//			where.add(" `reportdate`='" + mar.getReportdate() + "' ");
-//		}
-//		
-//		if (!mar.getReporttime().equals("")) {
-//			where.add(" `reporttime`>='" + mar.getReporttime() + "' ");
-//		}
-//		
-//		if(where.size()!=0)
-//			queryString += " AND ("+ String.join(" OR ", where) + ")";
-//
-//		ArrayList<MAR> result = new ArrayList<MAR>();
-//		Connection conn = SQLConnection.getDBConnection();
-//		Statement stmt = null;
-//		
-//		try {
-//			stmt = conn.createStatement();
-//			ResultSet mars = stmt.executeQuery(queryString);
-//			
-//			while (mars.next()) {
-//				MAR _mar = new MAR();
-//				
-//				_mar.setMAR(
-//						mars.getString("idx"),
-//						mars.getString("facility"),
-//						mars.getString("description"),
-//						mars.getString("urgency"),
-//						mars.getString("reporter"),
-//						mars.getString("reportdate"),
-//						mars.getString("reporttime"),
-//						mars.getString("repairer"),
-//						mars.getString("assigndate"));
-//				
-//				result.add(_mar);	
-//			}
-//		}
-//		catch (SQLException e) {
-//			
-//		}
-//		
-//		return result;
-//	}
-	
 	public static void insert(MAR mar) {
 		String queryString = "INSERT INTO `mars` (`facility`, `description`, `reporter`, `reportdate`, `reporttime`) ";
 		Connection conn = SQLConnection.getDBConnection();
@@ -193,7 +144,7 @@ public class MARsDAO {
 		try {
 			stmt = conn.createStatement();
 			queryString += " VALUES ('"
-					+ mar.getFacility()  + "','"
+					+ mar.getFacilityname()  + "','"
 					+ mar.getDescription() + "','"
 					+ mar.getReporter() + "', CURDATE(), CURTIME());";
 			
@@ -224,5 +175,20 @@ public class MARsDAO {
 		catch (SQLException e) {
 			
 		}
-	} 
+	}
+	
+	public static void delete (String idx)  {
+		String queryString = "DELETE FROM mars WHERE `idx` = '" + idx + "';";
+		Connection conn = SQLConnection.getDBConnection();
+		Statement stmt = null;
+		
+		try {
+			stmt = conn.createStatement();
+			stmt.executeUpdate(queryString);
+			conn.commit();
+		}
+		catch (SQLException e) {
+			
+		}
+	}
 }

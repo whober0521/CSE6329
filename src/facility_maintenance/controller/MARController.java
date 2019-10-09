@@ -60,6 +60,10 @@ public class MARController extends HttpServlet {
 		else if (action.equalsIgnoreCase("reserved") ) {
 			url="/reserved.jsp";
 		}
+		else if (action.equalsIgnoreCase("cancel") ) {
+			MARsDAO.delete(request.getParameter("idx"));
+			url="/reserved.jsp";
+		}
 		
 		getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
