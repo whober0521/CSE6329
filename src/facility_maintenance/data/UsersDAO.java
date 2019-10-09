@@ -45,6 +45,27 @@ public class UsersDAO {
 		return user;
 	}
 	
+	public static ArrayList<String> getRepairers ()  {
+		String queryString = "SELECT * from `users` WHERE `role`='R'";
+		Connection conn = SQLConnection.getDBConnection();
+		ArrayList<String> result = new ArrayList<String>();
+		Statement stmt = null;
+		
+		try {
+			stmt = conn.createStatement();
+			ResultSet users = stmt.executeQuery(queryString);
+			
+			while (users.next()) {
+				result.add(users.getString("username"));	
+			} 
+		}
+		catch (SQLException e) {
+			
+		}
+		
+		return result;
+	}
+	
 	public static void insert(User user) {
 		String queryString = "INSERT INTO `users` (`username`, `password`, `role`, `utaid`, `fname`, `lname`, `email`, `phone`, `address`, `city`, `state`) ";
 		Connection conn = SQLConnection.getDBConnection();

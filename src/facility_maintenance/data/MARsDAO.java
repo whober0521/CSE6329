@@ -27,8 +27,8 @@ public class MARsDAO {
 				mar.setMAR(
 						mars.getString("idx"),
 						mars.getString("facility"),
-						mars.getString("urgency"),
 						mars.getString("description"),
+						mars.getString("urgency"),
 						mars.getString("reporter"),
 						mars.getString("reportdate"),
 						mars.getString("reporttime"),
@@ -172,8 +172,8 @@ public class MARsDAO {
 				_mar.setMAR(
 						mars.getString("idx"),
 						mars.getString("facility"),
-						mars.getString("urgency"),
 						mars.getString("description"),
+						mars.getString("urgency"),
 						mars.getString("reporter"),
 						mars.getString("reportdate"),
 						mars.getString("reporttime"),

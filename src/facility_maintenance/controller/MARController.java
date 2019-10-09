@@ -46,6 +46,11 @@ public class MARController extends HttpServlet {
 			session.setAttribute("MARs", MARsDAO.getUnassigned());
 			url="/MARUnassigned.jsp";
 		}
+		else if (action.equalsIgnoreCase("MARManager") ) {
+			session.setAttribute("MAR", MARsDAO.getMAR(request.getParameter("idx")));
+			session.setAttribute("repairers", UsersDAO.getRepairers());
+			url="/MARManager.jsp";
+		}
 		else if (action.equalsIgnoreCase("search_r") ) {
 			url="/MARAssignedSearch.jsp";
 		}
@@ -78,7 +83,9 @@ public class MARController extends HttpServlet {
 
 			if (!errorMsgs.getErrorMsg().equals("")) {
 				// if error messages				
+				session.setAttribute("username", reporter);
 				session.setAttribute("errorMsgs", errorMsgs);
+				session.setAttribute("facilities", FacilitiesDAO.getNames());
 				url="/report.jsp";
 			}
 			else {

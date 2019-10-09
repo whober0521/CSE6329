@@ -29,7 +29,7 @@
 		<c:forEach items="${MARs}" var="item" varStatus="status">
 		<tr>
 			<td><c:out value='${item.idx}'/></td>
-			<td><button type="button">Edit</button></td>
+			<td><a href="MARController?action=MARManager&idx=${item.idx}">View</a></td>
 		</tr>
 		</c:forEach>
 	</table>

@@ -49,20 +49,20 @@ public class MAR implements Serializable{
 		return facility;
 	}
 	
-	public void setUrgency(String urgency) {
-		this.urgency = urgency;
-	}
-	
-	public String getUrgency() {
-		return urgency;
-	}
-	
 	public void setDescription(String description) {
 		this.description = description;
 	}
 	
 	public String getDescription() {
 		return description;
+	}
+	
+	public void setUrgency(String urgency) {
+		this.urgency = urgency;
+	}
+	
+	public String getUrgency() {
+		return urgency;
 	}
 	
 	public void setReporter(String reporter) {
