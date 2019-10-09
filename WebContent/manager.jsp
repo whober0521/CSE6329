@@ -19,12 +19,12 @@
 		
 		<h4> Facility Manager Home page</h4>
 		<div align="right">
-			<a href="manager.jsp">Home</a>&nbsp;
+			<a href="UserController?action=home&role=F&username=<c:out value='${username}'/>">Home</a>&nbsp;
 			<a href="#">Update profile</a>&nbsp;
 			<a href="#">Search facility</a>&nbsp;
 			<a href="#">Add new facility</a>&nbsp;
-			<a href="#">View Assignment Problems</a>&nbsp;
-			<a href="MARController?action=unassigned">View Unassigned Problems</a>&nbsp;
+			<a href="MARController?action=assigned&username=<c:out value='${username}'/>">View Assignment Problems</a>&nbsp;
+			<a href="MARController?action=unassigned&username=<c:out value='${username}'/>">View Unassigned Problems</a>&nbsp;
 			<a href="#">Repairers details</a>&nbsp;
 			<a href="UserController?action=logout">Logout</a>
 			<hr>

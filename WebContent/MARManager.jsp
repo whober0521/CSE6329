@@ -20,12 +20,12 @@
 		
 		<h4> Facility Manager page</h4>
 		<div align="right">
-			<a href="manager.jsp">Home</a>&nbsp;
+			<a href="UserController?action=home&role=F&username=<c:out value='${username}'/>">Home</a>&nbsp;
 			<a href="#">Update profile</a>&nbsp;
 			<a href="#">Search facility</a>&nbsp;
 			<a href="#">Add new facility</a>&nbsp;
-			<a href="#">View Assignment Problems</a>&nbsp;
-			<a href="MARController?action=unassigned">View Unassigned Problems</a>&nbsp;
+			<a href="MARController?action=assigned&username=<c:out value='${username}'/>">View Assignment Problems</a>&nbsp;
+			<a href="MARController?action=unassigned&username=<c:out value='${username}'/>">View Unassigned Problems</a>&nbsp;
 			<a href="#">Repairers details</a>&nbsp;
 			<a href="UserController?action=logout">Logout</a>
 			<hr>
@@ -34,6 +34,7 @@
 		
 		<table>
 			<tr>
+				<th>Facility Type</th>
 				<th>Facility Name</th>
 				<th>Urgency</th>
 				<th>Description</th>
@@ -47,7 +48,8 @@
 			</tr>
 			<tr>
 				<form action="MARController?action=assign" method="post">
-					<td><c:out value='${MAR.facility}'/></td>
+					<td><c:out value='${MAR.facilitytype}'/></td>
+					<td><c:out value='${MAR.facilityname}'/></td>
 					<td>
 						<select name="urgency">
 							<option>Unusable</option>

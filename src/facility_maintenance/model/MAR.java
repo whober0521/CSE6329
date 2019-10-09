@@ -11,7 +11,8 @@ import facility_maintenance.data.MARsDAO;
 
 public class MAR implements Serializable{
 	private String idx;
-	private String facility;
+	private String facilitytype;
+	private String facilityname;
 	private String urgency;
 	private String description;
 	private String reporter;
@@ -19,13 +20,15 @@ public class MAR implements Serializable{
 	private String reporttime;
 	private String repairer;
 	private String assigndate;
+	private String assigntime;
 	private String estimate;
 
-	public void setMAR (String idx, String facility, String description, String urgency, 
+	public void setMAR (String idx, String facilitytype, String facilityname, String description, String urgency, 
 			String reporter, String reportdate, String reporttime,
-			String repairer, String assigndate, String estimate) {
+			String repairer, String assigndate, String assigntime, String estimate) {
 		setIdx(idx);
-		setFacility(facility);
+		setFacilitytype(facilitytype);
+		setFacilityname(facilityname);
 		setDescription(description);
 		setUrgency(urgency);
 		setReporter(reporter);
@@ -33,6 +36,7 @@ public class MAR implements Serializable{
 		setReporttime(reporttime);
 		setRepairer(repairer);
 		setAssigndate(assigndate);
+		setAssigntime(assigntime);
 		setEstimate(estimate);
 	}
 	
@@ -44,12 +48,20 @@ public class MAR implements Serializable{
 		return idx;
 	}
 	
-	public void setFacility(String facility) {
-		this.facility = facility;
+	public void setFacilitytype(String facilitytype) {
+		this.facilitytype = facilitytype;
 	}
 	
-	public String getFacility() {
-		return facility;
+	public String getFacilitytype() {
+		return facilitytype;
+	}
+	
+	public void setFacilityname(String facilityname) {
+		this.facilityname = facilityname;
+	}
+	
+	public String getFacilityname() {
+		return facilityname;
 	}
 	
 	public void setDescription(String description) {
@@ -106,6 +118,14 @@ public class MAR implements Serializable{
 	
 	public String getAssigndate() {
 		return assigndate;
+	}
+	
+	public void setAssigntime(String assigntime) {
+		this.assigntime = assigntime;
+	}
+	
+	public String getAssigntime() {
+		return assigntime;
 	}
 	
 	public void setEstimate(String estimate) {

@@ -44,7 +44,13 @@ public class MARController extends HttpServlet {
 		}
 		else if (action.equalsIgnoreCase("unassigned") ) {
 			session.setAttribute("MARs", MARsDAO.getUnassigned());
-			url="/MARUnassigned.jsp";
+			url="/MARsManager.jsp";
+		}
+		else if (action.equalsIgnoreCase("assigned") ) {
+			session.setAttribute("types", FacilitiesDAO.getTypes());
+			session.setAttribute("names", FacilitiesDAO.getNames());
+			session.setAttribute("repairers", UsersDAO.getRepairers());
+			url="/MARAssigned.jsp";
 		}
 		else if (action.equalsIgnoreCase("MARManager") ) {
 			session.setAttribute("MAR", MARsDAO.getMAR(request.getParameter("idx")));
@@ -72,10 +78,10 @@ public class MARController extends HttpServlet {
 		if (action.equalsIgnoreCase("report") ) {
 			String reporter = request.getParameter("reporter");
 			
-			mar.setMAR("-1",
+			mar.setMAR("-1", "",
 					request.getParameter("facility"),
 					request.getParameter("description"), "",
-					reporter, "", "", "", "", "");
+					reporter, "", "", "", "", "", "");
 			
 			mar.validate(action, mar, errorMsgs);
 			
@@ -97,35 +103,48 @@ public class MARController extends HttpServlet {
 		}
 		else if (action.equalsIgnoreCase("assign") ) {
 			mar.setMAR(
-					request.getParameter("idx"), "", "",
+					request.getParameter("idx"), "", "", "",
 					request.getParameter("urgency"), "", "", "",
-					request.getParameter("repairer"), "",
+					request.getParameter("repairer"), "", "", 
 					request.getParameter("estimate"));
 			
 			MARsDAO.assign(mar);
 			session.setAttribute("MARs", MARsDAO.getUnassigned());
-			url="/MARUnassigned.jsp";
+			url="/MARsManager.jsp";
 		}
-		else if (action.equalsIgnoreCase("search_r") ) {
-			mar.setMAR("", "", "", "", "",
-					request.getParameter("reportdate"),
-					request.getParameter("reporttime"),
-					request.getParameter("repairer"), "", "");
+		else if (action.equalsIgnoreCase("assigned") ) {
+			session.setAttribute("username", request.getParameter("username"));
+			mar.setMAR(
+					request.getParameter("idx"),
+					request.getParameter("facilitytype"),
+					request.getParameter("facilityname"), "", "", "", "", "",
+					request.getParameter("repairer"),
+					request.getParameter("assigndate"),
+					request.getParameter("assigntime"), "");
 			
-			mar.validate(action, mar, errorMsgs);
-
-			if (!errorMsgs.getErrorMsg().equals("")) {
-				// if error messages
-				session.setAttribute("MAR", mar);
-				session.setAttribute("errorMsgs", errorMsgs);
-				url="/MARAssignedSearch.jsp";
-			}
-			else {
-				// if no error messages
-				session.setAttribute("MARs", MARsDAO.getAssigned(mar));
-				url="/MARAssigned.jsp";
-			}
+			session.setAttribute("MARs", MARsDAO.getAssigned(mar));
+			url="/MARsManager.jsp";
 		}
+//		else if (action.equalsIgnoreCase("search_r") ) {
+//			mar.setMAR("", "", "", "", "",
+//					request.getParameter("reportdate"),
+//					request.getParameter("reporttime"),
+//					request.getParameter("repairer"), "", "");
+//			
+//			mar.validate(action, mar, errorMsgs);
+//
+//			if (!errorMsgs.getErrorMsg().equals("")) {
+//				// if error messages
+//				session.setAttribute("MAR", mar);
+//				session.setAttribute("errorMsgs", errorMsgs);
+//				url="/MARAssignedSearch.jsp";
+//			}
+//			else {
+//				// if no error messages
+//				session.setAttribute("MARs", MARsDAO.getAssigned(mar));
+//				url="/MARAssigned.jsp";
+//			}
+//		}
 
 		getServletContext().getRequestDispatcher(url).forward(request, response);		
 	}

@@ -5,12 +5,33 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import facility_maintenance.util.SQLConnection;
 
 public class FacilitiesDAO {
 	static SQLConnection DBMgr = SQLConnection.getInstance();
 
+	public static HashMap<String, String> getTypes() {
+		HashMap<String, String> result = new HashMap<String, String>();
+		Connection conn = SQLConnection.getDBConnection();
+		Statement stmt = null;
+		
+		try {
+			stmt = conn.createStatement();
+			ResultSet facilities = stmt.executeQuery("SELECT * from `facilities`;");
+			
+			while (facilities.next()) {
+				result.put(facilities.getString("id"), facilities.getString("name"));
+			}
+		}
+		catch (SQLException e) {
+			
+		}
+		
+		return result;
+	}
+	
 	public static ArrayList<String> getNames() {
 		ArrayList<String> result = new ArrayList<String>();
 		Connection conn = SQLConnection.getDBConnection();

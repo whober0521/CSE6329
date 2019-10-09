@@ -22,7 +22,6 @@
 						<option><c:out value='${item}'/></option>
 					</c:forEach>
 				</select>
-				<input name="facilityNameError"  value="<c:out value='${errorMsgs.facilityNameError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
 			</div>
 			
 			<div>

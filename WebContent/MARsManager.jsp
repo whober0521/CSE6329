@@ -21,6 +21,7 @@
 </style>
 
 <body>
+<c:out value='${queryString}'/>
 	<table>
 		<tr>
 			<th colspan='2'>MAR number</th>
@@ -29,7 +30,7 @@
 		<c:forEach items="${MARs}" var="item" varStatus="status">
 		<tr>
 			<td><c:out value='${item.idx}'/></td>
-			<td><a href="MARController?action=MARManager&idx=${item.idx}">View</a></td>
+			<td><a href="MARController?action=MARManager&idx=<c:out value='${item.idx}'/>&username=<c:out value='${username}'/>">View</a></td>
 		</tr>
 		</c:forEach>
 	</table>
