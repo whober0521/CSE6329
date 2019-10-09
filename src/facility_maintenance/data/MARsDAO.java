@@ -33,7 +33,8 @@ public class MARsDAO {
 						mars.getString("reportdate"),
 						mars.getString("reporttime"),
 						mars.getString("repairer"),
-						mars.getString("assigndate"));
+						mars.getString("assigndate"),
+						mars.getString("estimate"));
 			} 
 		}
 		catch (SQLException e) {
@@ -65,7 +66,8 @@ public class MARsDAO {
 						mars.getString("reportdate"),
 						mars.getString("reporttime"),
 						mars.getString("repairer"),
-						mars.getString("assigndate"));
+						mars.getString("assigndate"),
+						mars.getString("estimate"));
 
 				result.add(_mar);	
 			}
@@ -212,8 +214,11 @@ public class MARsDAO {
 	} 
 	
 	public static void assign(MAR mar) {
-		String queryString = "UPDATE `mars` SET `repairer` = '" + mar.getRepairer() + 
-				"', `assigndate` = CURDATE() WHERE `idx` = '" + mar.getIdx() + "';";
+		String queryString = "UPDATE `mars` SET " +
+				"`urgency` = '" + mar.getUrgency() +
+				"', `repairer` = '" + mar.getRepairer() +
+				"', `estimate` = '" + mar.getEstimate() +
+				"', `assigndate` = CURDATE(), `assigntime` = CURTIME() WHERE `idx` = '" + mar.getIdx() + "';";
 
 		Connection conn = SQLConnection.getDBConnection();
 		Statement stmt = null;

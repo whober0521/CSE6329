@@ -72,10 +72,14 @@
 					</td>
 					<td><c:out value='${MAR.assigndate}'/></td>
 					<td>
-						<select>
+						<select name="estimate">
 							<option>30 mins</option>
-							<optio>1 hour</option>
+							<option>1 hour</option>
+							<option>2 hours</option>
+							<option>4 hours</option>
+							<option>1 day</option>
 							<option>2 day</option>
+							<option>4 day</option>
 							<option>7 day</option>	
 						</select>
 					</td>

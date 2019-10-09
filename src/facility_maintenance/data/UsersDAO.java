@@ -122,43 +122,5 @@ public class UsersDAO {
 		{
 			
 		}
-	} 
-	
-//	private static ArrayList<Company> ReturnMatchingCompaniesList (String queryString) {
-//		ArrayList<Company> companyListInDB = new ArrayList<Company>();
-//		
-//		Statement stmt = null;
-//		Connection conn = SQLConnection.getDBConnection();  
-//		try {
-//			stmt = conn.createStatement();
-//			ResultSet companyList = stmt.executeQuery(queryString);
-//			while (companyList.next()) {
-//				Company company = new Company(); 
-//				company.setIdcompany(companyList.getString("idcompany"));
-//				company.setCompany_name(companyList.getString("company_name"));
-//				company.setPhone(companyList.getString("phone"));
-//				company.setEmail(companyList.getString("email"));  
-//				companyListInDB.add(company);	
-//			}
-//		} catch (SQLException e) {}
-//		return companyListInDB;
-//	}
-//	
-
-//
-
-//	
-//	public static ArrayList<Company>  listCompanies() {  
-//			return ReturnMatchingCompaniesList(" SELECT * from COMPANY ORDER BY company_name");
-//	}
-//	
-//	//search companies
-//	public static ArrayList<Company>  searchCompanies(String companyname)  {  
-//			return ReturnMatchingCompaniesList(" SELECT * from COMPANY WHERE company_name LIKE '%"+companyname+"%' ORDER BY idcompany");
-//	}
-//	
-//	//determine if companyID is unique
-//	public static Boolean CompanyIDunique(String idComp)  {  
-//			return (ReturnMatchingCompaniesList(" SELECT * from COMPANY WHERE IDCOMPANY = '"+idComp+"' ORDER BY company_name").isEmpty());
-//	}
+	}
 }

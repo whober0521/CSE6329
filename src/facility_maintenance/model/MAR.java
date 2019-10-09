@@ -19,9 +19,11 @@ public class MAR implements Serializable{
 	private String reporttime;
 	private String repairer;
 	private String assigndate;
+	private String estimate;
 
 	public void setMAR (String idx, String facility, String description, String urgency, 
-			String reporter, String reportdate, String reporttime, String repairer, String assigndate) {
+			String reporter, String reportdate, String reporttime,
+			String repairer, String assigndate, String estimate) {
 		setIdx(idx);
 		setFacility(facility);
 		setDescription(description);
@@ -31,6 +33,7 @@ public class MAR implements Serializable{
 		setReporttime(reporttime);
 		setRepairer(repairer);
 		setAssigndate(assigndate);
+		setEstimate(estimate);
 	}
 	
 	public void setIdx(String idx) {
@@ -103,6 +106,14 @@ public class MAR implements Serializable{
 	
 	public String getAssigndate() {
 		return assigndate;
+	}
+	
+	public void setEstimate(String estimate) {
+		this.estimate = estimate;
+	}
+	
+	public String getEstimate() {
+		return estimate;
 	}
 	
 	public void validate (String action, MAR mar, MARErrorMsgs errorMsgs) {

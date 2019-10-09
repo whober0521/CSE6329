@@ -75,7 +75,7 @@ public class MARController extends HttpServlet {
 			mar.setMAR("-1",
 					request.getParameter("facility"),
 					request.getParameter("description"), "",
-					reporter, "", "", "", "");
+					reporter, "", "", "", "", "");
 			
 			mar.validate(action, mar, errorMsgs);
 			
@@ -97,28 +97,20 @@ public class MARController extends HttpServlet {
 		}
 		else if (action.equalsIgnoreCase("assign") ) {
 			mar.setMAR(
-					request.getParameter("idx"), "", "", "", "", "", "",
-					request.getParameter("repairer"), "");
+					request.getParameter("idx"), "", "",
+					request.getParameter("urgency"), "", "", "",
+					request.getParameter("repairer"), "",
+					request.getParameter("estimate"));
 			
-			mar.validate(action, mar, errorMsgs);
-
-			if (!errorMsgs.getErrorMsg().equals("")) {
-				// if error messages
-				session.setAttribute("MARs", MARsDAO.getUnassigned(mar));
-				session.setAttribute("errorMsgs", errorMsgs);
-				url="/MARUnassigned.jsp";
-			}
-			else {
-				// if no error messages
-				MARsDAO.assign(mar);
-				url="/MARUnassignedSearch.jsp";
-			}
+			MARsDAO.assign(mar);
+			session.setAttribute("MARs", MARsDAO.getUnassigned());
+			url="/MARUnassigned.jsp";
 		}
 		else if (action.equalsIgnoreCase("search_r") ) {
 			mar.setMAR("", "", "", "", "",
 					request.getParameter("reportdate"),
 					request.getParameter("reporttime"),
-					request.getParameter("repairer"), "");
+					request.getParameter("repairer"), "", "");
 			
 			mar.validate(action, mar, errorMsgs);
 
