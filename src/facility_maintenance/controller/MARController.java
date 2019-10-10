@@ -117,8 +117,11 @@ public class MARController extends HttpServlet {
 					request.getParameter("estimate"));
 			
 			MARsDAO.assign(mar);
-			session.setAttribute("MARs", MARsDAO.getUnassigned());
-			url="/MARsManager.jsp";
+
+			session.setAttribute("types", FacilitiesDAO.getTypes());
+			session.setAttribute("names", FacilitiesDAO.getNames());
+			session.setAttribute("repairers", UsersDAO.getRepairers());
+			url="/assigned.jsp";
 		}
 		else if (action.equalsIgnoreCase("assigned") ) {
 			mar.setMAR(

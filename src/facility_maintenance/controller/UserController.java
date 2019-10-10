@@ -44,7 +44,7 @@ public class UserController extends HttpServlet {
 			session.setAttribute("username", request.getParameter("username"));
 
 			switch(request.getParameter("role")) {
-			  case "U":
+			  case "User":
 				  url="/user.jsp";
 			    break;
 			  case "A":
@@ -62,7 +62,11 @@ public class UserController extends HttpServlet {
 		}
 		else if (action.equalsIgnoreCase("profile") ) {
 			User user = UsersDAO.getUser(request.getParameter("username"));
+			
 			session.setAttribute("user", user);
+			session.setAttribute("roles", user.getRoles(user.getRole()));
+			session.setAttribute("states", user.getStates(user.getState()));
+			
 			url="/profile.jsp";	
 		}
 		else if (action.equalsIgnoreCase("logout") ) {
@@ -127,7 +131,7 @@ public class UserController extends HttpServlet {
 				session.setAttribute("username", user.getUsername());
 
 				switch(user.getRole()) {
-				  case "U":
+				  case "User":
 					  url="/user.jsp";
 				    break;
 				  case "F":
@@ -164,13 +168,15 @@ public class UserController extends HttpServlet {
 			
 			user.validate(action, user, errorMsgs);
 			session.setAttribute("user", user);
-
+			session.setAttribute("roles", user.getRoles(user.getRole()));
+			session.setAttribute("states", user.getStates(user.getState()));
+			
 			if (!errorMsgs.getErrorMsg().equals("")) {
 				// if error messages				
 				session.setAttribute("errorMsgs", errorMsgs);
 			}
 			else {
-				// if no error messages
+				// if no error messages				
 				UsersDAO.update(user);
 			}
 			

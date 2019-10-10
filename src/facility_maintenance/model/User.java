@@ -1,7 +1,14 @@
 package facility_maintenance.model;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
+
 import facility_maintenance.data.UsersDAO;
+import facility_maintenance.util.SQLConnection;
 
 public class User implements Serializable{
 	private String username;
@@ -235,6 +242,83 @@ public class User implements Serializable{
 		
 		if(!city.matches("[\\w\\s\\.]{1,50}"))
 			result="Your City must between 1 and 50 alphabets or spaces.";
+		
+		return result;
+	}
+	
+	public HashMap<String, String> getRoles(String role) {
+		HashMap<String, String> result = new HashMap<String, String>();
+		String[] roles = {
+				"User", 
+				"Facility Manager", 
+				"Admin", 
+				"Repairer"};
+		
+		for (String r : roles) {
+			result.put(r, (role.equals(r)) ? "selected" : "");
+		}
+		
+		return result;
+	}
+	
+	public HashMap<String, String> getStates(String state) {
+		HashMap<String, String> result = new HashMap<String, String>();
+		String[] states = {
+				"Alabama", 
+				"Alaska", 
+				"Arizona", 
+				"Arkansas", 
+				"California", 
+				"Colorado", 
+				"Connecticut", 
+				"Delaware", 
+				"District Of Columbia", 
+				"Florida", 
+				"Georgia", 
+				"Hawaii", 
+				"Idaho", 
+				"Illinois", 
+				"Indiana", 
+				"Iowa", 
+				"Kansas", 
+				"Kentucky", 
+				"Louisiana", 
+				"Maine", 
+				"Maryland", 
+				"Massachusetts", 
+				"Michigan", 
+				"Minnesota", 
+				"Mississippi", 
+				"Missouri", 
+				"Montana", 
+				"Nebraska", 
+				"Nevada", 
+				"New Hampshire", 
+				"New Jersey", 
+				"New Mexico", 
+				"New York", 
+				"North Carolina", 
+				"North Dakota", 
+				"Ohio", 
+				"Oklahoma", 
+				"Oregon", 
+				"Pennsylvania", 
+				"Rhode Island", 
+				"South Carolina", 
+				"South Dakota", 
+				"Tennessee", 
+				"Texas", 
+				"Utah", 
+				"Vermont", 
+				"Virginia", 
+				"Washington", 
+				"West Virginia", 
+				"Wisconsin", 
+				"Wyoming"};
+		
+		for (String s : states) {
+			result.put(s, (state.equals(s)) ? "selected" : "");
+		}
 		
 		return result;
 	}

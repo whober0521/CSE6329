@@ -29,7 +29,7 @@
 			<a href="#">Repairers details</a>&nbsp;
 			<a href="UserController?action=logout">Logout</a>
 			<hr>
-		</div>>
+		</div>
 		<hr>
 		
 		<table>

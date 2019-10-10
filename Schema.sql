@@ -3,7 +3,7 @@ CREATE SCHEMA `facility_maintenance` ;
 CREATE TABLE `facility_maintenance`.`users` (
   `username` VARCHAR(20) NOT NULL,
   `password` VARCHAR(20) NOT NULL,
-  `role` VARCHAR(1) NOT NULL,
+  `role` VARCHAR(16) NOT NULL,
   `utaid` VARCHAR(10) NOT NULL,
   `fname` VARCHAR(40) NOT NULL,
   `lname` VARCHAR(20) NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE `facility_maintenance`.`users` (
   `phone` VARCHAR(10) NOT NULL,
   `address` VARCHAR(200) NOT NULL,
   `city` VARCHAR(50) NOT NULL,
-  `state` VARCHAR(10) NOT NULL,
+  `state` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`username`));
 
 CREATE TABLE `facility_maintenance`.`mars` (
@@ -26,6 +26,9 @@ CREATE TABLE `facility_maintenance`.`mars` (
   `assigndate` DATE NULL,
   `assigntime` VARCHAR(45) NULL,
   `estimate` VARCHAR(10) NULL,
+  `repairdate` DATE NULL,
+  `starttime` VARCHAR(45) NULL,
+  `endtime` VARCHAR(45) NULL,
   PRIMARY KEY (`idx`));
 
 CREATE TABLE `facility_maintenance`.`facilitymaster` (
