@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import facility_maintenance.model.Facility;
 import facility_maintenance.util.SQLConnection;
 
 public class FacilitiesDAO {
@@ -19,7 +20,7 @@ public class FacilitiesDAO {
 		
 		try {
 			stmt = conn.createStatement();
-			ResultSet facilities = stmt.executeQuery("SELECT * from `facilities`;");
+			ResultSet facilities = stmt.executeQuery("SELECT * from `facilitymaster`;");
 			
 			while (facilities.next()) {
 				result.put(facilities.getString("id"), facilities.getString("name"));
@@ -39,11 +40,10 @@ public class FacilitiesDAO {
 		
 		try {
 			stmt = conn.createStatement();
-			ResultSet facilities = stmt.executeQuery("SELECT * from `facilities`;");
+			ResultSet details = stmt.executeQuery("SELECT * from `facilitydetail`;");
 			
-			while (facilities.next()) {
-				for (int i = 1; i <= facilities.getInt("amount"); i++)
-					result.add(facilities.getString("id") + i);	
+			while (details.next()) {
+				result.add(details.getString("master") + details.getString("id"));	
 			}
 		}
 		catch (SQLException e) {
@@ -52,4 +52,51 @@ public class FacilitiesDAO {
 		
 		return result;
 	}
+	
+	public static void insert(Facility facility) {
+		String queryString = "INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) ";
+		Connection conn = SQLConnection.getDBConnection();
+		Statement stmt = null;
+
+		try {
+			int count = Integer.parseInt(facility.getNumber());
+			int id = getMaxId(facility.getMaster()) +1 ;
+			
+			for (int i = 0; i < count; i++) {
+				stmt = conn.createStatement();
+				String valueString = " VALUES ('"
+						+ facility.getMaster()  + "', '"
+						+ (id+i)  + "', '"
+						+ facility.getInterval() + "', '"
+						+ facility.getDuration() + "', '"
+						+ facility.getVenue() + "');";
+				
+				stmt.executeUpdate(queryString+valueString);
+				conn.commit();
+			}
+		}
+		catch (SQLException e) 
+		{
+			
+		}
+	} 
+	
+	public static int getMaxId(String master) {
+		Connection conn = SQLConnection.getDBConnection();
+		Statement stmt = null;
+		
+		try {
+			stmt = conn.createStatement();
+			ResultSet facilities = stmt.executeQuery("SELECT * FROM facilitydetail WHERE `master` = '" + master + "' ORDER BY `id` DESC;");
+			
+			while (facilities.next()) {
+				return facilities.getInt("id");
+			}
+		}
+		catch (SQLException e) {
+			
+		}
+		
+		return -1;
+	} 
 }

@@ -14,7 +14,7 @@ public class MARsDAO {
 	
 	public static MAR getMAR (String idx)  {
 		String queryString = "SELECT * FROM mars " +
-							 "LEFT OUTER JOIN facilities ON mars.facility LIKE CONCAT(facilities.ID, '%') " + 
+							 "LEFT OUTER JOIN facilitymaster ON mars.facility LIKE CONCAT(facilitymaster.id, '%') " + 
 							 "WHERE `idx` = '" + idx + "';";
 		
 		Connection conn = SQLConnection.getDBConnection();
@@ -49,7 +49,7 @@ public class MARsDAO {
 	}
 	
 	public static ArrayList<MAR> getUnassigned() {
-		String queryString = "SELECT * from mars WHERE repairer is NULL ";
+		String queryString = "SELECT * from mars WHERE repairer is NULL;";
 		ArrayList<MAR> result = new ArrayList<MAR>();
 		Connection conn = SQLConnection.getDBConnection();
 		Statement stmt = null;

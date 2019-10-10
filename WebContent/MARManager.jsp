@@ -23,13 +23,13 @@
 			<a href="UserController?action=home&role=F&username=<c:out value='${username}'/>">Home</a>&nbsp;
 			<a href="#">Update profile</a>&nbsp;
 			<a href="#">Search facility</a>&nbsp;
-			<a href="#">Add new facility</a>&nbsp;
+			<a href="FacilityController?action=add">Add new facility</a>&nbsp;
 			<a href="MARController?action=assigned&username=<c:out value='${username}'/>">View Assignment Problems</a>&nbsp;
 			<a href="MARController?action=unassigned&username=<c:out value='${username}'/>">View Unassigned Problems</a>&nbsp;
 			<a href="#">Repairers details</a>&nbsp;
 			<a href="UserController?action=logout">Logout</a>
 			<hr>
-		</div>
+		</div>>
 		<hr>
 		
 		<table>
