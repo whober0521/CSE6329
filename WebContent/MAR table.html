@@ -27,7 +27,7 @@
     </div>
     <hr>
     
-    <input name="repairerError"  value="<c:out value='${errorMsgs.repairerError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
+    <input name="repairerError"  value="" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
 
     <table>
       <tr>
@@ -60,7 +60,16 @@
           </td>
           <td><input type="text" name=""></td>
           <td></td>
-          <td></td>
+          <td><select name="estimate">
+							<option>30 mins</option>
+							<option>1 hour</option>
+							<option>2 hours</option>
+							<option>4 hours</option>
+							<option>1 day</option>
+							<option>2 day</option>
+							<option>4 day</option>
+							<option>7 day</option>	
+						</select></td>
           <td></td>
           <td>
             <button type="submit" style="padding-right: 50px; padding-left: 50px; padding-top: 15px; padding-bottom: 15px; border-radius:200px;">
