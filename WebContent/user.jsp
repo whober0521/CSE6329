@@ -19,7 +19,7 @@
 		<h4> User Home page</h4>
 		
 		<div align="right">
-			<a href="UserController?action=home&role=U&username=<c:out value='${username}'/>">Home</a>&nbsp;
+			<a href="UserController?action=home&role=User&username=<c:out value='${username}'/>">Home</a>&nbsp;
 			<a href="UserController?action=profile&username=<c:out value='${username}'/>">Update Profile</a>&nbsp;
 			<a href="MARController?action=report&username=<c:out value='${username}'/>">Create Problem Report</a>&nbsp;
 			<a href="UserController?action=logout">Logout</a>
