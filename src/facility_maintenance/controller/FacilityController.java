@@ -42,6 +42,11 @@ public class FacilityController extends HttpServlet {
 			
 			url="/facility.jsp";
 		}
+		else if (action.equalsIgnoreCase("search") ) {
+			session.setAttribute("names", FacilitiesDAO.getNames());
+			
+			url="/available.jsp";
+		}
 
 		getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
