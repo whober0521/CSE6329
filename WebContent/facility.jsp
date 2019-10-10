@@ -20,9 +20,9 @@
 		
 		Interval: <br>
 		<select name="interval">
-			<option value="30">30min</option>
-			<option value="60">1hour</option>
-			<option value="120">2hour</option>
+			<option value="30">30 minutes</option>
+			<option value="60">1 hour</option>
+			<option value="120">2 hours</option>
 		</select><br><br>
 		
 		Duration: <br>
