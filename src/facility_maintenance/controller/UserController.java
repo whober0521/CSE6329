@@ -51,10 +51,10 @@ public class UserController extends HttpServlet {
 				  session.setAttribute("admin", request.getParameter("admin"));
 				  url="/admin.jsp";
 			    break;
-			  case "F":
+			  case "Facility Manager":
 				  url="/manager.jsp";
 			    break;
-			  case "R":
+			  case "Repairer":
 				  url="/repairer.jsp";
 			    break;
 			  default:			
@@ -137,10 +137,10 @@ public class UserController extends HttpServlet {
 				  case "Admin":
 					  url="/admin.jsp";
 				    break;
-				  case "F":
+				  case "Facility Manager":
 					  url="/manager.jsp";
 				    break;
-				  case "R":
+				  case "Repairer":
 					  url="/repairer.jsp";
 				    break;
 				  default:			

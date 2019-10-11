@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 import facility_maintenance.data.UsersDAO;
 import facility_maintenance.data.MARsDAO;
@@ -13,8 +14,8 @@ public class MAR implements Serializable{
 	private String idx;
 	private String facilitytype;
 	private String facilityname;
-	private String urgency;
 	private String description;
+	private String urgency;
 	private String reporter;
 	private String reportdate;
 	private String reporttime;
@@ -140,6 +141,11 @@ public class MAR implements Serializable{
 		if (action.equalsIgnoreCase("report")) {
 			errorMsgs.setDescriptionError(validateDescription(mar.getDescription()));
 		}
+		else if (action.equalsIgnoreCase("assign")) {
+			errorMsgs.setUrgencyError(validateUrgency(mar.getUrgency()));
+			errorMsgs.setRepairerError(validateRepairer(mar.getRepairer()));
+			errorMsgs.setEstimateError(validateEstimate(mar.getEstimate()));
+		}
 
 		errorMsgs.setErrorMsg();
 	}
@@ -149,6 +155,67 @@ public class MAR implements Serializable{
 		
 		if(!description.matches("[a-z,\\.\\s]{0,500}"))
 			result="Your Description must less than 500 alphabet, ',', space or '.'.";
+		
+		return result;
+	}
+	
+	private String validateUrgency(String urgency) {
+		String result="";
+		
+		if(urgency.equals(""))
+			result="'Urgency' is required";
+		
+		return result;
+	}
+	
+	private String validateRepairer(String repairer) {
+		String result="";
+		
+		if(repairer.equals(""))
+			result="'Assigned to' is required";
+		
+		return result;
+	}
+	
+	private String validateEstimate(String estimate) {
+		String result="";
+		
+		if(estimate.equals(""))
+			result="'Estimate of repair' is required";
+		
+		return result;
+	}
+	
+	public HashMap<String, String> getUrgencies(String urgency) {
+		HashMap<String, String> result = new HashMap<String, String>();
+		String[] urgencies = {
+				"Unusable", 
+				"Major", 
+				"Medium", 
+				"Minor"};
+
+		for (String u : urgencies) {
+			result.put(u, (urgency.equals(u)) ? "selected" : "");
+		}
+		
+		return result;
+	}
+	
+	public HashMap<String, String> getEstimates(String estimate) {
+		HashMap<String, String> result = new HashMap<String, String>();
+		String[] estimates = {
+				"30 mins", 
+				"1 hour", 
+				"2 hours",
+				"4 hours", 
+				"1 day", 
+				"2 days",
+				"4 days",
+				"7 days"};
+		
+		for (String e : estimates) {
+			result.put(e, (estimate.equals(e)) ? "selected" : "");
+		}
 		
 		return result;
 	}

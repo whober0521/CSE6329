@@ -46,10 +46,10 @@ public class UsersDAO {
 		return user;
 	}
 	
-	public static ArrayList<String> getRepairers ()  {
-		String queryString = "SELECT * from `users` WHERE `role`='R'";
+	public static HashMap<String, String> getRepairers (String repairer)  {
+		HashMap<String, String> result = new HashMap<String, String>();
+		String queryString = "SELECT * from `users` WHERE `role`='Repairer'";
 		Connection conn = SQLConnection.getDBConnection();
-		ArrayList<String> result = new ArrayList<String>();
 		Statement stmt = null;
 		
 		try {
@@ -57,7 +57,8 @@ public class UsersDAO {
 			ResultSet users = stmt.executeQuery(queryString);
 			
 			while (users.next()) {
-				result.add(users.getString("username"));	
+				String r = users.getString("username");
+				result.put(r, (repairer.equals(r)) ? "selected" : "");
 			} 
 		}
 		catch (SQLException e) {

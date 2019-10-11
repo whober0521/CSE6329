@@ -19,7 +19,7 @@
 		
 		<h4> Facility Manager Home page</h4>
 		<div align="right">
-			<a href="UserController?action=home&role=F&username=<c:out value='${username}'/>">Home</a>&nbsp;
+			<a href="UserController?action=home&role=Facility Manager&username=<c:out value='${username}'/>">Home</a>&nbsp;
 			<a href="#">Update profile</a>&nbsp;
 			<a href="FacilityController?action=search">Search facility</a>&nbsp;
 			<a href="FacilityController?action=add">Add new facility</a>&nbsp;

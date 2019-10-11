@@ -20,18 +20,22 @@
 		
 		<h4> Facility Manager page</h4>
 		<div align="right">
-			<a href="UserController?action=home&role=F&username=<c:out value='${username}'/>">Home</a>&nbsp;
+			<a href="UserController?action=home&role=Facility Manager&username=<c:out value='${username}'/>">Home</a>&nbsp;
 			<a href="#">Update profile</a>&nbsp;
-			<a href="#">Search facility</a>&nbsp;
+			<a href="FacilityController?action=search">Search facility</a>&nbsp;
 			<a href="FacilityController?action=add">Add new facility</a>&nbsp;
 			<a href="MARController?action=assigned&username=<c:out value='${username}'/>">View Assignment Problems</a>&nbsp;
 			<a href="MARController?action=unassigned&username=<c:out value='${username}'/>">View Unassigned Problems</a>&nbsp;
-			<a href="#">Repairers details</a>&nbsp;
 			<a href="UserController?action=logout">Logout</a>
 			<hr>
 		</div>
 		<hr>
 		
+		<input name="errMsg"  value="<c:out value='${errorMsgs.errorMsg}'/>" type="text"  style ="background-color: white; color: red; border: none; width:800px" disabled="disabled"><br>
+		<input name="urgencyError"  value="<c:out value='${errorMsgs.urgencyError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
+		<input name="repairerError"  value="<c:out value='${errorMsgs.repairerError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
+		<input name="estimateError"  value="<c:out value='${errorMsgs.estimateError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
+					
 		<table>
 			<tr>
 				<th>Facility Type</th>
@@ -52,10 +56,11 @@
 					<td><c:out value='${MAR.facilityname}'/></td>
 					<td>
 						<select name="urgency">
-							<option>Unusable</option>
-							<option>Major</option>
-							<option>Medium</option>
-							<option>Minor</option>
+							<option></option>
+							
+							<c:forEach items="${urgencies}" var="item" varStatus="status">
+								<option <c:out value='${item.value}'/>><c:out value='${item.key}'/></option>
+							</c:forEach>
 						</select>
 					</td>
 					<td><c:out value='${MAR.description}'/></td>
@@ -67,22 +72,21 @@
 					</td>
 					<td>
 						<select name="repairer">
+							<option></option>
+							
 							<c:forEach items="${repairers}" var="item" varStatus="status">
-								<option><c:out value='${item}'/></option>
+								<option <c:out value='${item.value}'/>><c:out value='${item.key}'/></option>
 							</c:forEach>
 						</select>
 					</td>
 					<td><c:out value='${MAR.assigndate}'/></td>
 					<td>
 						<select name="estimate">
-							<option>30 mins</option>
-							<option>1 hour</option>
-							<option>2 hours</option>
-							<option>4 hours</option>
-							<option>1 day</option>
-							<option>2 day</option>
-							<option>4 day</option>
-							<option>7 day</option>	
+							<option></option>
+							
+							<c:forEach items="${estimates}" var="item" varStatus="status">
+								<option <c:out value='${item.value}'/>><c:out value='${item.key}'/></option>
+							</c:forEach>
 						</select>
 					</td>
 					<td>
