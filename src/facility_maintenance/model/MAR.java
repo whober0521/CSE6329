@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -23,10 +24,12 @@ public class MAR implements Serializable{
 	private String assigndate;
 	private String assigntime;
 	private String estimate;
+	private String repairdate;
 
 	public void setMAR (String idx, String facilitytype, String facilityname, String description, String urgency, 
 			String reporter, String reportdate, String reporttime,
-			String repairer, String assigndate, String assigntime, String estimate) {
+			String repairer, String assigndate, String assigntime, String estimate,
+			String repairdate) {
 		setIdx(idx);
 		setFacilitytype(facilitytype);
 		setFacilityname(facilityname);
@@ -39,6 +42,7 @@ public class MAR implements Serializable{
 		setAssigndate(assigndate);
 		setAssigntime(assigntime);
 		setEstimate(estimate);
+		setRepairdate(repairdate);
 	}
 	
 	public void setIdx(String idx) {
@@ -137,6 +141,14 @@ public class MAR implements Serializable{
 		return estimate;
 	}
 	
+	public void setRepairdate(String repairdate) {
+		this.repairdate = repairdate;
+	}
+	
+	public String getRepairdate() {
+		return repairdate;
+	}
+	
 	public void validate (String action, MAR mar, MARErrorMsgs errorMsgs) {
 		if (action.equalsIgnoreCase("report")) {
 			errorMsgs.setDescriptionError(validateDescription(mar.getDescription()));
@@ -215,6 +227,46 @@ public class MAR implements Serializable{
 		
 		for (String e : estimates) {
 			result.put(e, (estimate.equals(e)) ? "selected" : "");
+		}
+		
+		return result;
+	}
+	
+	public String getDate() {
+		return new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+	}
+	
+	public HashMap<String, String> getTime() {
+		String time = new SimpleDateFormat("HH:00").format(Calendar.getInstance().getTime());
+		HashMap<String, String> result = new HashMap<String, String>();
+		String[] times = {
+				"00:00",
+				"01:00",
+				"02:00",
+				"03:00",
+				"04:00",
+				"05:00",
+				"06:00",
+				"07:00",
+				"08:00",
+				"09:00",
+				"10:00",
+				"11:00",
+				"12:00",
+				"13:00",
+				"14:00",
+				"15:00",
+				"16:00",
+				"17:00",
+				"18:00",
+				"19:00",
+				"20:00",
+				"21:00",
+				"22:00",
+				"23:00"};
+
+		for (String t : times) {
+			result.put(t, (t.equals(time)) ? "selected" : "");
 		}
 		
 		return result;

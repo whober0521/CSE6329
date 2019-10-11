@@ -38,7 +38,8 @@ public class MARsDAO {
 						mars.getString("repairer"),
 						mars.getString("assigndate"),
 						mars.getString("assigntime"),
-						mars.getString("estimate"));
+						mars.getString("estimate"),
+						mars.getString("repairdate"));
 			} 
 		}
 		catch (SQLException e) {
@@ -72,7 +73,8 @@ public class MARsDAO {
 						mars.getString("repairer"),
 						mars.getString("assigndate"),
 						mars.getString("assigntime"),
-						mars.getString("estimate"));
+						mars.getString("estimate"),
+						mars.getString("repairdate"));
 
 				result.add(_mar);	
 			}
@@ -124,7 +126,8 @@ public class MARsDAO {
 						mars.getString("repairer"),
 						mars.getString("assigndate"),
 						mars.getString("assigntime"),
-						mars.getString("estimate"));
+						mars.getString("estimate"),
+						mars.getString("repairdate"));
 				
 				result.add(_mar);
 			}
@@ -163,6 +166,23 @@ public class MARsDAO {
 				"', `repairer` = '" + mar.getRepairer() +
 				"', `estimate` = '" + mar.getEstimate() +
 				"', `assigndate` = CURDATE(), `assigntime` = CURTIME() WHERE `idx` = '" + mar.getIdx() + "';";
+
+		Connection conn = SQLConnection.getDBConnection();
+		Statement stmt = null;
+		
+		try {
+			stmt = conn.createStatement();
+			stmt.executeUpdate(queryString);
+			conn.commit();
+		}
+		catch (SQLException e) {
+			
+		}
+	}
+	
+	public static void estimate(MAR mar) {
+		String queryString = "UPDATE `mars` SET `estimate` = '" + mar.getEstimate() + 
+							"'  WHERE `idx` = '" + mar.getIdx() + "';";
 
 		Connection conn = SQLConnection.getDBConnection();
 		Statement stmt = null;
