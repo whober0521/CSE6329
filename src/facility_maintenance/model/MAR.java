@@ -223,7 +223,11 @@ public class MAR implements Serializable{
 		
 		if(repairer.equals(""))
 			result="'Assigned to' is required";
-		
+		else if(MARsDAO.getAssignedNumber(repairer, getDate()) >= 5)
+			result="'Each repairer may only be assigned  5 repairs per day";
+		else if(MARsDAO.getAssignedNumber(repairer) >= 10)
+			result="'Each repairer may only be assigned  10 repairs per week (Monday - Sunday)";
+
 		return result;
 	}
 	
@@ -269,7 +273,7 @@ public class MAR implements Serializable{
 				"Minor"};
 
 		for (String u : urgencies) {
-			result.put(u, (urgency.equals(u)) ? "selected" : "");
+			result.put(u, (u.equals(urgency)) ? "selected" : "");
 		}
 		
 		return result;
@@ -288,7 +292,7 @@ public class MAR implements Serializable{
 				"7 days"};
 		
 		for (String e : estimates) {
-			result.put(e, (estimate.equals(e)) ? "selected" : "");
+			result.put(e, (e.equals(estimate)) ? "selected" : "");
 		}
 		
 		return result;

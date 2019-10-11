@@ -49,19 +49,28 @@ public class MARController extends HttpServlet {
 			url="/MARsManager.jsp";
 		}
 		else if (action.equalsIgnoreCase("assigned") ) {
-			session.setAttribute("types", FacilitiesDAO.getTypes());
+			session.setAttribute("types", FacilitiesDAO.getTypes("MR"));
 			session.setAttribute("names", FacilitiesDAO.getNames(""));
 			session.setAttribute("repairers", UsersDAO.getRepairers(""));
+			session.setAttribute("today", mar.getDate());
+			session.setAttribute("now", mar.getTime(""));
 			
 			url="/assigned.jsp";
+		}
+		else if (action.equalsIgnoreCase("available") ) {
+			session.setAttribute("names", FacilitiesDAO.getNames("MR1"));
+			session.setAttribute("today", mar.getDate());
+			session.setAttribute("now", mar.getTime(""));
+			
+			url="/available.jsp";
 		}
 		else if (action.equalsIgnoreCase("MARManager") ) {
 			mar = MARsDAO.getMAR(request.getParameter("idx"));
 			
 			session.setAttribute("MAR", mar);
-			session.setAttribute("urgencies", mar.getUrgencies(""));
-			session.setAttribute("repairers", UsersDAO.getRepairers(""));
-			session.setAttribute("estimates", mar.getEstimates(""));
+			session.setAttribute("urgencies", mar.getUrgencies(mar.getUrgency()));
+			session.setAttribute("repairers", UsersDAO.getRepairers(mar.getRepairer()));
+			session.setAttribute("estimates", mar.getEstimates(mar.getEstimate()));
 			
 			url="/MARManager.jsp";
 		}
@@ -192,6 +201,19 @@ public class MARController extends HttpServlet {
 			
 			session.setAttribute("MARs", MARsDAO.getAssigned(mar));
 			url="/MARsManager.jsp";
+		}
+		else if (action.equalsIgnoreCase("available") ) {
+			mar.setMAR("", "", 
+					request.getParameter("facilityname"),
+					"", "", "", "", "", "", "", "", "",
+					request.getParameter("repairdate"),
+					request.getParameter("starttime"), "");
+			
+			session.setAttribute("username", request.getParameter("username"));
+			session.setAttribute("facility", FacilitiesDAO.getDetail(mar.getFacilityname()));
+			session.setAttribute("MARs", MARsDAO.getDateTime(mar.getFacilityname(), mar.getRepairdate(), mar.getStarttime()));
+			
+			url="/availables.jsp";	  
 		}
 		else if (action.equalsIgnoreCase("reserved") ) {
 			String username = request.getParameter("username");

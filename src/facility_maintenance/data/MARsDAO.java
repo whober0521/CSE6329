@@ -96,7 +96,7 @@ public class MARsDAO {
 	}
 	
 	public static ArrayList<MAR> getAssigned(MAR mar) {
-		String queryString = "SELECT * from mars WHERE repairer = '" + mar.getRepairer() + "' ";
+		String queryString = "SELECT * from mars WHERE 1 ";
 		
 		if (!mar.getIdx().equals(""))
 			queryString += " AND `idx`='" + mar.getIdx() + "' ";
@@ -106,6 +106,9 @@ public class MARsDAO {
 		
 		if (!mar.getFacilityname().equals(""))
 			queryString += " AND `facility`='" + mar.getFacilityname() + "' ";
+		
+		if (!mar.getRepairer().equals(""))
+			queryString += " AND `repairer`='" + mar.getRepairer() + "' ";
 		
 		if (!mar.getAssigndate().equals(""))
 			queryString += " AND `assigndate`='" + mar.getAssigndate() + "' ";
@@ -259,6 +262,59 @@ public class MARsDAO {
 		}
 		
 		return "";
+	}
+	
+	public static int getAssignedNumber (String repairer, String date)  {
+		String queryString = "SELECT * FROM mars WHERE `repairer` = '" + repairer + "' AND `assigndate` = '" + date + "';";
+		Connection conn = SQLConnection.getDBConnection();
+		Statement stmt = null;
+		int result = 0;
+		
+		try {
+			stmt = conn.createStatement();
+			ResultSet mars = stmt.executeQuery(queryString);
+			
+			while (mars.next()) {
+				result += 1;
+			} 
+		}
+		catch (SQLException e) {
+			
+		}
+		
+		return result;
+	}
+	
+	public static int getAssignedNumber(String repairer)  {
+		String queryString = "SELECT * FROM mars WHERE `repairer` = '" + repairer + "' AND `assigndate` >= '";
+		Calendar c = Calendar.getInstance(); 
+		
+		c.setTime(new Date()); 
+		
+		while(c.get(Calendar.DAY_OF_WEEK)!=1)
+			c.add(Calendar.DATE, -1);
+		
+		queryString += new SimpleDateFormat("yyyy-MM-dd").format(c.getTime()) + "' AND `assigndate` <= '";
+		c.add(Calendar.DATE, 6);		
+		queryString +=  new SimpleDateFormat("yyyy-MM-dd").format(c.getTime()) + "';";
+		
+		Connection conn = SQLConnection.getDBConnection();
+		Statement stmt = null;
+		int result = 0;
+		
+		try {
+			stmt = conn.createStatement();
+			ResultSet mars = stmt.executeQuery(queryString);
+			
+			while (mars.next()) {
+				result += 1;
+			} 
+		}
+		catch (SQLException e) {
+			
+		}
+		
+		return result;
 	}
 	
 	public static void insert(MAR mar) {

@@ -17,59 +17,37 @@
 		
 		<h4> Facility Manager Home page</h4>
 		<div align="right">
-			<a href="UserController?action=home&role=F&username=<c:out value='${username}'/>">Home</a>&nbsp;
+			<a href="UserController?action=home&role=Facility Manager&username=<c:out value='${username}'/>">Home</a>&nbsp;
 			<a href="#">Update profile</a>&nbsp;
-			<a href="FacilityController?action=search">Search facility</a>&nbsp;
+			<a href="MARController?action=available&username=<c:out value='${username}'/>">Search facility</a>&nbsp;
 			<a href="FacilityController?action=add">Add new facility</a>&nbsp;
 			<a href="MARController?action=assigned&username=<c:out value='${username}'/>">View Assignment Problems</a>&nbsp;
 			<a href="MARController?action=unassigned&username=<c:out value='${username}'/>">View Unassigned Problems</a>&nbsp;
-			<a href="#">Repairers details</a>&nbsp;
 			<a href="UserController?action=logout">Logout</a>
 			<hr>
 		</div>
 		
 		<div class="text-l"></div><br>
 		
-		<form method="post" action="users.html">
+		<form action="MARController?action=available" method="post">
 			<br><br>
 			<input type="hidden" name="username" value="<c:out value='${username}'/>">
 			
 			<label for="search"><b>Search here: </b></label>
-			<select name="facility">
+			<select name="facilityname">
 				<c:forEach items="${names}" var="item" varStatus="status">
-					<option><c:out value='${item}'/></option>
+					<option <c:out value='${item.value}'/>><c:out value='${item.key}'/></option>
 				</c:forEach>
 			</select><br>
 			
 			<label for="date"><b>Date:</b></label>
-			<input type="date" name="availabledate" value="<c:out value='${MAR.assigndate}'/>"><br>
+			<input type="date" name="repairdate" value="<c:out value='${today}'/>"><br>
 			
 			<label for="time"><b>Time:</b></label>
-			<select name="availabletime">
-				<option>00:00</option>
-				<option>01:00</option>
-				<option>02:00</option>
-				<option>03:00</option>
-				<option>04:00</option>
-				<option>05:00</option>
-				<option>06:00</option>
-				<option>07:00</option>
-				<option>08:00</option>
-				<option>09:00</option>
-				<option>10:00</option>
-				<option>11:00</option>
-				<option>12:00</option>
-				<option>13:00</option>
-				<option>14:00</option>
-				<option>15:00</option>
-				<option>16:00</option>
-				<option>17:00</option>
-				<option>18:00</option>
-				<option>19:00</option>
-				<option>20:00</option>
-				<option>21:00</option>
-				<option>22:00</option>
-				<option>23:00</option>
+			<select name="starttime">
+				<c:forEach items="${now}" var="item" varStatus="status">
+					<option <c:out value='${item.value}'/>><c:out value='${item.key}'/></option>
+				</c:forEach>
 			</select><br><br>
 			
 			<center>

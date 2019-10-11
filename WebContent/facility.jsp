@@ -10,7 +10,7 @@
 		Facility Type:<br>
 		<select name="master">
 			<c:forEach items="${types}" var="item" varStatus="status">
-				<option value="<c:out value='${item.key}'/>"><c:out value='${item.value}'/></option>
+				<option <c:out value='${item.value}'/> value="<c:out value='${item.key.master}'/>"><c:out value='${item.key.venue}'/></option>
 			</c:forEach>
 		</select><br>
 		
@@ -20,23 +20,23 @@
 		
 		Interval: <br>
 		<select name="interval">
-			<option value="30">30 minutes</option>
-			<option value="60">1 hour</option>
-			<option value="120">2 hours</option>
+			<c:forEach items="${intervals}" var="item" varStatus="status">
+				<option <c:out value='${item.value}'/>><c:out value='${item.key}'/></option>
+			</c:forEach>
 		</select><br><br>
 		
 		Duration: <br>
 		<select name="duration">
-			<option value="1">1 day</option>
-			<option value="2">2 days</option>
-			<option value="4">4 days</option>
-			<option value="7">7 days</option>
+			<c:forEach items="${durations}" var="item" varStatus="status">
+				<option <c:out value='${item.value}'/>><c:out value='${item.key}'/></option>
+			</c:forEach>
 		</select><br><br>
 		
 		Venue: <br>
 		<select name="venue">
-			<option>Indoor</option>
-			<option>Outdoor</option>
+			<c:forEach items="${venues}" var="item" varStatus="status">
+				<option <c:out value='${item.value}'/>><c:out value='${item.key}'/></option>
+			</c:forEach>
 		</select><br><br>
 		
 		<input type="submit" value="Submit">

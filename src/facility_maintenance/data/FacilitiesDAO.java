@@ -14,8 +14,8 @@ import facility_maintenance.util.SQLConnection;
 public class FacilitiesDAO {
 	static SQLConnection DBMgr = SQLConnection.getInstance();
 	
-	public static HashMap<String, String> getTypes() {
-		HashMap<String, String> result = new HashMap<String, String>();
+	public static HashMap<Facility, String> getTypes(String value) {
+		HashMap<Facility, String> result = new HashMap<Facility, String>();
 		Connection conn = SQLConnection.getDBConnection();
 		Statement stmt = null;
 		
@@ -24,7 +24,11 @@ public class FacilitiesDAO {
 			ResultSet facilities = stmt.executeQuery("SELECT * from `facilitymaster`;");
 			
 			while (facilities.next()) {
-				result.put(facilities.getString("id"), facilities.getString("name"));
+				Facility f = new Facility();
+				
+				f.setFacility(facilities.getString("id"), -1, "", "", facilities.getString("name"), "");
+				
+				result.put(f,  (f.getMaster().equals(value)) ? "selected" : "");
 			}
 		}
 		catch (SQLException e) {

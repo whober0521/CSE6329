@@ -21,7 +21,7 @@
 		<div align="right">
 			<a href="UserController?action=home&role=Facility Manager&username=<c:out value='${username}'/>">Home</a>&nbsp;
 			<a href="#">Update profile</a>&nbsp;
-			<a href="FacilityController?action=search">Search facility</a>&nbsp;
+			<a href="MARController?action=available&username=<c:out value='${username}'/>">Search facility</a>&nbsp;
 			<a href="FacilityController?action=add">Add new facility</a>&nbsp;
 			<a href="MARController?action=assigned&username=<c:out value='${username}'/>">View Assignment Problems</a>&nbsp;
 			<a href="MARController?action=unassigned&username=<c:out value='${username}'/>">View Unassigned Problems</a>&nbsp;

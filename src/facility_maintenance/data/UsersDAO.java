@@ -55,10 +55,10 @@ public class UsersDAO {
 		try {
 			stmt = conn.createStatement();
 			ResultSet users = stmt.executeQuery(queryString);
-			
+
 			while (users.next()) {
 				String r = users.getString("username");
-				result.put(r, (repairer.equals(r)) ? "selected" : "");
+				result.put(r, (r.equals(repairer)) ? "selected" : "");
 			} 
 		}
 		catch (SQLException e) {

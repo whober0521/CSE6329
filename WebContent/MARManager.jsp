@@ -22,7 +22,7 @@
 		<div align="right">
 			<a href="UserController?action=home&role=Facility Manager&username=<c:out value='${username}'/>">Home</a>&nbsp;
 			<a href="#">Update profile</a>&nbsp;
-			<a href="FacilityController?action=search">Search facility</a>&nbsp;
+			<a href="MARController?action=available&username=<c:out value='${username}'/>">Search facility</a>&nbsp;
 			<a href="FacilityController?action=add">Add new facility</a>&nbsp;
 			<a href="MARController?action=assigned&username=<c:out value='${username}'/>">View Assignment Problems</a>&nbsp;
 			<a href="MARController?action=unassigned&username=<c:out value='${username}'/>">View Unassigned Problems</a>&nbsp;
@@ -51,7 +51,7 @@
 				<th></th>
 			</tr>
 			<tr>
-				<form action="MARController?action=assign" method="post">
+				<form action="MARController?action=assign" method="post">					
 					<td><c:out value='${MAR.facilitytype}'/></td>
 					<td><c:out value='${MAR.facilityname}'/></td>
 					<td>
@@ -69,6 +69,7 @@
 					<td>
 						<c:out value='${MAR.idx}'/>
 						<input type="hidden" name="idx" value="<c:out value='${MAR.idx}'/>"/>
+						<input type="hidden" name="username" value="<c:out value='${username}'/>"/>
 					</td>
 					<td>
 						<select name="repairer">
