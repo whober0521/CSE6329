@@ -220,6 +220,7 @@ public class UserController extends HttpServlet {
 			
 			user.validate(action, user, errorMsgs);
 			session.setAttribute("update", user);
+			session.setAttribute("admin", request.getParameter("admin"));
 
 			if (!errorMsgs.getErrorMsg().equals("")) {
 				// if error messages				
