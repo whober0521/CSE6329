@@ -21,9 +21,9 @@
 		
 		<h4> Repairer page</h4>
 		<div align="right">
-			<a href="UserController?action=home&role=R&username=<c:out value='${username}'/>">Home</a>&nbsp;
+			<a href="UserController?action=home&role=Repairer&username=<c:out value='${username}'/>">Home</a>&nbsp;
 			<a href="#">Update profile</a>
-			<a href="#">Request Repair Reservation</a>&nbsp;
+			<a href="MARController?action=request&username=<c:out value='${username}'/>">Request Repair Reservation</a>&nbsp;
 			<a href="MARController?action=reserved&username=<c:out value='${username}'/>">View My Reserved Repairs</a>&nbsp;
 			<a href="UserController?action=logout">Logout</a>
 			<hr>

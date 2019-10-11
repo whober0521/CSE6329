@@ -154,12 +154,20 @@ public class MARsDAO {
 		Facility facility = FacilitiesDAO.getDetail(facilityname);
 		ArrayList<MAR> result = new ArrayList<MAR>();
 		
+		int duration = Integer.parseInt(facility.getDuration().split(" ")[0]);
+		int interval = 0;
+		
+		if(facility.getInterval().equals("30 minutes"))
+			interval = 30;
+		else
+			interval = Integer.parseInt(facility.getInterval().split(" ")[0]) * 60;
+		
 		Date end = new Date();
 
 		Calendar c = Calendar.getInstance(); 
 		
 		c.setTime(end); 
-		c.add(Calendar.DATE, facility.getDuration());
+		c.add(Calendar.DATE, duration);
 		
 		end = c.getTime();
 
@@ -182,7 +190,7 @@ public class MARsDAO {
 			String s = new SimpleDateFormat("HH:mm").format(start);
 			
 			c.setTime(start); 
-			c.add(Calendar.MINUTE, facility.getInterval());
+			c.add(Calendar.MINUTE, interval);
 			start = c.getTime();
 			
 			_mar.setMAR(idx, "", "", "", "", "", "", "", "", "", "", "",
@@ -191,7 +199,7 @@ public class MARsDAO {
 			result.add(_mar);
 		}
 		
-		String queryString = "SELECT * FROM mars WHERE `facility` = '" + facilityname + "' ORDER BY `repairdate`, `starttime`;";
+		String queryString = "SELECT * FROM mars WHERE `facility` = '" + facilityname + "' AND `repairdate` IS NOT NULL ORDER BY `repairdate`, `starttime`;";
 		Connection conn = SQLConnection.getDBConnection();
 		Statement stmt = null;
 		int i = 0;

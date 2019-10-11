@@ -89,6 +89,10 @@ public class MARController extends HttpServlet {
 		}
 		else if (action.equalsIgnoreCase("cancel") ) {
 			MARsDAO.delete(request.getParameter("idx"));
+			
+			session.setAttribute("today", mar.getDate());
+			session.setAttribute("now", mar.getTime(""));
+			
 			url="/reserved.jsp";
 		}
 		else if (action.equalsIgnoreCase("MARRepairer") ) {

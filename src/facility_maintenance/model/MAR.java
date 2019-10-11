@@ -240,12 +240,14 @@ public class MAR implements Serializable{
 		String result="";
 		
 		Facility facility = FacilitiesDAO.getDetail(facilityname);
+		int duration = Integer.parseInt(facility.getDuration().split(" ")[0]);
+
 		Date expire = new Date();
 
 		Calendar c = Calendar.getInstance(); 
 		
 		c.setTime(expire); 
-		c.add(Calendar.DATE, facility.getDuration());
+		c.add(Calendar.DATE, duration);
 		
 		expire = c.getTime();
 		

@@ -69,8 +69,8 @@ public class FacilitiesDAO {
 				facility.setFacility(
 						mars.getString("master"),
 						mars.getInt("id"),
-						mars.getInt("interval"),
-						mars.getInt("duration"),
+						mars.getString("interval"),
+						mars.getString("duration"),
 						mars.getString("venue"), "");
 			} 
 		}

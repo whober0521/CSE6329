@@ -5,12 +5,12 @@ import java.io.Serializable;
 public class Facility implements Serializable{
 	private String master;
 	private int id;
-	private int interval;
-	private int duration;
+	private String interval;
+	private String duration;
 	private String venue;
 	private String number;
 
-	public void setFacility (String master, int id, int interval, int duration, String venue, String number) {
+	public void setFacility (String master, int id, String interval, String duration, String venue, String number) {
 		setMaster(master);
 		setId(id);
 		setInterval(interval);
@@ -31,19 +31,19 @@ public class Facility implements Serializable{
 		this.id = id;
 	}
 	
-	public void setInterval(int interval) {
+	public void setInterval(String interval) {
 		this.interval = interval;
 	}
 	
-	public int getInterval() {
+	public String getInterval() {
 		return interval;
 	}
 	
-	public void setDuration(int duration) {
+	public void setDuration(String duration) {
 		this.duration = duration;
 	}
 	
-	public int getDuration() {
+	public String getDuration() {
 		return duration;
 	}
 	
