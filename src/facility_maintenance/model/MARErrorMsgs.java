@@ -2,23 +2,39 @@ package facility_maintenance.model;
 
 public class MARErrorMsgs {
 	private String errorMsg;
+	private String nameError;
 	private String descriptionError;
 	private String urgencyError;
 	private String repairerError;
 	private String estimateError;
+	private String datetimeError;
 	
 	public MARErrorMsgs() {
 		this.errorMsg = "";
+		this.nameError = "";
 		this.descriptionError = "";
+		this.urgencyError = "";
+		this.repairerError = "";
+		this.estimateError = "";
+		this.datetimeError = "";
 	}
 	
 	public void setErrorMsg() {
-		if (!descriptionError.equals("") || !urgencyError.equals("") || !repairerError.equals("") || !estimateError.equals(""))
+		if (!nameError.equals("") || !descriptionError.equals("") || !urgencyError.equals("") || 
+			!repairerError.equals("") || !estimateError.equals("") || !datetimeError.equals(""))
 			this.errorMsg = "Please correct the following errors";
 	}
 	
 	public String getErrorMsg() {
 		return errorMsg;
+	}
+	
+	public void setNameError(String nameError) {
+		this.nameError = nameError;
+	}
+	
+	public String getNameError() {
+		return nameError;
 	}
 	
 	public void setDescriptionError(String descriptionError) {
@@ -51,5 +67,13 @@ public class MARErrorMsgs {
 	
 	public String getEstimateError() {
 		return estimateError;
+	}
+	
+	public void setDateTimeError(String datetimeError) {
+		this.datetimeError = datetimeError;
+	}
+	
+	public String getDatetimeError() {
+		return datetimeError;
 	}
 }

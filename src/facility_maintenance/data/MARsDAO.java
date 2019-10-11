@@ -39,7 +39,9 @@ public class MARsDAO {
 						mars.getString("assigndate"),
 						mars.getString("assigntime"),
 						mars.getString("estimate"),
-						mars.getString("repairdate"));
+						mars.getString("repairdate"),
+						mars.getString("starttime"),
+						mars.getString("endtime"));
 			} 
 		}
 		catch (SQLException e) {
@@ -74,7 +76,9 @@ public class MARsDAO {
 						mars.getString("assigndate"),
 						mars.getString("assigntime"),
 						mars.getString("estimate"),
-						mars.getString("repairdate"));
+						mars.getString("repairdate"),
+						mars.getString("starttime"),
+						mars.getString("endtime"));
 
 				result.add(_mar);	
 			}
@@ -127,7 +131,9 @@ public class MARsDAO {
 						mars.getString("assigndate"),
 						mars.getString("assigntime"),
 						mars.getString("estimate"),
-						mars.getString("repairdate"));
+						mars.getString("repairdate"),
+						mars.getString("starttime"),
+						mars.getString("endtime"));
 				
 				result.add(_mar);
 			}

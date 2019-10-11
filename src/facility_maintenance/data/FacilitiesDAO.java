@@ -8,11 +8,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import facility_maintenance.model.Facility;
+import facility_maintenance.model.MAR;
 import facility_maintenance.util.SQLConnection;
 
 public class FacilitiesDAO {
 	static SQLConnection DBMgr = SQLConnection.getInstance();
-
+	
 	public static HashMap<String, String> getTypes() {
 		HashMap<String, String> result = new HashMap<String, String>();
 		Connection conn = SQLConnection.getDBConnection();
@@ -33,8 +34,8 @@ public class FacilitiesDAO {
 		return result;
 	}
 	
-	public static ArrayList<String> getNames() {
-		ArrayList<String> result = new ArrayList<String>();
+	public static HashMap<String, String> getNames(String name) {
+		HashMap<String, String> result = new HashMap<String, String>();
 		Connection conn = SQLConnection.getDBConnection();
 		Statement stmt = null;
 		
@@ -43,7 +44,8 @@ public class FacilitiesDAO {
 			ResultSet details = stmt.executeQuery("SELECT * from `facilitydetail`;");
 			
 			while (details.next()) {
-				result.add(details.getString("master") + details.getString("id"));	
+				String n = details.getString("master") + details.getString("id");
+				result.put(n, (name.equals(n)) ? "selected" : "");
 			}
 		}
 		catch (SQLException e) {
@@ -51,6 +53,32 @@ public class FacilitiesDAO {
 		}
 		
 		return result;
+	}
+	
+	public static Facility getDetail (String id)  {
+		String queryString = "SELECT * FROM facilitydetail WHERE CONCAT(`master`, `id`) = '" + id + "';";
+		Connection conn = SQLConnection.getDBConnection();
+		Facility facility = new Facility(); 
+		Statement stmt = null;
+		
+		try {
+			stmt = conn.createStatement();
+			ResultSet mars = stmt.executeQuery(queryString);
+			
+			while (mars.next()) {				
+				facility.setFacility(
+						mars.getString("master"),
+						mars.getInt("id"),
+						mars.getInt("interval"),
+						mars.getInt("duration"),
+						mars.getString("venue"), "");
+			} 
+		}
+		catch (SQLException e) {
+			
+		}
+		
+		return facility;
 	}
 	
 	public static void insert(Facility facility) {

@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
 import facility_maintenance.data.UsersDAO;
+import facility_maintenance.data.FacilitiesDAO;
 import facility_maintenance.data.MARsDAO;
 
 public class MAR implements Serializable{
@@ -25,11 +27,13 @@ public class MAR implements Serializable{
 	private String assigntime;
 	private String estimate;
 	private String repairdate;
+	private String starttime;
+	private String endtime;
 
 	public void setMAR (String idx, String facilitytype, String facilityname, String description, String urgency, 
 			String reporter, String reportdate, String reporttime,
 			String repairer, String assigndate, String assigntime, String estimate,
-			String repairdate) {
+			String repairdate, String starttime, String endtime) {
 		setIdx(idx);
 		setFacilitytype(facilitytype);
 		setFacilityname(facilityname);
@@ -43,6 +47,8 @@ public class MAR implements Serializable{
 		setAssigntime(assigntime);
 		setEstimate(estimate);
 		setRepairdate(repairdate);
+		setStarttime(starttime);
+		setEndtime(endtime);
 	}
 	
 	public void setIdx(String idx) {
@@ -149,6 +155,18 @@ public class MAR implements Serializable{
 		return repairdate;
 	}
 	
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+	
+	public String getStarttime() {
+		return starttime;
+	}
+	
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
+	
 	public void validate (String action, MAR mar, MARErrorMsgs errorMsgs) {
 		if (action.equalsIgnoreCase("report")) {
 			errorMsgs.setDescriptionError(validateDescription(mar.getDescription()));
@@ -158,8 +176,23 @@ public class MAR implements Serializable{
 			errorMsgs.setRepairerError(validateRepairer(mar.getRepairer()));
 			errorMsgs.setEstimateError(validateEstimate(mar.getEstimate()));
 		}
+		else if (action.equalsIgnoreCase("request")) {
+			errorMsgs.setNameError(validateFacilityName(mar));
+			errorMsgs.setDateTimeError(validateDateTime(mar.getFacilityname(), mar.getRepairdate(), mar.getStarttime()));
+		}
 
 		errorMsgs.setErrorMsg();
+	}
+	
+	private String validateFacilityName(MAR mar) {
+		String result="";
+		
+		ArrayList<MAR> mars = MARsDAO.getAssigned(mar);
+		
+		if(mars.size()==0)
+			result="No assigned MAR found";
+		
+		return result;
 	}
 	
 	private String validateDescription(String description) {
@@ -194,6 +227,28 @@ public class MAR implements Serializable{
 		
 		if(estimate.equals(""))
 			result="'Estimate of repair' is required";
+		
+		return result;
+	}
+	
+	private String validateDateTime(String facilityname, String repairdate, String starttime) {
+		String result="";
+		
+		Facility facility = FacilitiesDAO.getDetail(facilityname);
+		Date expire = new Date();
+
+		Calendar c = Calendar.getInstance(); 
+		
+		c.setTime(expire); 
+		c.add(Calendar.DATE, facility.getDuration());
+		
+		expire = c.getTime();
+		
+		String expiretime = new SimpleDateFormat("yyyy-MM-dd").format(expire) +
+							new SimpleDateFormat(" HH:mm").format(Calendar.getInstance().getTime());
+
+		if((repairdate + " " + starttime).compareTo(expiretime) > 0)
+			result="Latest time: " + expiretime;
 		
 		return result;
 	}
@@ -236,8 +291,7 @@ public class MAR implements Serializable{
 		return new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
 	}
 	
-	public HashMap<String, String> getTime() {
-		String time = new SimpleDateFormat("HH:00").format(Calendar.getInstance().getTime());
+	public HashMap<String, String> getTime(String time) {
 		HashMap<String, String> result = new HashMap<String, String>();
 		String[] times = {
 				"00:00",
@@ -264,6 +318,9 @@ public class MAR implements Serializable{
 				"21:00",
 				"22:00",
 				"23:00"};
+
+		if(time.equals(""))
+			time = new SimpleDateFormat("HH:00").format(Calendar.getInstance().getTime());
 
 		for (String t : times) {
 			result.put(t, (t.equals(time)) ? "selected" : "");

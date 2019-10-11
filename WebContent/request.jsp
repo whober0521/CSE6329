@@ -4,44 +4,27 @@
 
 <!DOCTYPE html>
 <body>
-	<form action="/action_page.php">
+	<form action="MARController?action=request" method="post">
+		<input name="errMsg"  value="<c:out value='${errorMsgs.errorMsg}'/>" type="text"  style ="background-color: white; color: red; border: none; width:800px" disabled="disabled"><br>
+		<input type="hidden" name="repairer" value="<c:out value='${username}'/>"/>
+		
 		Search here:<br>
 		<select name="facilityname">
 			<c:forEach items="${names}" var="item" varStatus="status">
-				<option><c:out value='${item}'/></option>
+				<option <c:out value='${item.value}'/>><c:out value='${item.key}'/></option>
 			</c:forEach>
 		</select><br>
+		<input name="nameError"  value="<c:out value='${errorMsgs.nameError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br>
 		
 		Date:<br>
-		<input type="date" name="availabledate" value="<c:out value='${MAR.assigndate}'/>"><br><br>
-		
+		<input type="date" name="repairdate" value="<c:out value='${today}'/>"><br>
 		Time:<br>
-		<select name="availabletime">
-			<option>00:00</option>
-			<option>01:00</option>
-			<option>02:00</option>
-			<option>03:00</option>
-			<option>04:00</option>
-			<option>05:00</option>
-			<option>06:00</option>
-			<option>07:00</option>
-			<option>08:00</option>
-			<option>09:00</option>
-			<option>10:00</option>
-			<option>11:00</option>
-			<option>12:00</option>
-			<option>13:00</option>
-			<option>14:00</option>
-			<option>15:00</option>
-			<option>16:00</option>
-			<option>17:00</option>
-			<option>18:00</option>
-			<option>19:00</option>
-			<option>20:00</option>
-			<option>21:00</option>
-			<option>22:00</option>
-			<option>23:00</option>
+		<select name="starttime">
+			<c:forEach items="${now}" var="item" varStatus="status">
+				<option <c:out value='${item.value}'/>><c:out value='${item.key}'/></option>
+			</c:forEach>	
 		</select><br>
+		<input name="datetimeError"  value="<c:out value='${errorMsgs.datetimeError}'/>" type="text"  style ="background-color: white; color: red; border: none; width: 800px"  disabled="disabled" maxlength="60"><br><br>
 		
 		<input type="submit" value="Search">
 	</form>
