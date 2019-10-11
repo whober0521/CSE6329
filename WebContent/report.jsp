@@ -19,7 +19,7 @@
 				<label for="name" placeholder = "Name">Name of the facility:</label>
 				<select name="facility">
 					<c:forEach items="${facilities}" var="item" varStatus="status">
-						<option><c:out value='${item}'/></option>
+						<option <c:out value='${item.value}'/>><c:out value='${item.key}'/></option>
 					</c:forEach>
 				</select>
 			</div>

@@ -3,6 +3,7 @@ package facility_maintenance.model;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -165,6 +166,10 @@ public class MAR implements Serializable{
 	
 	public void setEndtime(String endtime) {
 		this.endtime = endtime;
+	}
+	
+	public String getEndtime() {
+		return endtime;
 	}
 	
 	public void validate (String action, MAR mar, MARErrorMsgs errorMsgs) {

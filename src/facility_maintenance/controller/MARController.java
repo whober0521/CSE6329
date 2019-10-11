@@ -78,6 +78,15 @@ public class MARController extends HttpServlet {
 			
 			url="/request.jsp";
 		}
+		else if (action.equalsIgnoreCase("reserve") ) {
+			MARsDAO.reserve(
+					request.getParameter("idx"),
+					request.getParameter("repairdate"),
+					request.getParameter("starttime"),
+					request.getParameter("endtime"));
+			
+			url="/repairer.jsp";
+		}
 		else if (action.equalsIgnoreCase("cancel") ) {
 			MARsDAO.delete(request.getParameter("idx"));
 			url="/reserved.jsp";
@@ -216,13 +225,13 @@ public class MARController extends HttpServlet {
 					request.getParameter("starttime"), "");
 			
 			mar.validate(action, mar, errorMsgs);
-			
-			session.setAttribute("MAR", mar);
+
 			session.setAttribute("username", mar.getRepairer());
 
 			if (!errorMsgs.getErrorMsg().equals("")) {
 				// if error messages
 				session.setAttribute("errorMsgs", errorMsgs);
+				session.setAttribute("MAR", mar);
 				session.setAttribute("names", FacilitiesDAO.getNames(mar.getFacilityname()));
 				session.setAttribute("today", date);
 				session.setAttribute("now", mar.getTime(mar.getStarttime()));
@@ -231,9 +240,10 @@ public class MARController extends HttpServlet {
 			}
 			else {
 				// if no error messages
-				MARsDAO.assign(mar);
-
-				url="/manager.jsp";	  
+				session.setAttribute("facility", mar.getFacilityname());
+				session.setAttribute("MARs", MARsDAO.getDateTime(mar.getFacilityname(), mar.getRepairdate(), mar.getStarttime()));
+	
+				url="/reserve.jsp";	  
 			}
 		}
 		

@@ -39,8 +39,8 @@ CREATE TABLE `facility_maintenance`.`facilitymaster` (
 CREATE TABLE `facility_maintenance`.`facilitydetail` (
   `master` VARCHAR(4) NOT NULL,
   `id` INT NOT NULL,
-  `interval` INT NOT NULL,
-  `duration` INT NOT NULL,
+  `interval` VARCHAR(10) NOT NULL,
+  `duration` VARCHAR(6) NOT NULL,
   `venue` VARCHAR(8) NOT NULL,
   PRIMARY KEY (`master`, `id`));
 
@@ -55,57 +55,48 @@ INSERT INTO `facility_maintenance`.`facilitymaster` (`id`, `name`) VALUES ('CR',
 INSERT INTO `facility_maintenance`.`facilitymaster` (`id`, `name`) VALUES ('OVBC', 'Outdoor Volleyball Courts');
 INSERT INTO `facility_maintenance`.`facilitymaster` (`id`, `name`) VALUES ('OBBC', 'Outdoor Basketball Courts');
 
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('MR', 1, 60, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('MR', 2, 60, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('MR', 3, 60, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('MR', 4, 60, 1, 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('MR', 1, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('MR', 2, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('MR', 3, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('MR', 4, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IBBC', 1, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IBBC', 2, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IBBC', 3, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IBBC', 4, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IBBC', 5, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IVBC', 1, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IVBC', 2, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IVBC', 3, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IVBC', 4, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IVBC', 5, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IVBC', 6, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IVBC', 7, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IVBC', 8, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IVBC', 9, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('SCG', 1, '2 hours', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('RBC', 1, '30 minutes', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('RBC', 2, '30 minutes', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('RBC', 3, '30 minutes', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('RBC', 4, '30 minutes', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('RBC', 5, '30 minutes', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('BMC', 1, '30 minutes', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('BMC', 2, '30 minutes', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('BMC', 3, '30 minutes', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('BMC', 4, '30 minutes', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('BMC', 5, '30 minutes', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('BMC', 6, '30 minutes', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('BMC', 7, '30 minutes', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('BMC', 8, '30 minutes', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('BMC', 9, '30 minutes', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('BMC', 10, '30 minutes', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('TT', 1, '30 minutes', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('CR', 1, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('CR', 2, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('CR', 3, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('CR', 4, '1 hour', '1 day', 'Indoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('CR', 5, '1 hour', '1 day', 'Indoor');
 
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IBBC', 1, 60, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IBBC', 2, 60, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IBBC', 3, 60, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IBBC', 4, 60, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IBBC', 5, 60, 1, 'Indoor');
-
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IVBC', 1, 60, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IVBC', 2, 60, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IVBC', 3, 60, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IVBC', 4, 60, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IVBC', 5, 60, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IVBC', 6, 60, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IVBC', 7, 60, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IVBC', 8, 60, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('IVBC', 9, 60, 1, 'Indoor');
-
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('SCG', 1, 120, 1, 'Indoor');
-
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('RBC', 1, 30, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('RBC', 2, 30, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('RBC', 3, 30, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('RBC', 4, 30, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('RBC', 5, 30, 1, 'Indoor');
-
-
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('BMC', 1, 30, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('BMC', 2, 30, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('BMC', 3, 30, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('BMC', 4, 30, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('BMC', 5, 30, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('BMC', 6, 30, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('BMC', 7, 30, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('BMC', 8, 30, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('BMC', 9, 30, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('BMC', 10, 30, 1, 'Indoor');
-
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('TT', 1, 30, 1, 'Indoor');
-
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('CR', 1, 60, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('CR', 2, 60, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('CR', 3, 60, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('CR', 4, 60, 1, 'Indoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('CR', 5, 60, 1, 'Indoor');
-
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('OVBC', 1, 120, 7, 'Outdoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('OVBC', 2, 120, 7, 'Outdoor');
-
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('OBBC', 1, 120, 7, 'Outdoor');
-INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('OBBC', 2, 120, 7, 'Outdoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('OVBC', 1, '2 hours', '7 days', 'Outdoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('OVBC', 2, '2 hours', '7 days', 'Outdoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('OBBC', 1, '2 hours', '7 days', 'Outdoor');
+INSERT INTO `facility_maintenance`.`facilitydetail` (`master`, `id`, `interval`, `duration`, `venue`) VALUES ('OBBC', 2, '2 hours', '7 days', 'Outdoor');

@@ -4,8 +4,13 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
+import facility_maintenance.model.Facility;
 import facility_maintenance.model.MAR;
 import facility_maintenance.util.SQLConnection;
 
@@ -145,6 +150,109 @@ public class MARsDAO {
 		return result;
 	}
 	
+	public static ArrayList<MAR> getDateTime(String facilityname, String startdate, String starttime){
+		Facility facility = FacilitiesDAO.getDetail(facilityname);
+		ArrayList<MAR> result = new ArrayList<MAR>();
+		
+		Date end = new Date();
+
+		Calendar c = Calendar.getInstance(); 
+		
+		c.setTime(end); 
+		c.add(Calendar.DATE, facility.getDuration());
+		
+		end = c.getTime();
+
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Date start = new Date();
+		
+		try {
+			start = sdf.parse(startdate + " " + starttime);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String idx = MARsDAO.getIdx(facilityname);
+		
+		while(start.before(end)) {
+			MAR _mar = new MAR();
+			
+			String d = new SimpleDateFormat("yyyy-MM-dd").format(start);
+			String s = new SimpleDateFormat("HH:mm").format(start);
+			
+			c.setTime(start); 
+			c.add(Calendar.MINUTE, facility.getInterval());
+			start = c.getTime();
+			
+			_mar.setMAR(idx, "", "", "", "", "", "", "", "", "", "", "",
+						d, s, new SimpleDateFormat("HH:mm").format(start));
+			
+			result.add(_mar);
+		}
+		
+		String queryString = "SELECT * FROM mars WHERE `facility` = '" + facilityname + "' ORDER BY `repairdate`, `starttime`;";
+		Connection conn = SQLConnection.getDBConnection();
+		Statement stmt = null;
+		int i = 0;
+		
+		try {
+			stmt = conn.createStatement();
+			ResultSet mars = stmt.executeQuery(queryString);
+			
+			while (mars.next()) {
+				if(i>=result.size()) break;
+				
+				if(mars.getString("repairdate").compareTo(result.get(i).getRepairdate()) < 0)
+					continue;
+				
+				while(mars.getString("repairdate").compareTo(result.get(i).getRepairdate()) > 0 && i<result.size()) {
+					i += 1;
+				}
+				
+				if(i>=result.size()) break;
+				
+				if(mars.getString("endtime").compareTo(result.get(i).getStarttime()) < 0)
+					break;
+				
+				while(mars.getString("starttime").compareTo(result.get(i).getEndtime()) >= 0 && i<result.size()) {
+					i += 1;
+				}
+				
+				if(i>=result.size()) break;
+				
+				if(mars.getString("starttime").compareTo(result.get(i).getStarttime()) >= 0 && 
+				   mars.getString("endtime").compareTo(result.get(i).getEndtime()) <= 0)
+					result.remove(i);		
+			} 
+		}
+		catch (SQLException e) {
+			
+		}
+
+		return result;
+	}
+	
+	private static String getIdx (String facility)  {
+		String queryString = "SELECT * FROM mars WHERE `facility` = '" + facility + "';";
+		Connection conn = SQLConnection.getDBConnection();
+		Statement stmt = null;
+		
+		try {
+			stmt = conn.createStatement();
+			ResultSet mars = stmt.executeQuery(queryString);
+			
+			while (mars.next()) {
+				return mars.getString("idx");
+			} 
+		}
+		catch (SQLException e) {
+			
+		}
+		
+		return "";
+	}
+	
 	public static void insert(MAR mar) {
 		String queryString = "INSERT INTO `mars` (`facility`, `description`, `reporter`, `reportdate`, `reporttime`) ";
 		Connection conn = SQLConnection.getDBConnection();
@@ -189,6 +297,25 @@ public class MARsDAO {
 	public static void estimate(MAR mar) {
 		String queryString = "UPDATE `mars` SET `estimate` = '" + mar.getEstimate() + 
 							"'  WHERE `idx` = '" + mar.getIdx() + "';";
+
+		Connection conn = SQLConnection.getDBConnection();
+		Statement stmt = null;
+		
+		try {
+			stmt = conn.createStatement();
+			stmt.executeUpdate(queryString);
+			conn.commit();
+		}
+		catch (SQLException e) {
+			
+		}
+	}
+	
+	public static void reserve(String idx, String repairdate, String starttime, String endtime) {
+		String queryString = "UPDATE `mars` SET " +
+								"`repairdate` = '" + repairdate +
+								"', `starttime` = '" +starttime +
+								"', `endtime` = '" + endtime + "' WHERE `idx` = '" + idx + "';";
 
 		Connection conn = SQLConnection.getDBConnection();
 		Statement stmt = null;

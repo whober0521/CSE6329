@@ -65,7 +65,10 @@
 							</c:forEach>
 						</select>
 					</td>
-					<td><c:out value='${MAR.repairdate}'/></td>
+					<td>
+						<c:out value='${MAR.repairdate}'/><br>
+						<c:out value='${MAR.starttime}'/> - <c:out value='${MAR.endtime}'/>
+					</td>
 					<td>
 						<button type="submit" style="padding-right: 50px; padding-left: 50px; padding-top: 15px; padding-bottom: 15px; border-radius:200px;">
 							<b>Update</b>
