@@ -235,7 +235,8 @@ public class MAR implements Serializable{
 		return result;
 	}
 	
-	private String validateEstimate(String estimate) {
+	//private String validateEstimate(String estimate) {
+	public String validateEstimate(String estimate) {
 		String result="";
 		
 		if(estimate.equals(""))
@@ -244,7 +245,8 @@ public class MAR implements Serializable{
 		return result;
 	}
 	
-	private String validateDateTime(String facilityname, String repairdate, String starttime) {
+	//private String validateDateTime(String facilityname, String repairdate, String starttime) {
+	public String validateDateTime(String facilityname, String repairdate, String starttime) {
 		String result="";
 		
 		Facility facility = FacilitiesDAO.getDetail(facilityname);
@@ -264,12 +266,13 @@ public class MAR implements Serializable{
 
 		if((repairdate + " " + starttime).compareTo(expiretime) > 0)
 			result="Latest time: " + expiretime;
-		
+
 		return result;
 	}
 	
 	public HashMap<String, String> getUrgencies(String urgency) {
 		HashMap<String, String> result = new HashMap<String, String>();
+		// TODO: move this to an getUrgencyArray
 		String[] urgencies = {
 				"Unusable", 
 				"Major", 
@@ -285,6 +288,7 @@ public class MAR implements Serializable{
 	
 	public HashMap<String, String> getEstimates(String estimate) {
 		HashMap<String, String> result = new HashMap<String, String>();
+		// TODO: like the getUrgencies
 		String[] estimates = {
 				"30 mins", 
 				"1 hour", 
@@ -308,6 +312,7 @@ public class MAR implements Serializable{
 	
 	public HashMap<String, String> getTime(String time) {
 		HashMap<String, String> result = new HashMap<String, String>();
+		// TODO: like the getUrgencies
 		String[] times = {
 				"00:00",
 				"01:00",

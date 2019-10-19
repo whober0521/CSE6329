@@ -1,6 +1,11 @@
 package test;
 
 import static org.junit.Assert.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+
 import facility_maintenance.model.MAR;
 import facility_maintenance.model.Facility;
 import facility_maintenance.model.MARErrorMsgs;
@@ -26,6 +31,7 @@ import java.util.ArrayList;
 @PowerMockRunnerDelegate(JUnitParamsRunner.class)
 public class MARTest {
 	private MAR mar;
+	private static final int defaultDuration = 1;
 
 	@Before
 	public void setUp() throws Exception {
@@ -105,5 +111,86 @@ public class MARTest {
 		EasyMock.expect(MARsDAO.getAssignedNumber(repairerName)).andReturn(numWeekAssignedMAR);
 		replayAll();
 		assertEquals(expectMsg, mar.validateRepairer(repairerName));
+	}
+
+	@Test
+	@FileParameters("TestCaseTable_CSV/MAR_validateEstimate.csv")
+	public void testValidateEstimate(int testcaseNum, String estimateStr, String expectMsg) {
+		expectMsg = expectMsg.replace("\"", "");
+		estimateStr = estimateStr.replace("\"", "");
+		assertEquals(expectMsg, mar.validateEstimate(estimateStr));
+	}
+
+	@Test
+	@PrepareForTest(FacilitiesDAO.class)
+	@FileParameters("TestCaseTable_CSV/MAR_validateDateTime.csv")
+	public void testValidateDateTime(int testcaseNum, int duration, int lenOfMsg) {
+		mockStatic(FacilitiesDAO.class);
+		Facility f = new Facility();
+		f.setDuration(Integer.toString(defaultDuration) + " 0");
+		EasyMock.expect(FacilitiesDAO.getDetail("")).andReturn(f);
+		replayAll();
+
+		Date expire = new Date();
+		Calendar c = Calendar.getInstance(); 
+		c.setTime(expire); 
+		c.add(Calendar.DATE, defaultDuration + duration);
+		expire = c.getTime();
+
+		String repairdate = new SimpleDateFormat("yyyy-MM-dd").format(expire);
+		String starttime = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
+		assertEquals(lenOfMsg, mar.validateDateTime("", repairdate, starttime).length());
+	}
+
+	@Test
+	@FileParameters("TestCaseTable_CSV/MAR_getUrgencies.csv")
+	public void testGetUrgencies(int testcaseNum, String urgency) {
+		urgency = urgency.replace("\"", "");
+		assertEquals("selected", mar.getUrgencies(urgency).get(urgency));
+	}
+
+	@Test
+	public void testGetEmptyUrgency() {
+		HashMap<String, String> expect = new HashMap<String, String>();
+		expect.put("Unusable", "");
+		expect.put("Major", "");
+		expect.put("Medium", "");
+		expect.put("Minor", "");
+		assertEquals(expect, mar.getUrgencies(""));
+	}
+
+	@Test
+	@FileParameters("TestCaseTable_CSV/MAR_getEstimates.csv")
+	public void testGetEstimates(int testcaseNum, String estimate) {
+		estimate = estimate.replace("\"", "");
+		assertEquals("selected", mar.getEstimates(estimate).get(estimate));
+	}
+
+	@Test
+	public void testGetEstimatesEmpty() {
+		HashMap<String, String> expect = new HashMap<String, String>();
+		expect.put("30 mins", "");
+		expect.put("1 hour", "");
+		expect.put("2 hours", "");
+		expect.put("4 hours", "");
+		expect.put("1 day", "");
+		expect.put("2 days", "");
+		expect.put("4 days", "");
+		expect.put("7 days", "");
+		assertEquals(expect, mar.getEstimates(""));
+	}
+
+	@Test
+	@FileParameters("TestCaseTable_CSV/MAR_getTime.csv")
+	public void testGetTime(int testcaseNum, String time) {
+		time = time.replace("\"", "");
+		assertEquals("selected", mar.getTime(time).get(time));
+	}
+
+	@Test
+	public void testGetTimeEmpty() {
+		String expect = new SimpleDateFormat("HH:00").format(Calendar.getInstance().getTime());
+
+		assertEquals("selected", mar.getTime("").get(expect));
 	}
 }
