@@ -193,4 +193,39 @@ public class MARTest {
 
 		assertEquals("selected", mar.getTime("").get(expect));
 	}
+
+	@Test
+	public void testCreateMAR() {
+		mar.setMAR(
+				"idx",
+				"ft",
+				"fn",
+				"desc",
+				"urgy",
+				"reporter",
+				"rd",
+				"rt",
+				"repairer",
+				"ad",
+				"at",
+				"estimate",
+				"rrd",
+				"st",
+				"et");
+		assertEquals("idx", mar.getIdx());
+		assertEquals("ft", mar.getFacilitytype());
+		assertEquals("fn", mar.getFacilityname());
+		assertEquals("desc", mar.getDescription());
+		assertEquals("urgy", mar.getUrgency());
+		assertEquals("reporter", mar.getReporter());
+		assertEquals("rd", mar.getReportdate());
+		assertEquals("rt", mar.getReporttime());
+		assertEquals("repairer", mar.getRepairer());
+		assertEquals("ad", mar.getAssigndate());
+		assertEquals("at", mar.getAssigntime());
+		assertEquals("estimate", mar.getEstimate());
+		assertEquals("rrd", mar.getRepairdate());
+		assertEquals("st", mar.getStarttime());
+		assertEquals("et", mar.getEndtime());
+	}
 }
