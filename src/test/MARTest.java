@@ -24,7 +24,6 @@ import java.util.ArrayList;
 
 @RunWith(PowerMockRunner.class)
 @PowerMockRunnerDelegate(JUnitParamsRunner.class)
-//@RunWith(JUnitParamsRunner.class)
 public class MARTest {
 	private MAR mar;
 
@@ -35,7 +34,7 @@ public class MARTest {
 
 	@Test
 	@PrepareForTest({MARsDAO.class, FacilitiesDAO.class})
-	@FileParameters("TestCaseTable_CSV/MAR.csv")
+	@FileParameters("TestCaseTable_CSV/MAR_validate.csv")
 	public void testValidate(int testcaseNum, String action, String expectMsg) {
 		action = action.replace("\"", "");
 		expectMsg = expectMsg.replace("\"", "");
@@ -57,7 +56,54 @@ public class MARTest {
 		MARErrorMsgs marErrMsg = new MARErrorMsgs();
 		mar.validate(action, mar, marErrMsg);
 		assertEquals(expectMsg, marErrMsg.getErrorMsg());
-		//assertEquals(1, 1);
 	}
 
+	@Test
+	@PrepareForTest(MARsDAO.class)
+	@FileParameters("TestCaseTable_CSV/MAR_validateFacilityName.csv")
+	public void testValidateFacilityName(int testcaseNum, int numMar, String expectMsg) {
+		expectMsg = expectMsg.replace("\"", "");
+		mockStatic(MARsDAO.class);
+		ArrayList<MAR> mars = new ArrayList<MAR>();
+		for (int i  = 0; i < numMar; i++) {
+			mars.add(mar);
+		}
+		EasyMock.expect(MARsDAO.getAssigned(mar)).andReturn(mars);
+		replayAll();
+		assertEquals(expectMsg, mar.validateFacilityName(mar));
+	}
+	
+	@Test
+	@FileParameters("TestCaseTable_CSV/MAR_validateDescription.csv")
+	public void testValidateDescription(int testcaseNum, String desc, String expectMsg) {
+		expectMsg = expectMsg.replace("\"", "");
+		desc = desc.replace("\"", "");
+		assertEquals(expectMsg, mar.validateDescription(desc));
+	}
+
+	@Test
+	@FileParameters("TestCaseTable_CSV/MAR_validateUrgency.csv")
+	public void testValidateUrgency(int testcaseNum, String urgency, String expectMsg) {
+		expectMsg = expectMsg.replace("\"", "");
+		urgency = urgency.replace("\"", "");
+		assertEquals(expectMsg, mar.validateUrgency(urgency));
+	}
+
+	@Test
+	@PrepareForTest(MARsDAO.class)
+	@FileParameters("TestCaseTable_CSV/MAR_validateRepairerAssignedMAR.csv")
+	public void testValidateRepairerAssignedMAR(
+			int testcaseNum,
+			String repairerName,
+			int numDayAssignedMAR,
+			int numWeekAssignedMAR,
+			String expectMsg) {
+		expectMsg = expectMsg.replace("\"", "");
+		repairerName = repairerName.replace("\"", "");
+		mockStatic(MARsDAO.class);
+		EasyMock.expect(MARsDAO.getAssignedNumber(repairerName,mar.getDate())).andReturn(numDayAssignedMAR);
+		EasyMock.expect(MARsDAO.getAssignedNumber(repairerName)).andReturn(numWeekAssignedMAR);
+		replayAll();
+		assertEquals(expectMsg, mar.validateRepairer(repairerName));
+	}
 }
