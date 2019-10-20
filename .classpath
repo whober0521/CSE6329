@@ -9,10 +9,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="/Users/xaiser/Documents/Eclipse_4_9/workspace/UTA Mac Facility Maintenance System/Lib/easymock-3.4.jar"/>
-	<classpathentry kind="lib" path="/Users/xaiser/Documents/Eclipse_4_9/workspace/UTA Mac Facility Maintenance System/Lib/powermock-easymock-2.0.2-full.jar"/>
-	<classpathentry kind="lib" path="/Users/xaiser/Documents/Eclipse_4_9/workspace/UTA Mac Facility Maintenance System/Lib/javassist-3.24.0-GA.jar"/>
-	<classpathentry kind="lib" path="/Users/xaiser/Documents/Eclipse_4_9/workspace/UTA Mac Facility Maintenance System/Lib/objenesis-3.0.1.jar"/>
-	<classpathentry kind="lib" path="/Users/xaiser/Documents/Eclipse_4_9/workspace/UTA Mac Facility Maintenance System/Lib/JUnitParams-1.1.0.jar"/>
+	<classpathentry kind="lib" path="/media/utase2/SE/Eclipse_Lib/JUnitParams-1.0.4.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
