@@ -12,7 +12,7 @@ import facility_maintenance.model.MARErrorMsgs;
 import facility_maintenance.data.MARsDAO;
 import facility_maintenance.data.FacilitiesDAO;
 
-//import org.easymock.EasyMock;
+import org.easymock.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,6 +38,13 @@ public class MARTest {
 	@Before
 	public void setUp() throws Exception {
 		mar = new MAR();
+		mar.setIdx("");
+		mar.setFacilitytype("");
+		mar.setFacilityname("");
+		mar.setAssigndate("");
+		mar.setAssigntime("");
+		mar.setEstimate("");
+		mar.setUrgency("");
 	}
 
 	@Test
@@ -59,19 +66,12 @@ public class MARTest {
 		assertEquals(expectMsg, marErrMsg.getErrorMsg());
 	}
 
-	/*
 	@Test
-	@PrepareForTest(MARsDAO.class)
 	@FileParameters("TestCaseTable_CSV/MAR_validateFacilityName.csv")
-	public void testValidateFacilityName(int testcaseNum, int numMar, String expectMsg) {
+	public void testValidateFacilityName(int testcaseNum, String repairer, String expectMsg) {
 		expectMsg = expectMsg.replace("\"", "");
-		mockStatic(MARsDAO.class);
-		ArrayList<MAR> mars = new ArrayList<MAR>();
-		for (int i  = 0; i < numMar; i++) {
-			mars.add(mar);
-		}
-		EasyMock.expect(MARsDAO.getAssigned(mar)).andReturn(mars);
-		replayAll();
+		repairer = repairer.replace("\"", "");
+		mar.setRepairer(repairer);
 		assertEquals(expectMsg, mar.validateFacilityName(mar));
 	}
 	
@@ -91,23 +91,23 @@ public class MARTest {
 		assertEquals(expectMsg, mar.validateUrgency(urgency));
 	}
 
+	/*
 	@Test
-	@PrepareForTest(MARsDAO.class)
 	@FileParameters("TestCaseTable_CSV/MAR_validateRepairerAssignedMAR.csv")
 	public void testValidateRepairerAssignedMAR(
 			int testcaseNum,
 			String repairerName,
-			int numDayAssignedMAR,
-			int numWeekAssignedMAR,
+			String date,
 			String expectMsg) {
+		//TODO: I need to specify date in getAssignedNumber(repairer)
 		expectMsg = expectMsg.replace("\"", "");
 		repairerName = repairerName.replace("\"", "");
-		mockStatic(MARsDAO.class);
-		EasyMock.expect(MARsDAO.getAssignedNumber(repairerName,mar.getDate())).andReturn(numDayAssignedMAR);
-		EasyMock.expect(MARsDAO.getAssignedNumber(repairerName)).andReturn(numWeekAssignedMAR);
+		date = date.replace("\"", "");
+		EasyMock.expect(MAR.getDate()).andReturn(date);
 		replayAll();
 		assertEquals(expectMsg, mar.validateRepairer(repairerName));
 	}
+	*/
 
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_validateEstimate.csv")
@@ -117,10 +117,12 @@ public class MARTest {
 		assertEquals(expectMsg, mar.validateEstimate(estimateStr));
 	}
 
+	/*
 	@Test
 	@PrepareForTest(FacilitiesDAO.class)
 	@FileParameters("TestCaseTable_CSV/MAR_validateDateTime.csv")
 	public void testValidateDateTime(int testcaseNum, int duration, int lenOfMsg) {
+		//TODO: I need to specify date in validateDatTime
 		mockStatic(FacilitiesDAO.class);
 		Facility f = new Facility();
 		f.setDuration(Integer.toString(defaultDuration) + " 0");
@@ -137,6 +139,7 @@ public class MARTest {
 		String starttime = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
 		assertEquals(lenOfMsg, mar.validateDateTime("", repairdate, starttime).length());
 	}
+	*/
 
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_getUrgencies.csv")
@@ -224,5 +227,4 @@ public class MARTest {
 		assertEquals("st", mar.getStarttime());
 		assertEquals("et", mar.getEndtime());
 	}
-	*/
 }
