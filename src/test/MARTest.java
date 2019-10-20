@@ -47,6 +47,7 @@ public class MARTest {
 		mar.setUrgency("");
 	}
 
+	/*
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_validate.csv")
 	public void testValidate(int testcaseNum, String action, String expectMsg) {
@@ -64,6 +65,68 @@ public class MARTest {
 		MARErrorMsgs marErrMsg = new MARErrorMsgs();
 		mar.validate(action, mar, marErrMsg);
 		assertEquals(expectMsg, marErrMsg.getErrorMsg());
+	}
+	*/
+	@Test
+	@FileParameters("TestCaseTable_CSV/MAR_validateReportAction.csv")
+	public void testValidateReportAction(int testcaseNum, String desc, String expectMsg) 
+	{
+		desc = desc.replace("\"", "");
+		expectMsg = expectMsg.replace("\"", "");
+		mar.setDescription(desc);
+		MARErrorMsgs marErrMsg = new MARErrorMsgs();
+		mar.validate("report", mar, marErrMsg);
+		assertEquals(expectMsg, marErrMsg.getDescriptionError());
+	}
+
+	@Test
+	@FileParameters("TestCaseTable_CSV/MAR_validateAssignAction.csv")
+	public void testValidateAssignAction(
+			int testcaseNum,
+			String urgency,
+			String repairer, 
+			String estimate,
+			String uMsg,
+			String rMsg,
+			String eMsg) 
+	{
+		urgency = urgency.replace("\"", "");
+		repairer = repairer.replace("\"", "");
+		estimate = estimate.replace("\"", "");
+		uMsg = uMsg.replace("\"", "");
+		rMsg = rMsg.replace("\"", "");
+		eMsg = eMsg.replace("\"", "");
+		mar.setUrgency(urgency);
+		mar.setRepairer(repairer);
+		mar.setEstimate(estimate);
+		MARErrorMsgs marErrMsg = new MARErrorMsgs();
+		mar.validate("assign", mar, marErrMsg);
+		assertEquals(uMsg, marErrMsg.getUrgencyError());
+		assertEquals(rMsg, marErrMsg.getRepairerError());
+		assertEquals(eMsg, marErrMsg.getEstimateError());
+	}
+
+	/*
+	@Test
+	@FileParameters("TestCaseTable_CSV/MAR_validateRequestAction.csv")
+	public void testValidateRequestAction(
+			int testcaseNum,
+			String urgency,
+			String repairer, 
+			String estimate,
+			String uMsg,
+			String rMsg,
+			String eMsg) 
+	{
+		// TODO: wait for validateDateTime
+	}
+	*/
+	@Test
+	public void testValidateNoAction()
+	{
+		MARErrorMsgs marErrMsg = new MARErrorMsgs();
+		mar.validate("", mar, marErrMsg);
+		assertEquals("", marErrMsg.getErrorMsg());
 	}
 
 	@Test
@@ -226,5 +289,11 @@ public class MARTest {
 		assertEquals("rrd", mar.getRepairdate());
 		assertEquals("st", mar.getStarttime());
 		assertEquals("et", mar.getEndtime());
+	}
+
+	@Test
+	public void testGetDate() {
+		String expect = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+		assertEquals(expect, mar.getDate());
 	}
 }
