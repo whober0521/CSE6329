@@ -260,7 +260,7 @@ public class MAR implements Serializable{
 
 		if((repairdate + " " + starttime).compareTo(expiretime) > 0)
 			result="Latest time: " + expiretime;
-		
+
 		return result;
 	}
 	
