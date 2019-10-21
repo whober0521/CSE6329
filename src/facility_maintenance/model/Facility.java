@@ -76,7 +76,7 @@ public class Facility implements Serializable{
 		errorMsgs.setErrorMsg();
 	}
 	
-	private String validateNumber(String number) {
+	public String validateNumber(String number) {
 		String result="";
 		
 		if(!number.matches("\\d{1,3}"))

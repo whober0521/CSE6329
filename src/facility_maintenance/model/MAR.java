@@ -189,7 +189,7 @@ public class MAR implements Serializable{
 		errorMsgs.setErrorMsg();
 	}
 	
-	private String validateFacilityName(MAR mar) {
+	public String validateFacilityName(MAR mar) {
 		String result="";
 		
 		ArrayList<MAR> mars = MARsDAO.getAssigned(mar);
@@ -200,7 +200,7 @@ public class MAR implements Serializable{
 		return result;
 	}
 	
-	private String validateDescription(String description) {
+	public String validateDescription(String description) {
 		String result="";
 		
 		if(!description.matches("[a-z,\\.\\s]{0,500}"))
@@ -209,7 +209,7 @@ public class MAR implements Serializable{
 		return result;
 	}
 	
-	private String validateUrgency(String urgency) {
+	public String validateUrgency(String urgency) {
 		String result="";
 		
 		if(urgency.equals(""))
@@ -218,7 +218,7 @@ public class MAR implements Serializable{
 		return result;
 	}
 	
-	private String validateRepairer(String repairer) {
+	public String validateRepairer(String repairer) {
 		String result="";
 		
 		if(repairer.equals(""))
@@ -231,7 +231,7 @@ public class MAR implements Serializable{
 		return result;
 	}
 	
-	private String validateEstimate(String estimate) {
+	public String validateEstimate(String estimate) {
 		String result="";
 		
 		if(estimate.equals(""))
@@ -240,7 +240,7 @@ public class MAR implements Serializable{
 		return result;
 	}
 	
-	private String validateDateTime(String facilityname, String repairdate, String starttime) {
+	public String validateDateTime(String facilityname, String repairdate, String starttime) {
 		String result="";
 		
 		Facility facility = FacilitiesDAO.getDetail(facilityname);

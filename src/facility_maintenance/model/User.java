@@ -153,7 +153,7 @@ public class User implements Serializable{
 		errorMsgs.setErrorMsg();
 	}
 	
-	private String validateUserName(String action, String username) {
+	public String validateUserName(String action, String username) {
 		String result="";
 		
 		if(!username.matches("[a-zA-Z]{3,20}"))
@@ -174,7 +174,7 @@ public class User implements Serializable{
 		return result;
 	}
 	
-	private String validatePassWord(String password) {
+	public String validatePassWord(String password) {
 		String result="";
 		
 		if(!password.matches("[^\\d]{1}\\w{1,19}"))
@@ -183,7 +183,7 @@ public class User implements Serializable{
 		return result;
 	}
 
-	private String validateUTAid(String utaid) {
+	public String validateUTAid(String utaid) {
 		String result="";
 		
 		if(!utaid.matches("\\d{10,10}"))
@@ -192,7 +192,7 @@ public class User implements Serializable{
 		return result;
 	}
 	
-	private String validateFirstName(String fname) {
+	public String validateFirstName(String fname) {
 		String result="";
 		
 		if(!fname.matches("[a-zA-Z]{1,40}"))
@@ -201,7 +201,7 @@ public class User implements Serializable{
 		return result;
 	}
 	
-	private String validateLastName(String lname) {
+	public String validateLastName(String lname) {
 		String result="";
 		
 		if(!lname.matches("[a-zA-Z]{1,20}"))
@@ -210,7 +210,7 @@ public class User implements Serializable{
 		return result;
 	}
 	
-	private String validateEmail(String email) {
+	public String validateEmail(String email) {
 		String result="";
 		
 		if(!email.matches("[\\w\\.]+@[\\w\\.]+"))
@@ -219,7 +219,7 @@ public class User implements Serializable{
 		return result;
 	}
 	
-	private String validatePhone(String phone) {
+	public String validatePhone(String phone) {
 		String result="";
 		
 		if(!phone.matches("\\d{10,10}"))
@@ -228,7 +228,7 @@ public class User implements Serializable{
 		return result;
 	}
 	
-	private String validateAddress(String address) {
+	public String validateAddress(String address) {
 		String result="";
 		
 		if(!address.matches("[\\w\\s\\.]{1,200}"))
@@ -237,7 +237,7 @@ public class User implements Serializable{
 		return result;
 	}
 	
-	private String validateCity(String city) {
+	public String validateCity(String city) {
 		String result="";
 		
 		if(!city.matches("[\\w\\s\\.]{1,50}"))
