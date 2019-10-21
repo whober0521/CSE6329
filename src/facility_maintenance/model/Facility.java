@@ -69,7 +69,7 @@ public class Facility implements Serializable{
 	}
 	
 	public void validate (String action, Facility facility, FacilityErrorMsgs errorMsgs) {
-		if (action.equalsIgnoreCase("add")) {
+		if (action.equals("add")) {
 			errorMsgs.setNumberError(validateNumber(facility.getNumber()));
 		}
 		

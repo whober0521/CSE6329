@@ -173,15 +173,15 @@ public class MAR implements Serializable{
 	}
 	
 	public void validate (String action, MAR mar, MARErrorMsgs errorMsgs) {
-		if (action.equalsIgnoreCase("report")) {
+		if (action.equals("report")) {
 			errorMsgs.setDescriptionError(validateDescription(mar.getDescription()));
 		}
-		else if (action.equalsIgnoreCase("assign")) {
+		else if (action.equals("assign")) {
 			errorMsgs.setUrgencyError(validateUrgency(mar.getUrgency()));
 			errorMsgs.setRepairerError(validateRepairer(mar.getRepairer()));
 			errorMsgs.setEstimateError(validateEstimate(mar.getEstimate()));
 		}
-		else if (action.equalsIgnoreCase("request")) {
+		else if (action.equals("request")) {
 			errorMsgs.setNameError(validateFacilityName(mar));
 			errorMsgs.setDateTimeError(validateDateTime(mar.getFacilityname(), mar.getRepairdate(), mar.getStarttime()));
 		}

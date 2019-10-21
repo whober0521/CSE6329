@@ -129,7 +129,7 @@ public class User implements Serializable{
 	public void validate (String action, User user, UserErrorMsgs errorMsgs) {
 		errorMsgs.setUsernameError(validateUserName(action, user.getUsername()));
 		
-		if (action.equalsIgnoreCase("register") || action.equalsIgnoreCase("profile")|| action.equalsIgnoreCase("update")) {
+		if (action.equals("register") || action.equals("profile")|| action.equals("update")) {
 			errorMsgs.setPasswordError(validatePassWord(user.getPassword()));
 			errorMsgs.setUtaidError(validateUTAid(user.getUtaid()));
 			errorMsgs.setFnameError(validateFirstName(user.getFname()));
@@ -139,7 +139,7 @@ public class User implements Serializable{
 			errorMsgs.setAddressError(validateAddress(user.getAddress()));
 			errorMsgs.setCityError(validateCity(user.getCity()));
 		}
-		else if (action.equalsIgnoreCase("login")) {
+		else if (action.equals("login")) {
 			errorMsgs.setPasswordError(validatePassWord(user.getPassword()));
 			
 			if(errorMsgs.getUsernameError().equals("") && errorMsgs.getPasswordError().equals("")) {
@@ -161,10 +161,10 @@ public class User implements Serializable{
 		else {
 			User _user = UsersDAO.getUser(username);
 			
-			if (action.equalsIgnoreCase("register") && _user.getUsername()!=null) {
+			if (action.equals("register") && _user.getUsername()!=null) {
 				result="User Name already in database";
 			}
-			else if (action.equalsIgnoreCase("login") || action.equalsIgnoreCase("search")) {
+			else if (action.equals("login") || action.equals("search")) {
 				if(_user.getUsername()==null) {
 					result="User Name not in database";
 				}
