@@ -39,6 +39,7 @@ public class MARTest {
 	public void setUp() throws Exception {
 		mar = new MAR();
 		mar.setIdx("");
+		mar.setRepairer("");
 		mar.setFacilitytype("");
 		mar.setFacilityname("");
 		mar.setAssigndate("");
@@ -126,19 +127,19 @@ public class MARTest {
 			String repairer, 
 			String facilityName,
 			String repairDate,
-			String repairTime,
+			//String repairTime,
 			String nameErrMsg,
 			int lenOfDatetimeErrMsg) 
 	{
 		repairer = repairer.replace("\"", "");
 		facilityName = facilityName.replace("\"", "");
 		repairDate = repairDate.replace("\"", "");
-		repairTime = repairTime.replace("\"", "");
+		//repairTime = repairTime.replace("\"", "");
 		nameErrMsg = nameErrMsg.replace("\"", "");
 		mar.setRepairer(repairer);
 		mar.setFacilityname(facilityName);
 		mar.setRepairdate(repairDate);
-		mar.setStarttime(repairTime);
+		//mar.setStarttime(repairTime);
 		MARErrorMsgs marErrMsg = new MARErrorMsgs();
 		mar.validate("request", mar, marErrMsg);
 		assertEquals(nameErrMsg, marErrMsg.getNameError());
@@ -151,6 +152,26 @@ public class MARTest {
 		MARErrorMsgs marErrMsg = new MARErrorMsgs();
 		mar.validate("", mar, marErrMsg);
 		assertEquals("", marErrMsg.getErrorMsg());
+		assertEquals("", marErrMsg.getDescriptionError());
+		assertEquals("", marErrMsg.getUrgencyError());
+		assertEquals("", marErrMsg.getRepairerError());
+		assertEquals("", marErrMsg.getEstimateError());
+		assertEquals("", marErrMsg.getNameError());
+		assertEquals("", marErrMsg.getDatetimeError());
+	}
+
+	@Test
+	public void testValidateIllegalAction()
+	{
+		MARErrorMsgs marErrMsg = new MARErrorMsgs();
+		mar.validate("zzzzzzz", mar, marErrMsg);
+		assertEquals("", marErrMsg.getErrorMsg());
+		assertEquals("", marErrMsg.getDescriptionError());
+		assertEquals("", marErrMsg.getUrgencyError());
+		assertEquals("", marErrMsg.getRepairerError());
+		assertEquals("", marErrMsg.getEstimateError());
+		assertEquals("", marErrMsg.getNameError());
+		assertEquals("", marErrMsg.getDatetimeError());
 	}
 
 	@Test
@@ -199,9 +220,11 @@ public class MARTest {
 
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_validateDateTime.csv")
-	public void testValidateDateTime(int testcaseNum, String date, String time, int lenOfMsg) {
+	//public void testValidateDateTime(int testcaseNum, String date, String time, int lenOfMsg) {
+	public void testValidateDateTime(int testcaseNum, String facilityName, String date, int lenOfMsg) {
 		date = date.replace("\"", "");
-		time = time.replace("\"", "");
+		facilityName = facilityName.replace("\"", "");
+		//time = time.replace("\"", "");
 		/*
 		Date expire = new Date();
 		Calendar c = Calendar.getInstance(); 
@@ -212,7 +235,7 @@ public class MARTest {
 		String repairdate = new SimpleDateFormat("yyyy-MM-dd").format(expire);
 		String starttime = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
 		*/
-		assertEquals(lenOfMsg, mar.validateDateTime("BMC1", date, time).length());
+		assertEquals(lenOfMsg, mar.validateDateTime(facilityName, date).length());
 	}
 
 	@Test
