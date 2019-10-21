@@ -80,6 +80,17 @@ public class MARTest {
 	}
 
 	@Test
+	@FileParameters("TestCaseTable_CSV/MAR_validateAllPossibleReportStr.csv")
+	public void testValidateAllPossibleReportStr(int testcaseNum, String report) 
+	{
+		report = report.replace("\"", "");
+		mar.setDescription("123");
+		MARErrorMsgs marErrMsg = new MARErrorMsgs();
+		mar.validate(report, mar, marErrMsg);
+		assertEquals("Your Description must less than 500 alphabet, ',', space or '.'.", marErrMsg.getDescriptionError());
+	}
+
+	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_validateAssignAction.csv")
 	public void testValidateAssignAction(
 			int testcaseNum,
