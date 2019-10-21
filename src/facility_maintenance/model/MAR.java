@@ -216,7 +216,9 @@ public class MAR implements Serializable{
 	public String validateUrgency(String urgency) {
 		String result="";
 		
-		if(urgency.equals(""))
+		//if(urgency.equals(""))
+		//TODO
+		if(true == urgency.isEmpty())
 			result="'Urgency' is required";
 		
 		return result;
@@ -288,6 +290,11 @@ public class MAR implements Serializable{
 			expire = c.getTime();
 
 			String expiretime = new SimpleDateFormat("yyyy-MM-dd").format(expire);
+			/*
+			System.out.println(repairdate);
+			System.out.println(" vs ");
+			System.out.println(expiretime);
+			*/
 
 			if(repairdate.compareTo(expiretime) > 0)
 				result="Latest time: " + expiretime;

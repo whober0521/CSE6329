@@ -70,14 +70,16 @@ public class MARTest {
 	*/
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_validateReportAction.csv")
-	public void testValidateReportAction(int testcaseNum, String desc, String expectMsg) 
+	public void testValidateReportAction(int testcaseNum, String desc, String expectMsg, String eMsg) 
 	{
 		desc = desc.replace("\"", "");
 		expectMsg = expectMsg.replace("\"", "");
+		eMsg = eMsg.replace("\"", "");
 		mar.setDescription(desc);
 		MARErrorMsgs marErrMsg = new MARErrorMsgs();
 		mar.validate("report", mar, marErrMsg);
 		assertEquals(expectMsg, marErrMsg.getDescriptionError());
+		assertEquals(eMsg, marErrMsg.getErrorMsg());
 	}
 
 	/*
