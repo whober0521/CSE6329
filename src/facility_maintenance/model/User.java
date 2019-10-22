@@ -129,17 +129,7 @@ public class User implements Serializable{
 	public void validate (String action, User user, UserErrorMsgs errorMsgs) {
 		errorMsgs.setUsernameError(validateUserName(action, user.getUsername()));
 		
-		if (action.equals("register") || action.equals("profile")|| action.equals("update")) {
-			errorMsgs.setPasswordError(validatePassWord(user.getPassword()));
-			errorMsgs.setUtaidError(validateUTAid(user.getUtaid()));
-			errorMsgs.setFnameError(validateFirstName(user.getFname()));
-			errorMsgs.setLnameError(validateLastName(user.getLname()));
-			errorMsgs.setEmailError(validateEmail(user.getEmail()));
-			errorMsgs.setPhoneError(validatePhone(user.getPhone()));
-			errorMsgs.setAddressError(validateAddress(user.getAddress()));
-			errorMsgs.setCityError(validateCity(user.getCity()));
-		}
-		else if (action.equals("login")) {
+		if (action.equals("login")) {
 			errorMsgs.setPasswordError(validatePassWord(user.getPassword()));
 			
 			if(errorMsgs.getUsernameError().equals("") && errorMsgs.getPasswordError().equals("")) {
@@ -149,6 +139,16 @@ public class User implements Serializable{
 					errorMsgs.setPasswordError("Incorrect Password");			
 			}
 		}
+		else{
+			errorMsgs.setPasswordError(validatePassWord(user.getPassword()));
+			errorMsgs.setUtaidError(validateUTAid(user.getUtaid()));
+			errorMsgs.setFnameError(validateFirstName(user.getFname()));
+			errorMsgs.setLnameError(validateLastName(user.getLname()));
+			errorMsgs.setEmailError(validateEmail(user.getEmail()));
+			errorMsgs.setPhoneError(validatePhone(user.getPhone()));
+			errorMsgs.setAddressError(validateAddress(user.getAddress()));
+			errorMsgs.setCityError(validateCity(user.getCity()));
+		} 
 		
 		errorMsgs.setErrorMsg();
 	}

@@ -4,7 +4,7 @@ public class UserErrorMsgs {
 	private String errorMsg;
 	private String usernameError;
 	private String passwordError;
-	private String roleError;
+/*	private String roleError;*/
 	private String utaidError;
 	private String fnameError;
 	private String lnameError;
@@ -12,7 +12,7 @@ public class UserErrorMsgs {
 	private String phoneError;
 	private String addressError;
 	private String cityError;
-	private String stateError;
+/*	private String stateError;*/
 	
 	public UserErrorMsgs() {
 		this.errorMsg = "";
