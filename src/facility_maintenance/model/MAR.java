@@ -186,8 +186,8 @@ public class MAR implements Serializable{
 		//else if (action.equals("request")) {
 		else if (action.compareTo("request") == 0) {
 			errorMsgs.setNameError(validateFacilityName(mar));
-			//errorMsgs.setDateTimeError(validateDateTime(mar.getFacilityname(), mar.getRepairdate(), mar.getStarttime()));
-			errorMsgs.setDateTimeError(validateDateTime(mar.getFacilityname(), mar.getRepairdate()));
+			errorMsgs.setDateTimeError(validateDateTime(mar.getFacilityname(), mar.getRepairdate(), mar.getStarttime()));
+			//errorMsgs.setDateTimeError(validateDateTime(mar.getFacilityname(), mar.getRepairdate()));
 		}
 
 		errorMsgs.setErrorMsg();
@@ -246,29 +246,37 @@ public class MAR implements Serializable{
 		return result;
 	}
 	
-	//TODO : why we need time here?
-	/*
 	public String validateDateTime(String facilityname, String repairdate, String starttime) {
 		String result="";
-		
-		Facility facility = FacilitiesDAO.getDetail(facilityname);
-		int duration = Integer.parseInt(facility.getDuration().split(" ")[0]);
 
-		Calendar c = Calendar.getInstance(); 
-		
-		c.add(Calendar.DATE, duration);
-		
-		Date expire = c.getTime();
-		
-		String expiretime = new SimpleDateFormat("yyyy-MM-dd").format(expire) +
-							new SimpleDateFormat(" HH:mm").format(Calendar.getInstance().getTime());
+		if ( false == facilityname.isEmpty() )
+		{
+			Facility facility = FacilitiesDAO.getDetail(facilityname);
+			int duration = Integer.parseInt(facility.getDuration().split(" ")[0]);
 
-		if((repairdate + " " + starttime).compareTo(expiretime) > 0)
-			result="Latest time: " + expiretime;
+			Calendar c = Calendar.getInstance(); 
 
+			c.add(Calendar.MINUTE, duration*1440);
+
+			Date expire = c.getTime();
+
+			/*
+			String expiretime = new SimpleDateFormat("yyyy-MM-dd").format(expire) +
+				new SimpleDateFormat(" HH:mm:ss").format(Calendar.getInstance().getTime());
+				*/
+			String expiretime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(expire);
+
+			if((repairdate + " " + starttime).compareTo(expiretime) > 0)
+				result="Latest time: " + expiretime;
+
+		}
+		else
+		{
+			result = "Empty facility name";
+		}
 		return result;
 	}
-	*/
+	/*
 	public String validateDateTime(String facilityname, String repairdate) {
 		String result="";
 		
@@ -287,11 +295,6 @@ public class MAR implements Serializable{
 			Date expire = c.getTime();
 
 			String expiretime = new SimpleDateFormat("yyyy-MM-dd").format(expire);
-			/*
-			System.out.println(repairdate);
-			System.out.println(" vs ");
-			System.out.println(expiretime);
-			*/
 
 			if(repairdate.compareTo(expiretime) > 0)
 				result="Latest time: " + expiretime;
@@ -303,6 +306,7 @@ public class MAR implements Serializable{
 
 		return result;
 	}
+	*/
 	
 	public HashMap<String, String> getUrgencies(String urgency) {
 		HashMap<String, String> result = new HashMap<String, String>();
