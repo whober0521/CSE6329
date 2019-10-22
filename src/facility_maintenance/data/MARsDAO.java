@@ -164,15 +164,12 @@ public class MARsDAO {
 			interval = 30;
 		else
 			interval = Integer.parseInt(facility.getInterval().split(" ")[0]) * 60;
-		
-		Date end = new Date();
-
+	
 		Calendar c = Calendar.getInstance(); 
 		
-		c.setTime(end); 
 		c.add(Calendar.DATE, duration);
 		
-		end = c.getTime();
+		Date end = c.getTime();
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date start = new Date();
@@ -288,8 +285,6 @@ public class MARsDAO {
 	public static int getAssignedNumber(String repairer)  {
 		String queryString = "SELECT * FROM mars WHERE `repairer` = '" + repairer + "' AND `assigndate` >= '";
 		Calendar c = Calendar.getInstance(); 
-		
-		c.setTime(new Date()); 
 		
 		while(c.get(Calendar.DAY_OF_WEEK)!=1)
 			c.add(Calendar.DATE, -1);
