@@ -173,17 +173,21 @@ public class MAR implements Serializable{
 	}
 	
 	public void validate (String action, MAR mar, MARErrorMsgs errorMsgs) {
-		if (action.equals("report")) {
+		//if (action.equals("report")) {
+		if (action.compareTo("report") == 0) {
 			errorMsgs.setDescriptionError(validateDescription(mar.getDescription()));
 		}
-		else if (action.equals("assign")) {
+		//else if (action.equals("assign")) {
+		else if (action.compareTo("assign") == 0) {
 			errorMsgs.setUrgencyError(validateUrgency(mar.getUrgency()));
 			errorMsgs.setRepairerError(validateRepairer(mar.getRepairer()));
 			errorMsgs.setEstimateError(validateEstimate(mar.getEstimate()));
 		}
-		else if (action.equals("request")) {
+		//else if (action.equals("request")) {
+		else if (action.compareTo("request") == 0) {
 			errorMsgs.setNameError(validateFacilityName(mar));
-			errorMsgs.setDateTimeError(validateDateTime(mar.getFacilityname(), mar.getRepairdate(), mar.getStarttime()));
+			//errorMsgs.setDateTimeError(validateDateTime(mar.getFacilityname(), mar.getRepairdate(), mar.getStarttime()));
+			errorMsgs.setDateTimeError(validateDateTime(mar.getFacilityname(), mar.getRepairdate()));
 		}
 
 		errorMsgs.setErrorMsg();
@@ -212,7 +216,9 @@ public class MAR implements Serializable{
 	public String validateUrgency(String urgency) {
 		String result="";
 		
-		if(urgency.equals(""))
+		//if(urgency.equals(""))
+		//TODO
+		if(true == urgency.isEmpty())
 			result="'Urgency' is required";
 		
 		return result;
@@ -240,6 +246,8 @@ public class MAR implements Serializable{
 		return result;
 	}
 	
+	//TODO : why we need time here?
+	/*
 	public String validateDateTime(String facilityname, String repairdate, String starttime) {
 		String result="";
 		
@@ -257,6 +265,41 @@ public class MAR implements Serializable{
 
 		if((repairdate + " " + starttime).compareTo(expiretime) > 0)
 			result="Latest time: " + expiretime;
+
+		return result;
+	}
+	*/
+	public String validateDateTime(String facilityname, String repairdate) {
+		String result="";
+		
+		if ( false == facilityname.isEmpty() )
+		{
+			Facility facility = FacilitiesDAO.getDetail(facilityname);
+			int duration = Integer.parseInt(facility.getDuration().split(" ")[0]);
+
+			//Date expire = new Date();
+
+			Calendar c = Calendar.getInstance(); 
+
+			//c.setTime(expire); 
+			c.add(Calendar.DATE, duration);
+
+			Date expire = c.getTime();
+
+			String expiretime = new SimpleDateFormat("yyyy-MM-dd").format(expire);
+			/*
+			System.out.println(repairdate);
+			System.out.println(" vs ");
+			System.out.println(expiretime);
+			*/
+
+			if(repairdate.compareTo(expiretime) > 0)
+				result="Latest time: " + expiretime;
+		}
+		else
+		{
+			result = "Empty facility name";
+		}
 
 		return result;
 	}

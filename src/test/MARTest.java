@@ -39,6 +39,7 @@ public class MARTest {
 	public void setUp() throws Exception {
 		mar = new MAR();
 		mar.setIdx("");
+		mar.setRepairer("");
 		mar.setFacilitytype("");
 		mar.setFacilityname("");
 		mar.setAssigndate("");
@@ -69,16 +70,19 @@ public class MARTest {
 	*/
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_validateReportAction.csv")
-	public void testValidateReportAction(int testcaseNum, String desc, String expectMsg) 
+	public void testValidateReportAction(int testcaseNum, String desc, String expectMsg, String eMsg) 
 	{
 		desc = desc.replace("\"", "");
 		expectMsg = expectMsg.replace("\"", "");
+		eMsg = eMsg.replace("\"", "");
 		mar.setDescription(desc);
 		MARErrorMsgs marErrMsg = new MARErrorMsgs();
 		mar.validate("report", mar, marErrMsg);
 		assertEquals(expectMsg, marErrMsg.getDescriptionError());
+		assertEquals(eMsg, marErrMsg.getErrorMsg());
 	}
 
+	/*
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_validateAllPossibleReportStr.csv")
 	public void testValidateAllPossibleReportStr(int testcaseNum, String report) 
@@ -89,6 +93,7 @@ public class MARTest {
 		mar.validate(report, mar, marErrMsg);
 		assertEquals("Your Description must less than 500 alphabet, ',', space or '.'.", marErrMsg.getDescriptionError());
 	}
+	*/
 
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_validateAssignAction.csv")
@@ -117,27 +122,58 @@ public class MARTest {
 		assertEquals(eMsg, marErrMsg.getEstimateError());
 	}
 
-	/*
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_validateRequestAction.csv")
 	public void testValidateRequestAction(
 			int testcaseNum,
-			String urgency,
 			String repairer, 
-			String estimate,
-			String uMsg,
-			String rMsg,
-			String eMsg) 
+			String facilityName,
+			String repairDate,
+			//String repairTime,
+			String nameErrMsg,
+			int lenOfDatetimeErrMsg) 
 	{
-		// TODO: wait for validateDateTime
+		repairer = repairer.replace("\"", "");
+		facilityName = facilityName.replace("\"", "");
+		repairDate = repairDate.replace("\"", "");
+		//repairTime = repairTime.replace("\"", "");
+		nameErrMsg = nameErrMsg.replace("\"", "");
+		mar.setRepairer(repairer);
+		mar.setFacilityname(facilityName);
+		mar.setRepairdate(repairDate);
+		//mar.setStarttime(repairTime);
+		MARErrorMsgs marErrMsg = new MARErrorMsgs();
+		mar.validate("request", mar, marErrMsg);
+		assertEquals(nameErrMsg, marErrMsg.getNameError());
+		assertEquals(lenOfDatetimeErrMsg, marErrMsg.getDatetimeError().length());
 	}
-	*/
+
 	@Test
 	public void testValidateNoAction()
 	{
 		MARErrorMsgs marErrMsg = new MARErrorMsgs();
 		mar.validate("", mar, marErrMsg);
 		assertEquals("", marErrMsg.getErrorMsg());
+		assertEquals("", marErrMsg.getDescriptionError());
+		assertEquals("", marErrMsg.getUrgencyError());
+		assertEquals("", marErrMsg.getRepairerError());
+		assertEquals("", marErrMsg.getEstimateError());
+		assertEquals("", marErrMsg.getNameError());
+		assertEquals("", marErrMsg.getDatetimeError());
+	}
+
+	@Test
+	public void testValidateIllegalAction()
+	{
+		MARErrorMsgs marErrMsg = new MARErrorMsgs();
+		mar.validate("zzzzzzz", mar, marErrMsg);
+		assertEquals("", marErrMsg.getErrorMsg());
+		assertEquals("", marErrMsg.getDescriptionError());
+		assertEquals("", marErrMsg.getUrgencyError());
+		assertEquals("", marErrMsg.getRepairerError());
+		assertEquals("", marErrMsg.getEstimateError());
+		assertEquals("", marErrMsg.getNameError());
+		assertEquals("", marErrMsg.getDatetimeError());
 	}
 
 	@Test
@@ -165,23 +201,16 @@ public class MARTest {
 		assertEquals(expectMsg, mar.validateUrgency(urgency));
 	}
 
-	/*
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_validateRepairerAssignedMAR.csv")
 	public void testValidateRepairerAssignedMAR(
 			int testcaseNum,
 			String repairerName,
-			String date,
 			String expectMsg) {
-		//TODO: I need to specify date in getAssignedNumber(repairer)
 		expectMsg = expectMsg.replace("\"", "");
 		repairerName = repairerName.replace("\"", "");
-		date = date.replace("\"", "");
-		EasyMock.expect(MAR.getDate()).andReturn(date);
-		replayAll();
 		assertEquals(expectMsg, mar.validateRepairer(repairerName));
 	}
-	*/
 
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_validateEstimate.csv")
@@ -191,18 +220,14 @@ public class MARTest {
 		assertEquals(expectMsg, mar.validateEstimate(estimateStr));
 	}
 
-	/*
 	@Test
-	@PrepareForTest(FacilitiesDAO.class)
 	@FileParameters("TestCaseTable_CSV/MAR_validateDateTime.csv")
-	public void testValidateDateTime(int testcaseNum, int duration, int lenOfMsg) {
-		//TODO: I need to specify date in validateDatTime
-		mockStatic(FacilitiesDAO.class);
-		Facility f = new Facility();
-		f.setDuration(Integer.toString(defaultDuration) + " 0");
-		EasyMock.expect(FacilitiesDAO.getDetail("")).andReturn(f);
-		replayAll();
-
+	//public void testValidateDateTime(int testcaseNum, String date, String time, int lenOfMsg) {
+	public void testValidateDateTime(int testcaseNum, String facilityName, String date, int lenOfMsg) {
+		date = date.replace("\"", "");
+		facilityName = facilityName.replace("\"", "");
+		//time = time.replace("\"", "");
+		/*
 		Date expire = new Date();
 		Calendar c = Calendar.getInstance(); 
 		c.setTime(expire); 
@@ -211,9 +236,9 @@ public class MARTest {
 
 		String repairdate = new SimpleDateFormat("yyyy-MM-dd").format(expire);
 		String starttime = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
-		assertEquals(lenOfMsg, mar.validateDateTime("", repairdate, starttime).length());
+		*/
+		assertEquals(lenOfMsg, mar.validateDateTime(facilityName, date).length());
 	}
-	*/
 
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_getUrgencies.csv")
