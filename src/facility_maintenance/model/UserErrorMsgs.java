@@ -18,7 +18,6 @@ public class UserErrorMsgs {
 		this.errorMsg = "";
 		this.usernameError = "";
 		this.passwordError = "";
-		this.roleError = "";
 		this.utaidError = "";
 		this.fnameError = "";
 		this.lnameError = "";
@@ -26,13 +25,12 @@ public class UserErrorMsgs {
 		this.phoneError = "";
 		this.addressError = "";
 		this.cityError = "";
-		this.stateError = "";
 	}
 	
 	public void setErrorMsg() {
-		if (!usernameError.equals("") || !passwordError.equals("") || !roleError.equals("") || !utaidError.equals("") ||
-				!fnameError.equals("") || !lnameError.equals("") || !emailError.equals("") || !phoneError.equals("") ||
-				!addressError.equals("") || !cityError.equals("") || !stateError.equals(""))
+		if (!usernameError.equals("") || !passwordError.equals("") || !utaidError.equals("") ||
+				!fnameError.equals("") || !lnameError.equals("") || !emailError.equals("") ||
+				!phoneError.equals("") || !addressError.equals("") || !cityError.equals(""))
 			this.errorMsg = "Please correct the following errors";
 	}
 	
@@ -54,14 +52,6 @@ public class UserErrorMsgs {
 	
 	public String getPasswordError() {
 		return passwordError;
-	}
-	
-	public void setRoleError(String roleError) {
-		this.roleError = roleError;
-	}
-	
-	public String getRoleError() {
-		return roleError;
 	}
 	
 	public void setUtaidError(String utaidError) {
@@ -118,13 +108,5 @@ public class UserErrorMsgs {
 	
 	public String getCityError() {
 		return cityError;
-	}
-	
-	public void setStateError(String stateError) {
-		this.stateError = stateError;
-	}
-	
-	public String getStateError() {
-		return stateError;
 	}
 }
