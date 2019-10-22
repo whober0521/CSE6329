@@ -9,7 +9,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="/media/utase2/SE/Eclipse_Lib/easymock-3.4.jar"/>
-	<classpathentry kind="lib" path="/media/utase2/SE/Eclipse_Lib/JUnitParams-1.0.4.jar"/>
+	<classpathentry kind="lib" path="/home/weikaichu/Desktop/eclipse/Lib/easymock-3.4.jar"/>
+	<classpathentry kind="lib" path="/home/weikaichu/Desktop/eclipse/Lib/JUnitParams-1.0.4.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
