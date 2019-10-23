@@ -50,6 +50,10 @@ public class UserTest {
 		assertTrue(cityerr.equals(userserr.getCityError()));
 		assertEquals("selected", users.getRoles(role).get(users.getRole()));
 		assertEquals("selected", users.getStates(state).get(users.getState()));
+		
+		UserErrorMsgs userNaPwdErr  = new UserErrorMsgs();
+		assertTrue(userNaPwdErr.getUsernameError().isEmpty());
+		assertTrue(userNaPwdErr.getPasswordError().isEmpty());
 	}
 	
 	@Test
