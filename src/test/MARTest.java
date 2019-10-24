@@ -307,6 +307,12 @@ public class MARTest {
 	}
 
 	@Test
+	public void testGetTimeOtherEmpty() {
+		assertEquals("selected", mar.getTime("17:00").get("17:00"));
+		assertEquals("", mar.getTime("17:00").get("16:00"));
+	}
+
+	@Test
 	public void testCreateMAR() {
 		mar.setMAR(
 				"idx",
