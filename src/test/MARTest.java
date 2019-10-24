@@ -104,7 +104,8 @@ public class MARTest {
 			String estimate,
 			String uMsg,
 			String rMsg,
-			String eMsg) 
+			String eMsg,
+			String aMsg) 
 	{
 		urgency = urgency.replace("\"", "");
 		repairer = repairer.replace("\"", "");
@@ -112,6 +113,7 @@ public class MARTest {
 		uMsg = uMsg.replace("\"", "");
 		rMsg = rMsg.replace("\"", "");
 		eMsg = eMsg.replace("\"", "");
+		aMsg = aMsg.replace("\"", "");
 		mar.setUrgency(urgency);
 		mar.setRepairer(repairer);
 		mar.setEstimate(estimate);
@@ -120,6 +122,7 @@ public class MARTest {
 		assertEquals(uMsg, marErrMsg.getUrgencyError());
 		assertEquals(rMsg, marErrMsg.getRepairerError());
 		assertEquals(eMsg, marErrMsg.getEstimateError());
+		assertEquals(aMsg, marErrMsg.getErrorMsg());
 	}
 
 	@Test
@@ -131,13 +134,15 @@ public class MARTest {
 			String repairDate,
 			int timeOffset,
 			String nameErrMsg,
-			int lenOfDatetimeErrMsg) 
+			int lenOfDatetimeErrMsg,
+			String eMsg) 
 	{
 		repairer = repairer.replace("\"", "");
 		facilityName = facilityName.replace("\"", "");
 		repairDate = repairDate.replace("\"", "");
 		//repairTime = repairTime.replace("\"", "");
 		nameErrMsg = nameErrMsg.replace("\"", "");
+		eMsg = eMsg.replace("\"", "");
 		mar.setRepairer(repairer);
 		mar.setFacilityname(facilityName);
 		mar.setRepairdate(repairDate);
@@ -151,6 +156,7 @@ public class MARTest {
 		mar.validate("request", mar, marErrMsg);
 		assertEquals(nameErrMsg, marErrMsg.getNameError());
 		assertEquals(lenOfDatetimeErrMsg, marErrMsg.getDatetimeError().length());
+		assertEquals(eMsg, marErrMsg.getErrorMsg());
 	}
 
 	@Test
