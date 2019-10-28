@@ -106,7 +106,7 @@ public class UserController extends HttpServlet {
 					request.getParameter("city"),
 					request.getParameter("state"));
 			
-			user.validate(action, user, errorMsgs);
+			user.validate("update", user, errorMsgs);
 			session.setAttribute("user", user);
 
 			if (!errorMsgs.getErrorMsg().equals("")) {
@@ -166,7 +166,7 @@ public class UserController extends HttpServlet {
 					request.getParameter("city"),
 					request.getParameter("state"));
 			
-			user.validate(action, user, errorMsgs);
+			user.validate("update", user, errorMsgs);
 			session.setAttribute("user", user);
 			session.setAttribute("roles", user.getRoles(user.getRole()));
 			session.setAttribute("states", user.getStates(user.getState()));

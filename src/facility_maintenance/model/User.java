@@ -129,7 +129,7 @@ public class User implements Serializable{
 	public void validate (String action, User user, UserErrorMsgs errorMsgs) {
 		errorMsgs.setUsernameError(validateUserName(action, user.getUsername()));
 		
-		if (action.equals("register") || action.equals("profile")|| action.equals("update")) {
+		if (action.equals("update")) {
 			errorMsgs.setPasswordError(validatePassWord(user.getPassword()));
 			errorMsgs.setUtaidError(validateUTAid(user.getUtaid()));
 			errorMsgs.setFnameError(validateFirstName(user.getFname()));
