@@ -252,7 +252,8 @@ public class MAR implements Serializable{
 
 			Calendar c = Calendar.getInstance(); 
 
-			c.add(Calendar.MINUTE, duration*1440);
+			//c.add(Calendar.MINUTE, duration*1440);
+			c.add(Calendar.DATE, duration);
 
 			Date expire = c.getTime();
 
