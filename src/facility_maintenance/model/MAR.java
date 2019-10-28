@@ -1,16 +1,12 @@
 package facility_maintenance.model;
 
 import java.io.Serializable;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-import facility_maintenance.data.UsersDAO;
 import facility_maintenance.data.FacilitiesDAO;
 import facility_maintenance.data.MARsDAO;
 
