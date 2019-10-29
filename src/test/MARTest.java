@@ -48,26 +48,6 @@ public class MARTest {
 		mar.setUrgency("");
 	}
 
-	/*
-	@Test
-	@FileParameters("TestCaseTable_CSV/MAR_validate.csv")
-	public void testValidate(int testcaseNum, String action, String expectMsg) {
-		action = action.replace("\"", "");
-		expectMsg = expectMsg.replace("\"", "");
-		mar.setDescription("111");
-		mar.setIdx("");
-		mar.setFacilitytype("");
-		mar.setFacilityname("BMC1");
-		mar.setAssigndate("");
-		mar.setAssigntime("");
-		mar.setEstimate("");
-		mar.setUrgency("");
-		mar.setRepairer("r1");
-		MARErrorMsgs marErrMsg = new MARErrorMsgs();
-		mar.validate(action, mar, marErrMsg);
-		assertEquals(expectMsg, marErrMsg.getErrorMsg());
-	}
-	*/
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_validateReportAction.csv")
 	public void testValidateReportAction(int testcaseNum, String desc, String expectMsg, String eMsg) 
@@ -81,19 +61,6 @@ public class MARTest {
 		assertEquals(expectMsg, marErrMsg.getDescriptionError());
 		assertEquals(eMsg, marErrMsg.getErrorMsg());
 	}
-
-	/*
-	@Test
-	@FileParameters("TestCaseTable_CSV/MAR_validateAllPossibleReportStr.csv")
-	public void testValidateAllPossibleReportStr(int testcaseNum, String report) 
-	{
-		report = report.replace("\"", "");
-		mar.setDescription("123");
-		MARErrorMsgs marErrMsg = new MARErrorMsgs();
-		mar.validate(report, mar, marErrMsg);
-		assertEquals("Your Description must less than 500 alphabet, ',', space or '.'.", marErrMsg.getDescriptionError());
-	}
-	*/
 
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_validateAssignAction.csv")

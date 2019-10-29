@@ -273,37 +273,6 @@ public class MAR implements Serializable{
 		}
 		return result;
 	}
-	/*
-	public String validateDateTime(String facilityname, String repairdate) {
-		String result="";
-		
-		if ( false == facilityname.isEmpty() )
-		{
-			Facility facility = FacilitiesDAO.getDetail(facilityname);
-			int duration = Integer.parseInt(facility.getDuration().split(" ")[0]);
-
-			//Date expire = new Date();
-
-			Calendar c = Calendar.getInstance(); 
-
-			//c.setTime(expire); 
-			c.add(Calendar.DATE, duration);
-
-			Date expire = c.getTime();
-
-			String expiretime = new SimpleDateFormat("yyyy-MM-dd").format(expire);
-
-			if(repairdate.compareTo(expiretime) > 0)
-				result="Latest time: " + expiretime;
-		}
-		else
-		{
-			result = "Empty facility name";
-		}
-
-		return result;
-	}
-	*/
 	
 	public HashMap<String, String> getUrgencies(String urgency) {
 		HashMap<String, String> result = new HashMap<String, String>();
