@@ -104,7 +104,8 @@ public class MARTest {
 			String estimate,
 			String uMsg,
 			String rMsg,
-			String eMsg) 
+			String eMsg,
+			String aMsg) 
 	{
 		urgency = urgency.replace("\"", "");
 		repairer = repairer.replace("\"", "");
@@ -112,6 +113,7 @@ public class MARTest {
 		uMsg = uMsg.replace("\"", "");
 		rMsg = rMsg.replace("\"", "");
 		eMsg = eMsg.replace("\"", "");
+		aMsg = aMsg.replace("\"", "");
 		mar.setUrgency(urgency);
 		mar.setRepairer(repairer);
 		mar.setEstimate(estimate);
@@ -120,6 +122,7 @@ public class MARTest {
 		assertEquals(uMsg, marErrMsg.getUrgencyError());
 		assertEquals(rMsg, marErrMsg.getRepairerError());
 		assertEquals(eMsg, marErrMsg.getEstimateError());
+		assertEquals(aMsg, marErrMsg.getErrorMsg());
 	}
 
 	@Test
@@ -129,23 +132,31 @@ public class MARTest {
 			String repairer, 
 			String facilityName,
 			String repairDate,
-			//String repairTime,
+			int timeOffset,
 			String nameErrMsg,
-			int lenOfDatetimeErrMsg) 
+			int lenOfDatetimeErrMsg,
+			String eMsg) 
 	{
 		repairer = repairer.replace("\"", "");
 		facilityName = facilityName.replace("\"", "");
 		repairDate = repairDate.replace("\"", "");
 		//repairTime = repairTime.replace("\"", "");
 		nameErrMsg = nameErrMsg.replace("\"", "");
+		eMsg = eMsg.replace("\"", "");
 		mar.setRepairer(repairer);
 		mar.setFacilityname(facilityName);
 		mar.setRepairdate(repairDate);
-		//mar.setStarttime(repairTime);
+
+		Calendar c = Calendar.getInstance(); 
+		c.add(Calendar.SECOND, timeOffset);
+		String starttime = new SimpleDateFormat("HH:mm:ss").format(c.getTime());
+
+		mar.setStarttime(starttime);
 		MARErrorMsgs marErrMsg = new MARErrorMsgs();
 		mar.validate("request", mar, marErrMsg);
 		assertEquals(nameErrMsg, marErrMsg.getNameError());
 		assertEquals(lenOfDatetimeErrMsg, marErrMsg.getDatetimeError().length());
+		assertEquals(eMsg, marErrMsg.getErrorMsg());
 	}
 
 	@Test
@@ -223,7 +234,7 @@ public class MARTest {
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_validateDateTime.csv")
 	//public void testValidateDateTime(int testcaseNum, String date, String time, int lenOfMsg) {
-	public void testValidateDateTime(int testcaseNum, String facilityName, String date, int lenOfMsg) {
+	public void testValidateDateTime(int testcaseNum, String facilityName, String date, int timeOffset, int lenOfMsg) {
 		date = date.replace("\"", "");
 		facilityName = facilityName.replace("\"", "");
 		//time = time.replace("\"", "");
@@ -237,7 +248,10 @@ public class MARTest {
 		String repairdate = new SimpleDateFormat("yyyy-MM-dd").format(expire);
 		String starttime = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
 		*/
-		assertEquals(lenOfMsg, mar.validateDateTime(facilityName, date).length());
+		Calendar c = Calendar.getInstance(); 
+		c.add(Calendar.SECOND, timeOffset);
+		String starttime = new SimpleDateFormat("HH:mm:ss").format(c.getTime());
+		assertEquals(lenOfMsg, mar.validateDateTime(facilityName, date, starttime).length());
 	}
 
 	@Test
@@ -290,6 +304,12 @@ public class MARTest {
 		String expect = new SimpleDateFormat("HH:00").format(Calendar.getInstance().getTime());
 
 		assertEquals("selected", mar.getTime("").get(expect));
+	}
+
+	@Test
+	public void testGetTimeOtherEmpty() {
+		assertEquals("selected", mar.getTime("17:00").get("17:00"));
+		assertEquals("", mar.getTime("17:00").get("16:00"));
 	}
 
 	@Test
