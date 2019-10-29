@@ -154,6 +154,7 @@ public class MARTest {
 		assertEquals("", marErrMsg.getDatetimeError());
 	}
 
+	/*
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_validateFacilityName.csv")
 	public void testValidateFacilityName(int testcaseNum, String repairer, String expectMsg) {
@@ -162,7 +163,8 @@ public class MARTest {
 		mar.setRepairer(repairer);
 		assertEquals(expectMsg, mar.validateFacilityName(mar));
 	}
-	
+	*/
+	/*
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_validateDescription.csv")
 	public void testValidateDescription(int testcaseNum, String desc, String expectMsg) {
@@ -170,7 +172,9 @@ public class MARTest {
 		desc = desc.replace("\"", "");
 		assertEquals(expectMsg, mar.validateDescription(desc));
 	}
+	*/
 
+	/*
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_validateUrgency.csv")
 	public void testValidateUrgency(int testcaseNum, String urgency, String expectMsg) {
@@ -178,6 +182,7 @@ public class MARTest {
 		urgency = urgency.replace("\"", "");
 		assertEquals(expectMsg, mar.validateUrgency(urgency));
 	}
+	*/
 
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_validateRepairerAssignedMAR.csv")
@@ -190,6 +195,7 @@ public class MARTest {
 		assertEquals(expectMsg, mar.validateRepairer(repairerName));
 	}
 
+	/*
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_validateEstimate.csv")
 	public void testValidateEstimate(int testcaseNum, String estimateStr, String expectMsg) {
@@ -197,6 +203,7 @@ public class MARTest {
 		estimateStr = estimateStr.replace("\"", "");
 		assertEquals(expectMsg, mar.validateEstimate(estimateStr));
 	}
+	*/
 
 	@Test
 	@FileParameters("TestCaseTable_CSV/MAR_validateDateTime.csv")
