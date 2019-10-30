@@ -1,1 +1,15 @@
 .classpath
+/build/classes
+.settings/
+bin/
+tmp/
+.metadata
+.classpath
+.project
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+/src/facility_maintenance/util/SQLConnection.java
