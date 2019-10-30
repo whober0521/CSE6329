@@ -15,7 +15,7 @@ public class SQLConnection {
 		DB_CONNECTION  = "jdbc:mysql://localhost:3306/facility_maintenance?autoReconnect=true&useSSL=false";
 		DB_USER  = "root";
 		//DB_PASSWORD = "750831";
-		DB_PASSWORD = "utadb1";
+		DB_PASSWORD = "123456";
 	}
 	public static synchronized SQLConnection getInstance() {
         if (single_instance == null)
