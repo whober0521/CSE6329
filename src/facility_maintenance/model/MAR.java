@@ -252,8 +252,8 @@ public class MAR implements Serializable{
 
 			Calendar c = Calendar.getInstance(); 
 
-			//c.add(Calendar.MINUTE, duration*1440);
-			c.add(Calendar.DATE, duration);
+			c.add(Calendar.MINUTE, duration*1440);
+			//c.add(Calendar.DATE, duration);
 
 			Date expire = c.getTime();
 
@@ -262,6 +262,8 @@ public class MAR implements Serializable{
 				new SimpleDateFormat(" HH:mm:ss").format(Calendar.getInstance().getTime());
 				*/
 			String expiretime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(expire);
+			//String expiretime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+			//System.out.println(repairdate + " " + starttime  + " vs " + expiretime);
 
 			if((repairdate + " " + starttime).compareTo(expiretime) > 0)
 				result="Latest time: " + expiretime;
