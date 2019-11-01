@@ -1,0 +1,11 @@
+﻿add,MR,1,30 minutes,2 days,Indoor,1,,
+add,IBBC,1,30 minutes,2 days,Outdoor,4,,
+add,IVBC,1,30 minutes,2 days,Indoor,,Please correct the following errors,Must be a number.
+add,SCG,1,1 hour,2 days,Outdoor,123d,Please correct the following errors,Must be a number.
+add,RBC,1,1 hour,1 day,Indoor,123,,
+add,BMC,1,30 minutes,1 day,Outdoor,1,,
+add,TT,1,1 hour,4 days,Indoor,45,,
+add,CR,1,2 hours,7 days,Outdoor,abcd,Please correct the following errors,Must be a number.
+add,OVBC,1,2 hours,4 days,Indoor,45,,
+add,OBBC,1,2 hours,7 days,Outdoor,66,,
+unknown,OBBC,1,2 hours,7 days,Outdoor,abcde,,
