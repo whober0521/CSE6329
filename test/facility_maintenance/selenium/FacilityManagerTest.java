@@ -83,13 +83,11 @@ public class FacilityManagerTest {
     new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Urgency")))).selectByVisibleText("Unusable");
     new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Repairer")))).selectByVisibleText("rOneDay5");
     new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Estimate")))).selectByVisibleText("2 days");
-    /*
-    driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
-    new Select(driver.findElement(By.name("repairer"))).selectByVisibleText("rOneWeek10");
-    driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
-    new Select(driver.findElement(By.name("repairer"))).selectByVisibleText("r1");
-    driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
-    */
+    driver.findElement(By.cssSelector(prop.getProperty("Btn_MM_Submit"))).click();
+    new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Repairer")))).selectByVisibleText("rOneWeek10");
+    driver.findElement(By.cssSelector(prop.getProperty("Btn_MM_Submit"))).click();
+    new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Repairer")))).selectByVisibleText("r1");
+    driver.findElement(By.cssSelector(prop.getProperty("Btn_MM_Submit"))).click();
     driver.findElement(By.linkText("Logout")).click();
   }
 
