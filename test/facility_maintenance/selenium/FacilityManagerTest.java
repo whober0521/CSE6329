@@ -47,14 +47,15 @@ public class FacilityManagerTest {
   public void testA5V0Junit() throws Exception {
 	driver.get(appURL);
     //driver.get(baseUrl + "/CSE6329/UserController?action=logout");
-    driver.findElement(By.linkText("Sign up")).click();
-    driver.findElement(By.name("username")).clear();
-    driver.findElement(By.name("username")).sendKeys("fmsix");
-    driver.findElement(By.name("pwd")).clear();
-    driver.findElement(By.name("pwd")).sendKeys("test1");
-    new Select(driver.findElement(By.id("role"))).selectByVisibleText("Facility Manager");
-    driver.findElement(By.name("utaid")).clear();
-    driver.findElement(By.name("utaid")).sendKeys("1111222222");
+	/*
+    driver.findElement(By.linkText(prop.getProperty("Btn_Login_Registration"))).click();
+    driver.findElement(By.xpath(prop.getProperty("Lxt_Registration_Username"))).clear();
+    driver.findElement(By.xpath(prop.getProperty("Lxt_Registration_Username"))).sendKeys("fmsix");
+    driver.findElement(By.xpath(prop.getProperty("Lxt_Registration_Password"))).clear();
+    driver.findElement(By.xpath(prop.getProperty("Lxt_Registration_Password"))).sendKeys("test1");
+    new Select(driver.findElement(By.id(prop.getProperty("Lst_Registration_Role")))).selectByVisibleText("Facility Manager");
+    driver.findElement(By.name(prop.getProperty("Lst_Registration_UTAID"))).clear();
+    driver.findElement(By.name(prop.getProperty("Lst_Registration_UTAID"))).sendKeys("1111222222");
     driver.findElement(By.name("fname")).clear();
     driver.findElement(By.name("fname")).sendKeys("fn");
     driver.findElement(By.name("lname")).clear();
@@ -69,21 +70,27 @@ public class FacilityManagerTest {
     driver.findElement(By.name("city")).sendKeys("Arlington");
     new Select(driver.findElement(By.name("state"))).selectByVisibleText("Texas");
     driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+    */
+    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).clear();
+    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).sendKeys("fmfive");
+    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).clear();
+    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).sendKeys("test1");
+    driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+
+    driver.findElement(By.linkText(prop.getProperty("Txt_FM_ViewUnassignedMAR"))).click();
+    driver.findElement(By.linkText(prop.getProperty("Txt_UAM_View"))).click();
+    driver.findElement(By.cssSelector(prop.getProperty("Btn_MM_Submit"))).click();
+    new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Urgency")))).selectByVisibleText("Unusable");
+    new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Repairer")))).selectByVisibleText("rOneDay5");
+    new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Estimate")))).selectByVisibleText("2 days");
     /*
-    driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
-    driver.findElement(By.linkText("View Unassigned Problems")).click();
-    driver.findElement(By.linkText("View")).click();
-    driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
-    new Select(driver.findElement(By.name("urgency"))).selectByVisibleText("Unusable");
-    new Select(driver.findElement(By.name("repairer"))).selectByVisibleText("rOneDay5");
-    new Select(driver.findElement(By.name("estimate"))).selectByVisibleText("2 days");
     driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
     new Select(driver.findElement(By.name("repairer"))).selectByVisibleText("rOneWeek10");
     driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
     new Select(driver.findElement(By.name("repairer"))).selectByVisibleText("r1");
     driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
-    driver.findElement(By.linkText("Logout")).click();
     */
+    driver.findElement(By.linkText("Logout")).click();
   }
 
   @After
