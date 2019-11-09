@@ -1,9 +1,13 @@
 package facility_maintenance.selenium;
 
 import java.util.regex.Pattern;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.commons.io.FileUtils;
 import org.junit.*;
 import org.junit.runner.RunWith;
 
@@ -14,6 +18,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
 
 @RunWith(JUnitParamsRunner.class)
@@ -44,7 +49,8 @@ public class FacilityManagerTest {
   }
 
   @Test
-  public void testA5V0Junit() throws Exception {
+  @FileParameters("./test/facility_maintenance/selenium/FM_assignMAR.csv")
+  public void assignMAR(int testcaseNum, String repairer, String urgency, String estimate) throws Exception {
 	driver.get(appURL);
     //driver.get(baseUrl + "/CSE6329/UserController?action=logout");
 	/*
@@ -79,6 +85,35 @@ public class FacilityManagerTest {
 
     driver.findElement(By.linkText(prop.getProperty("Txt_FM_ViewUnassignedMAR"))).click();
     driver.findElement(By.linkText(prop.getProperty("Txt_UAM_View"))).click();
+
+    try
+    {
+    	new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Urgency")))).selectByVisibleText(urgency);
+    }
+    catch( Exception e)
+    { }
+
+    try
+    {
+    	new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Repairer")))).selectByVisibleText(repairer);
+    }
+    catch( Exception e)
+    { }
+
+    try
+    {
+    	new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Estimate")))).selectByVisibleText(estimate);
+    }
+    catch( Exception e)
+    { }
+    driver.findElement(By.cssSelector(prop.getProperty("Btn_MM_Submit"))).click();
+    String methodName = new Throwable().getStackTrace()[0].getMethodName();
+    takeScreenshot(driver, methodName + testcaseNum);
+    driver.findElement(By.linkText("Logout")).click();
+
+    /*
+    driver.findElement(By.linkText(prop.getProperty("Txt_FM_ViewUnassignedMAR"))).click();
+    driver.findElement(By.linkText(prop.getProperty("Txt_UAM_View"))).click();
     driver.findElement(By.cssSelector(prop.getProperty("Btn_MM_Submit"))).click();
     new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Urgency")))).selectByVisibleText("Unusable");
     new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Repairer")))).selectByVisibleText("rOneDay5");
@@ -89,7 +124,22 @@ public class FacilityManagerTest {
     new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Repairer")))).selectByVisibleText("r1");
     driver.findElement(By.cssSelector(prop.getProperty("Btn_MM_Submit"))).click();
     driver.findElement(By.linkText("Logout")).click();
+    */
   }
+  public void takeScreenshot(WebDriver driver, String screenshotname) {
+		try
+		{
+			java.io.File source = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);			
+			FileUtils.copyFile(source, new File("./ScreenShots/" + screenshotname +".png"));
+		}
+		catch(IOException e) {}
+		try {
+			//				  Change the delay value to 1_000 to insert a 1 second delay after 
+			//				  each screenshot
+			Thread.sleep(0);
+		} catch (InterruptedException e) {}
+	}
+  
 
   @After
   public void tearDown() throws Exception {
