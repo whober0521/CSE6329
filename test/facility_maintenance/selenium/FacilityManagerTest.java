@@ -47,6 +47,7 @@ public class FacilityManagerTest {
     appURL = prop.getProperty("AppURL");
     prop.load(new FileInputStream(prop.getProperty("SharedUIMap")));
   }
+
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_registration.csv")
   public void Registration(int testcaseNum, 
@@ -82,6 +83,7 @@ public class FacilityManagerTest {
     driver.findElement(By.name("city")).clear();
     driver.findElement(By.name("city")).sendKeys(city);
     new Select(driver.findElement(By.name("state"))).selectByVisibleText(state);
+    Thread.sleep(1000);
     driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
     String methodName = new Throwable().getStackTrace()[0].getMethodName();
     takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
@@ -95,9 +97,12 @@ public class FacilityManagerTest {
     driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).sendKeys("fmfive");
     driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).clear();
     driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).sendKeys("test1");
+    Thread.sleep(1000);
     driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
 
+    Thread.sleep(1000);
     driver.findElement(By.linkText(prop.getProperty("Txt_FM_ViewUnassignedMAR"))).click();
+    Thread.sleep(1000);
     driver.findElement(By.linkText(prop.getProperty("Txt_UAM_View"))).click();
 
     try
@@ -120,7 +125,9 @@ public class FacilityManagerTest {
     }
     catch( Exception e)
     { }
+    Thread.sleep(500);
     driver.findElement(By.cssSelector(prop.getProperty("Btn_MM_Submit"))).click();
+    Thread.sleep(500);
     String methodName = new Throwable().getStackTrace()[0].getMethodName();
     takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
     driver.findElement(By.linkText("Logout")).click();
