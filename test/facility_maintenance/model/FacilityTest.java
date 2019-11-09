@@ -1,4 +1,4 @@
-package test;
+package facility_maintenance.model;
 import static org.junit.Assert.*;
 
 import java.io.Serializable;
