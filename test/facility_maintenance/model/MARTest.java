@@ -49,7 +49,7 @@ public class MARTest {
 	}
 
 	@Test
-	@FileParameters("TestCaseTable_CSV/MAR_validateReportAction.csv")
+	@FileParameters("./test/facility_maintenance/model/MAR_validateReportAction.csv")
 	public void testValidateReportAction(int testcaseNum, String desc, String expectMsg, String eMsg) 
 	{
 		desc = desc.replace("\"", "");
@@ -63,7 +63,7 @@ public class MARTest {
 	}
 
 	@Test
-	@FileParameters("TestCaseTable_CSV/MAR_validateAssignAction.csv")
+	@FileParameters("./test/facility_maintenance/model/MAR_validateAssignAction.csv")
 	public void testValidateAssignAction(
 			int testcaseNum,
 			String urgency,
@@ -93,7 +93,7 @@ public class MARTest {
 	}
 
 	@Test
-	@FileParameters("TestCaseTable_CSV/MAR_validateRequestAction.csv")
+	@FileParameters("./test/facility_maintenance/model/MAR_validateRequestAction.csv")
 	public void testValidateRequestAction(
 			int testcaseNum,
 			String repairer, 
@@ -185,7 +185,7 @@ public class MARTest {
 	*/
 
 	@Test
-	@FileParameters("TestCaseTable_CSV/MAR_validateRepairerAssignedMAR.csv")
+	@FileParameters("./test/facility_maintenance/model/MAR_validateRepairerAssignedMAR.csv")
 	public void testValidateRepairerAssignedMAR(
 			int testcaseNum,
 			String repairerName,
@@ -206,7 +206,7 @@ public class MARTest {
 	*/
 
 	@Test
-	@FileParameters("TestCaseTable_CSV/MAR_validateDateTime.csv")
+	@FileParameters("./test/facility_maintenance/model/MAR_validateDateTime.csv")
 	//public void testValidateDateTime(int testcaseNum, String date, String time, int lenOfMsg) {
 	public void testValidateDateTime(int testcaseNum, String facilityName, String date, int timeOffset, int lenOfMsg) {
 		date = date.replace("\"", "");
@@ -229,7 +229,7 @@ public class MARTest {
 	}
 
 	@Test
-	@FileParameters("TestCaseTable_CSV/MAR_getUrgencies.csv")
+	@FileParameters("./test/facility_maintenance/model/MAR_getUrgencies.csv")
 	public void testGetUrgencies(int testcaseNum, String urgency) {
 		urgency = urgency.replace("\"", "");
 		assertEquals("selected", mar.getUrgencies(urgency).get(urgency));
@@ -246,7 +246,7 @@ public class MARTest {
 	}
 
 	@Test
-	@FileParameters("TestCaseTable_CSV/MAR_getEstimates.csv")
+	@FileParameters("./test/facility_maintenance/model/MAR_getEstimates.csv")
 	public void testGetEstimates(int testcaseNum, String estimate) {
 		estimate = estimate.replace("\"", "");
 		assertEquals("selected", mar.getEstimates(estimate).get(estimate));
@@ -267,7 +267,8 @@ public class MARTest {
 	}
 
 	@Test
-	@FileParameters("TestCaseTable_CSV/MAR_getTime.csv")
+	//@FileParameters("TestCaseTable_CSV/MAR_getTime.csv")
+	@FileParameters("./test/facility_maintenance/model/MAR_getTime.csv")
 	public void testGetTime(int testcaseNum, String time) {
 		time = time.replace("\"", "");
 		assertEquals("selected", mar.getTime(time).get(time));
