@@ -6,6 +6,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/Configuration"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/ScreenShots"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/functions"/>
         <property name="context-root" value="Facility_Maintenance"/>
         <property name="java-output-path" value="/UTA Mac Facility Maintenance System/build/classes"/>
     </wb-module>

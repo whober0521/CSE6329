@@ -19,7 +19,7 @@ import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
 
 @RunWith(JUnitParamsRunner.class)
-public class FacilityManagerTest extends facility_maintenance.functions.FMFunctions {
+public class FacilityManagerTest extends facility_maintenance.FMFunctions {
   private String appURL;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
