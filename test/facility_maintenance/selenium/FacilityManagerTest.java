@@ -1,6 +1,5 @@
 package facility_maintenance.selenium;
 
-import java.util.regex.Pattern;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,9 +11,7 @@ import org.junit.*;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
@@ -22,17 +19,16 @@ import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
 
 @RunWith(JUnitParamsRunner.class)
-public class FacilityManagerTest {
-  private WebDriver driver;
+public class FacilityManagerTest extends facility_maintenance.functions.FMFunctions {
   private String appURL;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
   public static String sharedUIMapStr;
-  public static Properties prop;
 
   @Before
   public void setUp() throws Exception {
-	System.setProperty("webdriver.chrome.driver", "/Users/xaiser/CS/school/SoftwareEngineerAdvance/workplace/chromedriver");
+//	System.setProperty("webdriver.chrome.driver", "/Users/xaiser/CS/school/SoftwareEngineerAdvance/workplace/chromedriver");
+	System.setProperty("webdriver.chrome.driver","c:/ChromeDriver/chromedriver.exe");
 	/*
     driver = new ChromeDriver();
     baseUrl = "http://localhost:225/";
@@ -40,7 +36,6 @@ public class FacilityManagerTest {
     */
     
     driver = new ChromeDriver();
-    //baseUrl = "http://www.adactin.com/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     prop = new Properties();
     prop.load(new FileInputStream("Configuration/FM_Configuration.properties"));
@@ -93,12 +88,16 @@ public class FacilityManagerTest {
   @FileParameters("./test/facility_maintenance/selenium/FM_assignMAR.csv")
   public void assignMAR(int testcaseNum, String repairer, String urgency, String estimate) throws Exception {
 	driver.get(appURL);
-    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).sendKeys("fmfive");
-    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).sendKeys("test1");
-    Thread.sleep(1000);
-    driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+	
+	FM_Login(driver, "fmfive", "test1");
+	
+//    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).clear();
+//    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).sendKeys("fmfive");
+//    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).clear();
+//    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).sendKeys("test1");
+//    Thread.sleep(1000);
+//    driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+    
 
     Thread.sleep(1000);
     driver.findElement(By.linkText(prop.getProperty("Txt_FM_ViewUnassignedMAR"))).click();
