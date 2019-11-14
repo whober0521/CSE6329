@@ -16,6 +16,7 @@ import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
 
 import junitparams.FileParameters;
@@ -29,25 +30,24 @@ public class UserTest {
   private StringBuffer verificationErrors = new StringBuffer();
   public static String sharedUIMapStr;
   public static Properties prop;
+  private ChromeOptions options = new ChromeOptions();
 
   @Before
   public void setUp() throws Exception {
-	System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
-	/*
-    driver = new ChromeDriver();
-    baseUrl = "http://localhost:225/";
-    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    */
-    
-    driver = new ChromeDriver();
-    //baseUrl = "http://www.adactin.com/";
+	System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");;
+	ChromeOptions options = new ChromeOptions();
+	options.addArguments("disable-gpu");
+	options.addArguments("--disable-features=VizDisplayCompositor");
+	options.addArguments("--start-fullscreen");
+	
+	driver = new ChromeDriver(options);
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     prop = new Properties();
     prop.load(new FileInputStream("Configuration/FM_Configuration.properties"));
     appURL = prop.getProperty("WCAppURL");
     prop.load(new FileInputStream(prop.getProperty("SharedUIMap")));
   }
-/*  @Test
+  @Test
   @FileParameters("./test/facility_maintenance/selenium/UserRegister.csv")
   public void Registration(int testcaseNum, 
 		  	String username,
@@ -70,26 +70,25 @@ public class UserTest {
     new Select(driver.findElement(By.id(prop.getProperty("Lst_Registration_Role")))).selectByVisibleText(role);
     driver.findElement(By.name(prop.getProperty("Lst_Registration_UTAID"))).clear();
     driver.findElement(By.name(prop.getProperty("Lst_Registration_UTAID"))).sendKeys(utaid);
-    driver.findElement(By.name("fname")).clear();
-    driver.findElement(By.name("fname")).sendKeys(firstName);
-    driver.findElement(By.name("lname")).clear();
-    driver.findElement(By.name("lname")).sendKeys(lastName);
-    driver.findElement(By.name("email")).clear();
-    driver.findElement(By.name("email")).sendKeys(email);
-    driver.findElement(By.name("phone")).clear();
-    driver.findElement(By.name("phone")).sendKeys(phone);
-    driver.findElement(By.name("address")).clear();
-    driver.findElement(By.name("address")).sendKeys(address);
-    driver.findElement(By.name("city")).clear();
-    driver.findElement(By.name("city")).sendKeys(city);
-    new Select(driver.findElement(By.name("state"))).selectByVisibleText(state);
-    Thread.sleep(1000);
-    driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
-    Thread.sleep(1000);
-    driver.quit();
+    driver.findElement(By.name(prop.getProperty("Lst_Registration_Firstname"))).clear();
+    driver.findElement(By.name(prop.getProperty("Lst_Registration_Firstname"))).sendKeys(firstName);
+    driver.findElement(By.name(prop.getProperty("Lst_Registration_Lastname"))).clear();
+    driver.findElement(By.name(prop.getProperty("Lst_Registration_Lastname"))).sendKeys(lastName);
+    driver.findElement(By.name(prop.getProperty("Lst_Registration_EMail"))).clear();
+    driver.findElement(By.name(prop.getProperty("Lst_Registration_EMail"))).sendKeys(email);
+    driver.findElement(By.name(prop.getProperty("Lst_Registration_Phone"))).clear();
+    driver.findElement(By.name(prop.getProperty("Lst_Registration_Phone"))).sendKeys(phone);
+    driver.findElement(By.name(prop.getProperty("Lst_Registration_Address"))).clear();
+    driver.findElement(By.name(prop.getProperty("Lst_Registration_Address"))).sendKeys(address);
+    driver.findElement(By.name(prop.getProperty("Lst_Registration_City"))).clear();
+    driver.findElement(By.name(prop.getProperty("Lst_Registration_City"))).sendKeys(city);
+    new Select(driver.findElement(By.name(prop.getProperty("Lst_Registration_State")))).selectByVisibleText(state);
+	driver.findElement(By.cssSelector(prop.getProperty("Btn_Registration_Submit"))).click();
+    
+	
     String methodName = new Throwable().getStackTrace()[0].getMethodName();
-    takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
-  }*/
+    takeScreenshot(driver, "UserTest" + methodName + testcaseNum);
+  }
   
   @Test
   @FileParameters("./test/facility_maintenance/selenium/UserLogin.csv")
@@ -101,11 +100,13 @@ public class UserTest {
     driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).clear();
     driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).sendKeys(password);
     Thread.sleep(1000);
-    driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
-    Thread.sleep(3000);
+	driver.findElement(By.cssSelector(prop.getProperty("Btn_Login"))).click();
+    Thread.sleep(1000);
+    String methodName = new Throwable().getStackTrace()[0].getMethodName();
+    takeScreenshot(driver, "UserTest" + methodName + testcaseNum);
   }
 
-/*  @Test
+  @Test
   @FileParameters("./test/facility_maintenance/selenium/UserReport.csv")
   public void MarReport(int testcaseNum, String facility, String description) throws Exception {
 		driver.get(appURL);
@@ -113,25 +114,50 @@ public class UserTest {
 	    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).sendKeys("wei");
 	    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).clear();
 	    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).sendKeys("!123462");
+	    driver.findElement(By.cssSelector(prop.getProperty("Btn_Login"))).click();
 	    Thread.sleep(1000);
-	    driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+	    driver.findElement(By.linkText(prop.getProperty("Txt_ProblemReport"))).click();
+	    new Select(driver.findElement(By.name(prop.getProperty("Lst_Facility")))).selectByVisibleText(facility);
+	    driver.findElement(By.id(prop.getProperty("Txt_Description"))).clear();
+	    driver.findElement(By.id(prop.getProperty("Txt_Description"))).sendKeys(description);
+	    
+	    Thread.sleep(1000);
+		driver.findElement(By.cssSelector(prop.getProperty("Btn_Report_Problem_Submit"))).click();
+	    Thread.sleep(1000);
+	    String methodName = new Throwable().getStackTrace()[0].getMethodName();
+	    takeScreenshot(driver, "UserTest" + methodName + testcaseNum);
+}
+  @Test
+  public void HomePage() throws Exception {
+		driver.get(appURL);
+	    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).clear();
+	    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).sendKeys("wei");
+	    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).clear();
+	    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).sendKeys("!123462");
+	    driver.findElement(By.cssSelector(prop.getProperty("Btn_Login"))).click();
+	    
+	    Thread.sleep(1000);
+	    driver.findElement(By.linkText(prop.getProperty("Txt_Home"))).click();
 	    Thread.sleep(1000);
 	    
-}*/
+	    Thread.sleep(1000);
+	    driver.findElement(By.linkText(prop.getProperty("Txt_Logout"))).click();
+	    Thread.sleep(1000);
+  }
   
   public void takeScreenshot(WebDriver driver, String screenshotname) {
-		try
-		{
-			java.io.File source = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);			
-			FileUtils.copyFile(source, new File("./ScreenShots/" + screenshotname +".png"));
-		}
-		catch(IOException e) {}
-		try {
-			//				  Change the delay value to 1_000 to insert a 1 second delay after 
-			//				  each screenshot
-			Thread.sleep(0);
-		} catch (InterruptedException e) {}
-	}
+	  try
+	  {
+		  File source = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);			
+		  FileUtils.copyFile(source, new File("./ScreenShots/" + screenshotname +".png"));
+	  }
+	  catch(IOException e) {}
+	  try {
+//		  Change the delay value to 1_000 to insert a 1 second delay after 
+//		  each screenshot
+		  Thread.sleep(1000);
+	} catch (InterruptedException e) {}
+}
   
 
   @After
