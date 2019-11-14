@@ -47,8 +47,7 @@ public class UserTest {
     appURL = prop.getProperty("WCAppURL");
     prop.load(new FileInputStream(prop.getProperty("SharedUIMap")));
   }
-
-  @Test
+/*  @Test
   @FileParameters("./test/facility_maintenance/selenium/UserRegister.csv")
   public void Registration(int testcaseNum, 
 		  	String username,
@@ -88,10 +87,38 @@ public class UserTest {
     driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
     Thread.sleep(1000);
     driver.quit();
-/*    String methodName = new Throwable().getStackTrace()[0].getMethodName();
-    takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);*/
+    String methodName = new Throwable().getStackTrace()[0].getMethodName();
+    takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
+  }*/
+  
+  @Test
+  @FileParameters("./test/facility_maintenance/selenium/UserLogin.csv")
+  public void Login(int testcaseNum, String username, String password ) throws Exception
+  {
+  	driver.get(appURL);
+    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).clear();
+    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).sendKeys(username);
+    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).clear();
+    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).sendKeys(password);
+    Thread.sleep(1000);
+    driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+    Thread.sleep(3000);
   }
 
+/*  @Test
+  @FileParameters("./test/facility_maintenance/selenium/UserReport.csv")
+  public void MarReport(int testcaseNum, String facility, String description) throws Exception {
+		driver.get(appURL);
+	    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).clear();
+	    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).sendKeys("wei");
+	    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).clear();
+	    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).sendKeys("!123462");
+	    Thread.sleep(1000);
+	    driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+	    Thread.sleep(1000);
+	    
+}*/
+  
   public void takeScreenshot(WebDriver driver, String screenshotname) {
 		try
 		{
