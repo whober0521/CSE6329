@@ -129,7 +129,8 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
     Thread.sleep(500);
     String methodName = new Throwable().getStackTrace()[0].getMethodName();
     takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
-    driver.findElement(By.linkText("Logout")).click();
+
+    FM_Logout(driver);
   }
 
   public void takeScreenshot(WebDriver driver, String screenshotname) {

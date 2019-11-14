@@ -1,4 +1,4 @@
-package facility_maintenance.functions;
+package facility_maintenance;
 
 import java.io.File;
 import java.io.IOException;
@@ -40,5 +40,10 @@ public class FMFunctions {
 	    Thread.sleep(1000);
 	       
 	    driver.findElement(By.cssSelector(prop.getProperty("Btn_Login_Login"))).click();
+	}
+	
+	public void FM_Logout(WebDriver driver) throws InterruptedException
+	{
+		driver.findElement(By.linkText(prop.getProperty("Lnk_Logout"))).click();
 	}
 }
