@@ -49,7 +49,7 @@ public class FMFunctions {
 	}
 	
 	public void FM_Register(WebDriver driver, String username, String pwd, String role, String utaid, String firstName, String lastName,
-			String email, String phone, String address, String city, String state) throws InterruptedException
+			String email, String phone, String address, String city, String state, String screenshotname) throws InterruptedException
 	{
 		driver.findElement(By.linkText(prop.getProperty("Lnk_Register_Register"))).click();
 		
@@ -86,6 +86,7 @@ public class FMFunctions {
 
 	    Thread.sleep(1000);
 	    
+		takeScreenshot(driver, screenshotname);
 	    driver.findElement(By.cssSelector(prop.getProperty("Btn_Register_Submit"))).click();
 	}
 }

@@ -52,10 +52,10 @@ public class UserTest extends facility_maintenance.FMFunctions{
 		  	String city,
 		  	String state) throws Exception {
 	driver.get(appURL);	
-	FM_Register(driver, username, pwd, role, utaid, firstName, lastName, email, phone, address, city, state);
-    Thread.sleep(1000);
 	String methodName = new Throwable().getStackTrace()[0].getMethodName();
-	takeScreenshot(driver, "UserTest" + methodName + testcaseNum);
+	FM_Register(driver, username, pwd, role, utaid, firstName, lastName, email, phone, address, city, state, "UserTest" + methodName + testcaseNum);
+    Thread.sleep(1000);
+	//takeScreenshot(driver, "UserTest" + methodName + testcaseNum);
   }
   
   @Test

@@ -24,8 +24,8 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 
   @Before
   public void setUp() throws Exception {
-//	System.setProperty("webdriver.chrome.driver", "/Users/xaiser/CS/school/SoftwareEngineerAdvance/workplace/chromedriver");
-	System.setProperty("webdriver.chrome.driver","c:/ChromeDriver/chromedriver.exe");
+	System.setProperty("webdriver.chrome.driver", "/Users/xaiser/CS/school/SoftwareEngineerAdvance/workplace/chromedriver");
+	//System.setProperty("webdriver.chrome.driver","c:/ChromeDriver/chromedriver.exe");
 	/*
     driver = new ChromeDriver();
     baseUrl = "http://localhost:225/";
@@ -36,7 +36,7 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     prop = new Properties();
     prop.load(new FileInputStream("Configuration/FM_Configuration.properties"));
-    appURL = prop.getProperty("AppURL");
+    appURL = prop.getProperty("FM_AppURL");
     prop.load(new FileInputStream(prop.getProperty("SharedUIMap")));
   }
 
@@ -55,11 +55,57 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 		  	String state) throws Exception {
 	driver.get(appURL);
 	
-	FM_Register(driver, username, pwd, "Facility Manager", utaid, firstName, lastName, email, phone, address, city, state);
-	
     String methodName = new Throwable().getStackTrace()[0].getMethodName();
-    
-    takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
+
+	FM_Register(driver, username, pwd, "Facility Manager", utaid, firstName, lastName, email, phone, address, city, state, "FacilityManagerTest" + methodName + testcaseNum);
+  }
+
+  @Test
+  @FileParameters("./test/facility_maintenance/selenium/FM_verifyHomelink.csv")
+  public void verifyAllLinks(int testcaseNum, String link, String title) throws Exception {
+	  driver.get(appURL);
+	  Thread.sleep(1000);
+	  FM_Login(driver, "fmfive", "test1");    
+	  Thread.sleep(1000);
+	  driver.findElement(By.linkText(prop.getProperty(link))).click();
+	  try {
+		  String methodName = new Throwable().getStackTrace()[0].getMethodName();
+		  takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
+		  assertEquals(title, driver.getTitle());
+	  } catch (Error e) {
+		  verificationErrors.append(e.toString());
+	  }
+	  Thread.sleep(1000);
+	  FM_Logout(driver);
+	  //driver.findElement(By.linkText("Logout")).click();
+  }
+
+  @Test
+  public void verifyAddNewFacility() throws Exception {
+	  driver.get(appURL);
+	  Thread.sleep(1000);
+	  FM_Login(driver, "fmfive", "test1");    
+	  Thread.sleep(1000);
+	  driver.findElement(By.linkText(prop.getProperty("Txt_FM_AddNewFacility"))).click();
+	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
+	  takeScreenshot(driver, "FacilityManagerTest" + methodName);
+	  assertTrue(isElementPresent(By.cssSelector("form")));
+	  Thread.sleep(1000);
+	  //driver.findElement(By.linkText("Logout")).click();
+  }
+
+  @Test
+  public void verifyUnassignedMAR() throws Exception {
+	  driver.get(appURL);
+	  Thread.sleep(1000);
+	  FM_Login(driver, "fmfive", "test1");    
+	  Thread.sleep(1000);
+	  driver.findElement(By.linkText(prop.getProperty("Txt_FM_ViewUnassignedMAR"))).click();
+	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
+	  takeScreenshot(driver, "FacilityManagerTest" + methodName);
+	  assertTrue(isElementPresent(By.cssSelector("th")));
+	  Thread.sleep(1000);
+	  //driver.findElement(By.linkText("Logout")).click();
   }
 
   @Test
