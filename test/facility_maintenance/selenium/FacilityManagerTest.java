@@ -57,30 +57,11 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 		  	String city,
 		  	String state) throws Exception {
 	driver.get(appURL);
-    driver.findElement(By.linkText(prop.getProperty("Btn_Login_Registration"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Registration_Username"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Registration_Username"))).sendKeys(username);
-    driver.findElement(By.xpath(prop.getProperty("Txt_Registration_Password"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Registration_Password"))).sendKeys(pwd);
-    new Select(driver.findElement(By.id(prop.getProperty("Lst_Registration_Role")))).selectByVisibleText("Facility Manager");
-    driver.findElement(By.name(prop.getProperty("Lst_Registration_UTAID"))).clear();
-    driver.findElement(By.name(prop.getProperty("Lst_Registration_UTAID"))).sendKeys(utaid);
-    driver.findElement(By.name("fname")).clear();
-    driver.findElement(By.name("fname")).sendKeys(firstName);
-    driver.findElement(By.name("lname")).clear();
-    driver.findElement(By.name("lname")).sendKeys(lastName);
-    driver.findElement(By.name("email")).clear();
-    driver.findElement(By.name("email")).sendKeys(email);
-    driver.findElement(By.name("phone")).clear();
-    driver.findElement(By.name("phone")).sendKeys(phone);
-    driver.findElement(By.name("address")).clear();
-    driver.findElement(By.name("address")).sendKeys(address);
-    driver.findElement(By.name("city")).clear();
-    driver.findElement(By.name("city")).sendKeys(city);
-    new Select(driver.findElement(By.name("state"))).selectByVisibleText(state);
-    Thread.sleep(1000);
-    driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+	
+	FM_Register(driver, username, pwd, "Facility Manager", utaid, firstName, lastName, email, phone, address, city, state);
+	
     String methodName = new Throwable().getStackTrace()[0].getMethodName();
+    
     takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
   }
 
