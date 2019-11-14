@@ -1,6 +1,5 @@
 package facility_maintenance.selenium;
 
-import java.util.regex.Pattern;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,9 +11,7 @@ import org.junit.*;
 import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
@@ -23,22 +20,19 @@ import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
 
 @RunWith(JUnitParamsRunner.class)
-public class UserTest {
-  private WebDriver driver;
+public class UserTest extends facility_maintenance.FMFunctions{
   private String appURL;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
   public static String sharedUIMapStr;
-  public static Properties prop;
   private ChromeOptions options = new ChromeOptions();
 
   @Before
   public void setUp() throws Exception {
 	System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");;
-	ChromeOptions options = new ChromeOptions();
 	options.addArguments("disable-gpu");
-	options.addArguments("--disable-features=VizDisplayCompositor");
 	options.addArguments("--start-fullscreen");
+	options.addArguments("--disable-features=VizDisplayCompositor");
 	
 	driver = new ChromeDriver(options);
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -61,33 +55,11 @@ public class UserTest {
 		  	String address,
 		  	String city,
 		  	String state) throws Exception {
-	driver.get(appURL);
-    driver.findElement(By.linkText(prop.getProperty("Btn_Login_Registration"))).click();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Registration_Username"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Registration_Username"))).sendKeys(username);
-    driver.findElement(By.xpath(prop.getProperty("Txt_Registration_Password"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Registration_Password"))).sendKeys(pwd);
-    new Select(driver.findElement(By.id(prop.getProperty("Lst_Registration_Role")))).selectByVisibleText(role);
-    driver.findElement(By.name(prop.getProperty("Lst_Registration_UTAID"))).clear();
-    driver.findElement(By.name(prop.getProperty("Lst_Registration_UTAID"))).sendKeys(utaid);
-    driver.findElement(By.name(prop.getProperty("Lst_Registration_Firstname"))).clear();
-    driver.findElement(By.name(prop.getProperty("Lst_Registration_Firstname"))).sendKeys(firstName);
-    driver.findElement(By.name(prop.getProperty("Lst_Registration_Lastname"))).clear();
-    driver.findElement(By.name(prop.getProperty("Lst_Registration_Lastname"))).sendKeys(lastName);
-    driver.findElement(By.name(prop.getProperty("Lst_Registration_EMail"))).clear();
-    driver.findElement(By.name(prop.getProperty("Lst_Registration_EMail"))).sendKeys(email);
-    driver.findElement(By.name(prop.getProperty("Lst_Registration_Phone"))).clear();
-    driver.findElement(By.name(prop.getProperty("Lst_Registration_Phone"))).sendKeys(phone);
-    driver.findElement(By.name(prop.getProperty("Lst_Registration_Address"))).clear();
-    driver.findElement(By.name(prop.getProperty("Lst_Registration_Address"))).sendKeys(address);
-    driver.findElement(By.name(prop.getProperty("Lst_Registration_City"))).clear();
-    driver.findElement(By.name(prop.getProperty("Lst_Registration_City"))).sendKeys(city);
-    new Select(driver.findElement(By.name(prop.getProperty("Lst_Registration_State")))).selectByVisibleText(state);
-	driver.findElement(By.cssSelector(prop.getProperty("Btn_Registration_Submit"))).click();
-    
-	
-    String methodName = new Throwable().getStackTrace()[0].getMethodName();
-    takeScreenshot(driver, "UserTest" + methodName + testcaseNum);
+	driver.get(appURL);	
+	FM_Register(driver, username, pwd, role, utaid, firstName, lastName, email, phone, address, city, state);
+    Thread.sleep(1000);
+	String methodName = new Throwable().getStackTrace()[0].getMethodName();
+	takeScreenshot(driver, "UserTest" + methodName + testcaseNum);
   }
   
   @Test
@@ -95,13 +67,9 @@ public class UserTest {
   public void Login(int testcaseNum, String username, String password ) throws Exception
   {
   	driver.get(appURL);
-    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).sendKeys(username);
-    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).clear();
-    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).sendKeys(password);
+	FM_Login(driver, username, password);
     Thread.sleep(1000);
-	driver.findElement(By.cssSelector(prop.getProperty("Btn_Login"))).click();
-    Thread.sleep(1000);
+    
     String methodName = new Throwable().getStackTrace()[0].getMethodName();
     takeScreenshot(driver, "UserTest" + methodName + testcaseNum);
   }
@@ -110,11 +78,8 @@ public class UserTest {
   @FileParameters("./test/facility_maintenance/selenium/UserReport.csv")
   public void MarReport(int testcaseNum, String facility, String description) throws Exception {
 		driver.get(appURL);
-	    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).clear();
-	    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).sendKeys("wei");
-	    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).clear();
-	    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).sendKeys("!123462");
-	    driver.findElement(By.cssSelector(prop.getProperty("Btn_Login"))).click();
+		FM_Login(driver, "wei", "!123462");
+		
 	    Thread.sleep(1000);
 	    driver.findElement(By.linkText(prop.getProperty("Txt_ProblemReport"))).click();
 	    new Select(driver.findElement(By.name(prop.getProperty("Lst_Facility")))).selectByVisibleText(facility);
@@ -128,36 +93,23 @@ public class UserTest {
 	    takeScreenshot(driver, "UserTest" + methodName + testcaseNum);
 }
   @Test
-  public void HomePage() throws Exception {
+  public void EachLinkCorrect() throws Exception {
 		driver.get(appURL);
-	    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).clear();
-	    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).sendKeys("wei");
-	    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).clear();
-	    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).sendKeys("!123462");
-	    driver.findElement(By.cssSelector(prop.getProperty("Btn_Login"))).click();
+		FM_Login(driver, "wei", "!123462");
 	    
 	    Thread.sleep(1000);
 	    driver.findElement(By.linkText(prop.getProperty("Txt_Home"))).click();
 	    Thread.sleep(1000);
 	    
 	    Thread.sleep(1000);
+	    driver.findElement(By.linkText(prop.getProperty("Txt_Update_Profile"))).click();
+	    Thread.sleep(1000);
+	    driver.navigate().back();
+	    
+	    Thread.sleep(1000);
 	    driver.findElement(By.linkText(prop.getProperty("Txt_Logout"))).click();
 	    Thread.sleep(1000);
   }
-  
-  public void takeScreenshot(WebDriver driver, String screenshotname) {
-	  try
-	  {
-		  File source = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);			
-		  FileUtils.copyFile(source, new File("./ScreenShots/" + screenshotname +".png"));
-	  }
-	  catch(IOException e) {}
-	  try {
-//		  Change the delay value to 1_000 to insert a 1 second delay after 
-//		  each screenshot
-		  Thread.sleep(1000);
-	} catch (InterruptedException e) {}
-}
   
 
   @After
