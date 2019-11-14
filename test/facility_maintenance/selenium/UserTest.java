@@ -1,12 +1,9 @@
 package facility_maintenance.selenium;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.*;
 import org.junit.runner.RunWith;
 
@@ -24,7 +21,6 @@ public class UserTest extends facility_maintenance.FMFunctions{
   private String appURL;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
-  public static String sharedUIMapStr;
   private ChromeOptions options = new ChromeOptions();
 
   @Before
@@ -107,7 +103,9 @@ public class UserTest extends facility_maintenance.FMFunctions{
 	    driver.navigate().back();
 	    
 	    Thread.sleep(1000);
-	    driver.findElement(By.linkText(prop.getProperty("Txt_Logout"))).click();
+	    
+	    FM_Logout(driver);
+	    
 	    Thread.sleep(1000);
   }
   

@@ -1,12 +1,9 @@
 package facility_maintenance.selenium;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.*;
 import org.junit.runner.RunWith;
 
@@ -70,15 +67,7 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
   public void assignMAR(int testcaseNum, String repairer, String urgency, String estimate) throws Exception {
 	driver.get(appURL);
 	
-	FM_Login(driver, "fmfive", "test1");
-	
-//    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).clear();
-//    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Username"))).sendKeys("fmfive");
-//    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).clear();
-//    driver.findElement(By.xpath(prop.getProperty("Txt_Login_Password"))).sendKeys("test1");
-//    Thread.sleep(1000);
-//    driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
-    
+	FM_Login(driver, "fmfive", "test1");    
 
     Thread.sleep(1000);
     driver.findElement(By.linkText(prop.getProperty("Txt_FM_ViewUnassignedMAR"))).click();
@@ -112,22 +101,7 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
     takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
 
     FM_Logout(driver);
-  }
-
-  public void takeScreenshot(WebDriver driver, String screenshotname) {
-		try
-		{
-			java.io.File source = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);			
-			FileUtils.copyFile(source, new File("./ScreenShots/" + screenshotname +".png"));
-		}
-		catch(IOException e) {}
-		try {
-			//				  Change the delay value to 1_000 to insert a 1 second delay after 
-			//				  each screenshot
-			Thread.sleep(0);
-		} catch (InterruptedException e) {}
-	}
-  
+  }  
 
   @After
   public void tearDown() throws Exception {
