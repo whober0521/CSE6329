@@ -53,36 +53,41 @@ public class RepairerTest extends facility_maintenance.FMFunctions {
   @FileParameters("./test/facility_maintenance/selenium/RepairerReserved.csv")
   public void testRepairerReserved(int testcaseNum, String Idx, String Type, String Name, String Urgency, String Description,
 		  String Reported, String Date, String Assigneddate, String Estimate, String Reservation) throws Exception {
-	driver.get(appURL);
-
-	FM_Login(driver, username, password);
-	Thread.sleep(1000);
-	
-	driver.findElement(By.linkText(prop.getProperty("Lnk_RepairerMenu_View"))).click();
-	Thread.sleep(1000);
-	
-	new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerReserved_Time")))).selectByVisibleText("00:00");
-	Thread.sleep(1000);
-	driver.findElement(By.cssSelector(prop.getProperty("Btn_Register_Submit"))).click();
-	Thread.sleep(1000);
-	
-	assertEquals(Idx, driver.findElement(By.xpath("/html/body/table/tbody/tr["+(testcaseNum+1)+"]/td[1]")).getText());
-	driver.findElement(By.xpath("html/body/table/tbody/tr["+(testcaseNum+1)+"]/td[2]/a")).click();
-
-	assertEquals(Type, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Type"))).getText());
-	assertEquals(Name, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Name"))).getText());
-	assertEquals(Urgency, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Urgency"))).getText());
-	assertEquals(Description, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Description"))).getText());
-	assertEquals(Reported, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Reported"))).getText());
-	assertEquals(Date, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_AddDate"))).getText());
-	assertEquals(Idx, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Idx"))).getText());
-	assertEquals(username, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Assigned"))).getText());
-	assertEquals(Assigneddate, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_AssignedDate"))).getText());
-	assertEquals(Estimate, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Estimate"))).getText());
-	assertEquals(Reservation, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Reservation"))).getText().replace('\n', ' '));
-	
-	FM_Logout(driver);
-	Thread.sleep(1000);
+	  driver.get(appURL);
+	  
+	  FM_Login(driver, username, password);
+	  Thread.sleep(1000);
+	  
+	  takeScreenshot(driver, "RepairerHome" + testcaseNum);
+	  driver.findElement(By.linkText(prop.getProperty("Lnk_RepairerMenu_View"))).click();
+	  Thread.sleep(1000);
+	  
+	  new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerReserved_Time")))).selectByVisibleText("00:00");
+	  Thread.sleep(1000);
+	  takeScreenshot(driver, "RepairerSearch" + testcaseNum);
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_Register_Submit"))).click();
+	  Thread.sleep(1000);
+	  
+	  assertEquals(Idx, driver.findElement(By.xpath("/html/body/table/tbody/tr["+(testcaseNum+1)+"]/td[1]")).getText());
+	  takeScreenshot(driver, "RepairerList" + testcaseNum);
+	  driver.findElement(By.xpath("html/body/table/tbody/tr["+(testcaseNum+1)+"]/td[2]/a")).click();
+	  
+	  assertEquals(Type, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Type"))).getText());
+	  assertEquals(Name, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Name"))).getText());
+	  assertEquals(Urgency, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Urgency"))).getText());
+	  assertEquals(Description, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Description"))).getText());
+	  assertEquals(Reported, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Reported"))).getText());
+	  assertEquals(Date, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_AddDate"))).getText());
+	  assertEquals(Idx, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Idx"))).getText());
+	  assertEquals(username, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Assigned"))).getText());
+	  assertEquals(Assigneddate, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_AssignedDate"))).getText());
+	  assertEquals(Estimate, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Estimate"))).getText());
+	  assertEquals(Reservation, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Reservation"))).getText().replace('\n', ' '));
+	  takeScreenshot(driver, "RepairerDetail" + testcaseNum);
+	  
+	  FM_Logout(driver);
+	  
+	  Thread.sleep(1000);
   }
   
   @Test

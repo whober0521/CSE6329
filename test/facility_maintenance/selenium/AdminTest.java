@@ -38,7 +38,7 @@ import junitparams.JUnitParamsRunner;
     prop.load(new FileInputStream("Configurations/Configuration.properties"));
     prop.load(new FileInputStream(prop.getProperty("SharedUIMap")));
     
-    sAppURL = prop.getProperty("sAppURL");
+    sAppURL = prop.getProperty("AppURL");
 
     System.out.print(prop.getProperty("Txt_Register_Password"));
 	System.out.print(prop.getProperty("Txt_Register_UTAID"));
