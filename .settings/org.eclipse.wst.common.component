@@ -4,9 +4,9 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/SharedUIMap"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Configuration"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/ScreenShots"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/functions"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Functions"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/Configurations"/>
         <property name="context-root" value="Facility_Maintenance"/>
         <property name="java-output-path" value="/UTA Mac Facility Maintenance System/build/classes"/>
     </wb-module>

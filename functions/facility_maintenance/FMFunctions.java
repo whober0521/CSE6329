@@ -87,6 +87,7 @@ public class FMFunctions {
 	    Thread.sleep(1000);
 	    
 		takeScreenshot(driver, screenshotname);
+		
 	    driver.findElement(By.cssSelector(prop.getProperty("Btn_Register_Submit"))).click();
 	}
 }
