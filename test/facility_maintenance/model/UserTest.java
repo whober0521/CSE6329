@@ -25,7 +25,7 @@ public class UserTest {
 	}
 
 	@Test
-	@FileParameters("TestCaseTable_CSV/Users.csv")
+	@FileParameters("./test/facility_maintenance/model/Users.csv")
 	public void test(int testCaseNo, String action, String username, String password, String role, String utaid, String firstName, String LastName,
 					String Email, String phoneNum, String address, String city, String state, String Errormsgs, String UserNameErr, String PwdErr, String idErr, String FnErr, String LnErr,
 					String EmailErr, String PhoneErr, String adderr, String cityerr) {
