@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 
 import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
@@ -51,6 +52,14 @@ public class RepairerTest extends facility_maintenance.FMFunctions {
 	FM_Login(driver, username, password);
 	Thread.sleep(1000);
 	
+	driver.findElement(By.linkText(prop.getProperty("Lnk_RepairerMenu_View"))).click();
+	Thread.sleep(1000);
+	
+	new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerReserved_Time")))).selectByVisibleText("00:00");
+	Thread.sleep(1000);
+	driver.findElement(By.cssSelector(prop.getProperty("Btn_Register_Submit"))).click();
+	Thread.sleep(1000);
+	
 	FM_Logout(driver);
 	Thread.sleep(1000);
   }
@@ -78,75 +87,6 @@ public class RepairerTest extends facility_maintenance.FMFunctions {
 	  Thread.sleep(1000);
 	  FM_Logout(driver);
   }
-
-//  @Test
-//  public void verifyAddNewFacility() throws Exception {
-//	  driver.get(appURL);
-//	  Thread.sleep(1000);
-//	  FM_Login(driver, "fmfive", "test1");    
-//	  Thread.sleep(1000);
-//	  driver.findElement(By.linkText(prop.getProperty("Txt_FM_AddNewFacility"))).click();
-//	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
-//	  takeScreenshot(driver, "FacilityManagerTest" + methodName);
-//	  assertTrue(isElementPresent(By.cssSelector("form")));
-//	  Thread.sleep(1000);
-//	  //driver.findElement(By.linkText("Logout")).click();
-//  }
-//
-//  @Test
-//  public void verifyUnassignedMAR() throws Exception {
-//	  driver.get(appURL);
-//	  Thread.sleep(1000);
-//	  FM_Login(driver, "fmfive", "test1");    
-//	  Thread.sleep(1000);
-//	  driver.findElement(By.linkText(prop.getProperty("Txt_FM_ViewUnassignedMAR"))).click();
-//	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
-//	  takeScreenshot(driver, "FacilityManagerTest" + methodName);
-//	  assertTrue(isElementPresent(By.cssSelector("th")));
-//	  Thread.sleep(1000);
-//	  //driver.findElement(By.linkText("Logout")).click();
-//  }
-//
-//  @Test
-//  @FileParameters("./test/facility_maintenance/selenium/FM_assignMAR.csv")
-//  public void assignMAR(int testcaseNum, String repairer, String urgency, String estimate) throws Exception {
-//	driver.get(appURL);
-//	
-//	FM_Login(driver, "fmfive", "test1");    
-//
-//    Thread.sleep(1000);
-//    driver.findElement(By.linkText(prop.getProperty("Txt_FM_ViewUnassignedMAR"))).click();
-//    Thread.sleep(1000);
-//    driver.findElement(By.linkText(prop.getProperty("Txt_UAM_View"))).click();
-//
-//    try
-//    {
-//    	new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Urgency")))).selectByVisibleText(urgency);
-//    }
-//    catch( Exception e)
-//    { }
-//
-//    try
-//    {
-//    	new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Repairer")))).selectByVisibleText(repairer);
-//    }
-//    catch( Exception e)
-//    { }
-//
-//    try
-//    {
-//    	new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Estimate")))).selectByVisibleText(estimate);
-//    }
-//    catch( Exception e)
-//    { }
-//    Thread.sleep(500);
-//    driver.findElement(By.cssSelector(prop.getProperty("Btn_MM_Submit"))).click();
-//    Thread.sleep(500);
-//    String methodName = new Throwable().getStackTrace()[0].getMethodName();
-//    takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
-//
-//    FM_Logout(driver);
-//  }  
 
   @After
   public void tearDown() throws Exception {
