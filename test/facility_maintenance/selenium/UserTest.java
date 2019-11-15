@@ -33,7 +33,7 @@ public class UserTest extends facility_maintenance.FMFunctions{
 	driver = new ChromeDriver(options);
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     prop = new Properties();
-    prop.load(new FileInputStream("Configuration/FM_Configuration.properties"));
+    prop.load(new FileInputStream("Configurations/Configuration.properties"));
     appURL = prop.getProperty("WCAppURL");
     prop.load(new FileInputStream(prop.getProperty("SharedUIMap")));
   }

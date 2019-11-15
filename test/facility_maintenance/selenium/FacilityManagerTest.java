@@ -35,7 +35,7 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
     driver = new ChromeDriver();
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     prop = new Properties();
-    prop.load(new FileInputStream("Configuration/FM_Configuration.properties"));
+    prop.load(new FileInputStream("Configurations/Configuration.properties"));
     appURL = prop.getProperty("FM_AppURL");
     prop.load(new FileInputStream(prop.getProperty("SharedUIMap")));
   }
