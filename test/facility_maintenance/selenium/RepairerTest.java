@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
 
 import junitparams.FileParameters;
@@ -23,12 +24,17 @@ public class RepairerTest extends facility_maintenance.FMFunctions {
   public static String sharedUIMapStr;
   private String username;
   private String password;
+  private ChromeOptions options = new ChromeOptions();
 
   @Before
   public void setUp() throws Exception {
-	System.setProperty("webdriver.chrome.driver","c:/ChromeDriver/chromedriver.exe");
+//	System.setProperty("webdriver.chrome.driver","c:/ChromeDriver/chromedriver.exe");
+	System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+	options.addArguments("disable-gpu");
+//	options.addArguments("--start-fullscreen");
+	options.addArguments("--disable-features=VizDisplayCompositor");
 	
-    driver = new ChromeDriver();
+	driver = new ChromeDriver(options);
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     
     prop = new Properties();
@@ -36,22 +42,14 @@ public class RepairerTest extends facility_maintenance.FMFunctions {
     prop.load(new FileInputStream("Configurations/Login.properties"));
     prop.load(new FileInputStream(prop.getProperty("SharedUIMap")));
     
-    appURL = prop.getProperty("AppURL");
+    appURL = prop.getProperty("WCAppURL");
     username = prop.getProperty("RepairerUserName");
     password = prop.getProperty("RepairerPassword");
   }
-
-  @Test
-  public void testRepairerRegister() throws Exception {
-	driver.get(appURL);
-
-	FM_Register(driver, username, password, "Repairer", "1001161980", "test", "test", "test@uta.edu", "1234567890", "UTA ERB", "Arlington", "Texas", "RepairerTestRegister");
-	Thread.sleep(1000);
-  }
   
   @Test
-  @FileParameters("./test/facility_maintenance/selenium/RepairerReserved.csv")
-  public void testRepairerReserved(int testcaseNum, String Idx, String Type, String Name, String Urgency, String Description,
+  @FileParameters("./test/facility_maintenance/selenium/RepairViewAssigned.csv")
+  public void testRepairAssigned(int testcaseNum, String Idx, String Type, String Name, String Urgency, String Description,
 		  String Reported, String Date, String Assigneddate, String Estimate, String Reservation) throws Exception {
 	  driver.get(appURL);
 	  
@@ -62,16 +60,15 @@ public class RepairerTest extends facility_maintenance.FMFunctions {
 	  driver.findElement(By.linkText(prop.getProperty("Lnk_RepairerMenu_View"))).click();
 	  Thread.sleep(1000);
 	  
+	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Date"))).clear();
+	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Date"))).sendKeys("11/25/2019");
 	  new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerReserved_Time")))).selectByVisibleText("00:00");
-	  Thread.sleep(1000);
 	  takeScreenshot(driver, "RepairerSearch" + testcaseNum);
 	  driver.findElement(By.cssSelector(prop.getProperty("Btn_Register_Submit"))).click();
 	  Thread.sleep(1000);
 	  
 	  assertEquals(Idx, driver.findElement(By.xpath("/html/body/table/tbody/tr["+(testcaseNum+1)+"]/td[1]")).getText());
-	  takeScreenshot(driver, "RepairerList" + testcaseNum);
 	  driver.findElement(By.xpath("html/body/table/tbody/tr["+(testcaseNum+1)+"]/td[2]/a")).click();
-	  
 	  assertEquals(Type, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Type"))).getText());
 	  assertEquals(Name, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Name"))).getText());
 	  assertEquals(Urgency, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Urgency"))).getText());
@@ -82,37 +79,82 @@ public class RepairerTest extends facility_maintenance.FMFunctions {
 	  assertEquals(username, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Assigned"))).getText());
 	  assertEquals(Assigneddate, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_AssignedDate"))).getText());
 	  assertEquals(Estimate, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Estimate"))).getText());
-	  assertEquals(Reservation, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Reservation"))).getText().replace('\n', ' '));
+	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
 	  takeScreenshot(driver, "RepairerDetail" + testcaseNum);
 	  
-	  FM_Logout(driver);
-	  
+	  driver.findElement(By.linkText(prop.getProperty("Txt_Home"))).click();
 	  Thread.sleep(1000);
-  }
+	  driver.findElement(By.linkText(prop.getProperty("Lnk_RepairerMenu_Reservation"))).click();
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_RepairerRequest_Search"))).click();
+	  Thread.sleep(1000);
+	  takeScreenshot(driver, "RepairerFacilityError" + testcaseNum);
+	  new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerRequest_Name")))).selectByVisibleText("BMC1");
+	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerRequest_Date"))).clear();
+	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerRequest_Date"))).sendKeys("11/30/2019");
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_RepairerRequest_Search"))).click();
+	  Thread.sleep(1000);
+	  takeScreenshot(driver, "RepairerDateError" + testcaseNum);
+	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerRequest_Date"))).clear();
+	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerRequest_Date"))).sendKeys("11/26/2019");
+	  new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerRequest_Time")))).selectByVisibleText("00:00");
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_RepairerRequest_Search"))).click();
+	  Thread.sleep(1000);
+	  driver.findElement(By.linkText(prop.getProperty("Lnk_Txt_RepairerRequest_Book"))).click();
+	  Thread.sleep(1000);
+	  
+	  driver.findElement(By.linkText(prop.getProperty("Lnk_RepairerMenu_View"))).click();
+	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Date"))).clear();
+	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Date"))).sendKeys("11/25/2019");
+	  new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerReserved_Time")))).selectByVisibleText("00:00");
+	  Thread.sleep(1000);
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_Register_Submit"))).click();
+	  Thread.sleep(1000);
+	  driver.findElement(By.xpath("html/body/table/tbody/tr["+(testcaseNum+1)+"]/td[2]/a")).click();
+	  Thread.sleep(1000);
+	  assertEquals(Reservation, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Reservation"))).getText().replace('\n', ' '));
+	  takeScreenshot(driver, "RepairerRequestDetail" + testcaseNum);
+	  FM_Logout(driver);
+	  Thread.sleep(1000);
+	  
+	  
+}
   
-  @Test
-  @FileParameters("./test/facility_maintenance/selenium/RepairerLink.csv")
-  public void testRepairerLink(int testcaseNum, String link, String title) throws Exception {
-	  driver.get(appURL);
-	  Thread.sleep(1000);
-	  
-	  FM_Login(driver, username, password);
-	  Thread.sleep(1000);
-	  
-	  driver.findElement(By.linkText(prop.getProperty(link))).click();
-	  
-	  try {
-		  String methodName = new Throwable().getStackTrace()[0].getMethodName();
-		  takeScreenshot(driver, "Repairer" + methodName + testcaseNum);
-		  assertEquals(title, driver.getTitle());
-		  driver.navigate().back();
-	  } catch (Error e) {
-		  verificationErrors.append(e.toString());
-	  }
-	  
-	  Thread.sleep(1000);
-	  FM_Logout(driver);
-  }
+//  	@Test
+//  	public void testRepairerLink(int testcaseNum, String link, String title) throws Exception {
+//  	  driver.get(appURL);
+//  	  Thread.sleep(1000);
+//  	  
+//  	  FM_Login(driver, username, password);
+//  	  Thread.sleep(1000);
+//  	  
+//  	  driver.findElement(By.linkText(prop.getProperty(link))).click();
+//  	  
+//    }
+  
+  
+//  @Test
+//  @FileParameters("./test/facility_maintenance/selenium/RepairerLink.csv")
+//  public void testRepairerLink(int testcaseNum, String link, String title) throws Exception {
+//	  driver.get(appURL);
+//	  Thread.sleep(1000);
+//	  
+//	  FM_Login(driver, username, password);
+//	  Thread.sleep(1000);
+//	  
+//	  driver.findElement(By.linkText(prop.getProperty(link))).click();
+//	  
+//	  try {
+//		  String methodName = new Throwable().getStackTrace()[0].getMethodName();
+//		  takeScreenshot(driver, "Repairer" + methodName + testcaseNum);
+//		  assertEquals(title, driver.getTitle());
+//		  driver.navigate().back();
+//	  } catch (Error e) {
+//		  verificationErrors.append(e.toString());
+//	  }
+//	  
+//	  Thread.sleep(1000);
+//	  FM_Logout(driver);
+//  }
 
   @After
   public void tearDown() throws Exception {
