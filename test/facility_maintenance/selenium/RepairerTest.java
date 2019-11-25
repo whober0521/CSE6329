@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.*;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import static org.junit.Assert.*;
 import org.openqa.selenium.*;
@@ -17,6 +18,7 @@ import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
 
 @RunWith(JUnitParamsRunner.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING) // the test methods in this test file can run in any order but I prefer a fixed order
 public class RepairerTest extends facility_maintenance.FMFunctions {
   private String appURL;
   private boolean acceptNextAlert = true;
@@ -26,6 +28,7 @@ public class RepairerTest extends facility_maintenance.FMFunctions {
   private String password;
   private ChromeOptions options = new ChromeOptions();
 
+  
   @Before
   public void setUp() throws Exception {
 //	System.setProperty("webdriver.chrome.driver","c:/ChromeDriver/chromedriver.exe");
@@ -47,109 +50,118 @@ public class RepairerTest extends facility_maintenance.FMFunctions {
     password = prop.getProperty("RepairerPassword");
   }
   
-//  @Test
-//  @FileParameters("./test/facility_maintenance/selenium/RepairViewAssigned.csv")
-//  public void testRepairAssigned(int testcaseNum, String Idx, String Type, String Name, String Urgency, String Description,
-//		  String Reported, String Date, String Assigneddate, String Estimate, String Reservation) throws Exception {
-//	  driver.get(appURL);
-//	  
-//	  FM_Login(driver, username, password);
-//	  Thread.sleep(1000);
-//	  
-//	  takeScreenshot(driver, "RepairTest" + "RepairerHome" + testcaseNum);
-//	  driver.findElement(By.linkText(prop.getProperty("Lnk_RepairerMenu_View"))).click();
-//	  Thread.sleep(1000);
-//	  
-//	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Date"))).clear();
-//	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Date"))).sendKeys("11/25/2019");
-//	  new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerReserved_Time")))).selectByVisibleText("00:00");
-//	  takeScreenshot(driver, "RepairTest" + "RepairerSearch" + testcaseNum);
-//	  driver.findElement(By.cssSelector(prop.getProperty("Btn_Register_Submit"))).click();
-//	  Thread.sleep(1000);
-//	  
-//	  assertEquals(Idx, driver.findElement(By.xpath("/html/body/table/tbody/tr["+(testcaseNum+1)+"]/td[1]")).getText());
-//	  driver.findElement(By.xpath("html/body/table/tbody/tr["+(testcaseNum+1)+"]/td[2]/a")).click();
-//	  assertEquals(Type, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Type"))).getText());
-//	  assertEquals(Name, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Name"))).getText());
-//	  assertEquals(Urgency, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Urgency"))).getText());
-//	  assertEquals(Description, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Description"))).getText());
-//	  assertEquals(Reported, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Reported"))).getText());
-//	  assertEquals(Date, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_AddDate"))).getText());
-//	  assertEquals(Idx, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Idx"))).getText());
-//	  assertEquals(username, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Assigned"))).getText());
-//	  assertEquals(Assigneddate, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_AssignedDate"))).getText());
-//	  assertEquals(Estimate, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Estimate"))).getText());
-//	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
-//	  takeScreenshot(driver, "RepairTest" + "RepairerDetail" + testcaseNum);
-//	  
-//	  driver.findElement(By.linkText(prop.getProperty("Txt_Home"))).click();
-//	  Thread.sleep(1000);
-//	  driver.findElement(By.linkText(prop.getProperty("Lnk_RepairerMenu_Reservation"))).click();
-//	  driver.findElement(By.cssSelector(prop.getProperty("Btn_RepairerRequest_Search"))).click();
-//	  Thread.sleep(1000);
-//	  takeScreenshot(driver, "RepairTest" + "RepairerFacilityError" + testcaseNum);
-//	  new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerRequest_Name")))).selectByVisibleText("BMC1");
-//	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerRequest_Date"))).clear();
-//	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerRequest_Date"))).sendKeys("11/30/2019");
-//	  driver.findElement(By.cssSelector(prop.getProperty("Btn_RepairerRequest_Search"))).click();
-//	  Thread.sleep(1000);
-//	  takeScreenshot(driver, "RepairTest" + "RepairerDateError" + testcaseNum);
-//	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerRequest_Date"))).clear();
-//	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerRequest_Date"))).sendKeys("11/26/2019");
-//	  new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerRequest_Time")))).selectByVisibleText("00:00");
-//	  driver.findElement(By.cssSelector(prop.getProperty("Btn_RepairerRequest_Search"))).click();
-//	  Thread.sleep(1000);
-//	  driver.findElement(By.linkText(prop.getProperty("Lnk_Txt_RepairerRequest_Book"))).click();
-//	  Thread.sleep(1000);
-//	  
-//	  driver.findElement(By.linkText(prop.getProperty("Lnk_RepairerMenu_View"))).click();
-//	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Date"))).clear();
-//	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Date"))).sendKeys("11/25/2019");
-//	  new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerReserved_Time")))).selectByVisibleText("00:00");
-//	  Thread.sleep(1000);
-//	  driver.findElement(By.cssSelector(prop.getProperty("Btn_Register_Submit"))).click();
-//	  Thread.sleep(1000);
-//	  driver.findElement(By.xpath("html/body/table/tbody/tr["+(testcaseNum+1)+"]/td[2]/a")).click();
-//	  Thread.sleep(1000);
-//	  assertEquals(Reservation, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Reservation"))).getText().replace('\n', ' '));
-//	  takeScreenshot(driver, "RepairTest" + "RepairerRequestDetail" + testcaseNum);
-//	  FM_Logout(driver);
-//	  Thread.sleep(1000);
-//	  
-//	  
-//}
+  @Test
+  public void testRepairerTC01aRegister() throws Exception {
+	driver.get(appURL);
 
-//  	@Test
-//  	@FileParameters("./test/facility_maintenance/selenium/RepairerModify.csv")
-//  	public void testRepairerModify(int testcaseNum, String hours) throws Exception {
-//  	  driver.get(appURL);
-//	  
-//  	  FM_Login(driver, username, password);
-//  	  Thread.sleep(1000);
-//  	  
-//  	  driver.findElement(By.linkText(prop.getProperty("Lnk_RepairerMenu_View"))).click();
-//  	  Thread.sleep(1000);
-//  	  
-//  	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Date"))).clear();
-//  	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Date"))).sendKeys("11/25/2019");
-//  	  new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerReserved_Time")))).selectByVisibleText("00:00");
-//  	  driver.findElement(By.cssSelector(prop.getProperty("Btn_Register_Submit"))).click();
-//  	  Thread.sleep(1000);
-//  	  
-//  	  driver.findElement(By.xpath("html/body/table/tbody/tr["+( testcaseNum + 1)+"]/td[2]/a")).click();
-//  	  new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerReserved_ChangeTime")))).selectByVisibleText(hours);
-//  	  
-//	  driver.findElement(By.cssSelector(prop.getProperty("Btn_RepairerReserved_ChangeTime"))).click();
-//	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
-//	  takeScreenshot(driver, "RepairTest" + methodName + testcaseNum);
-//	  
-//	  FM_Logout(driver);
-//	  Thread.sleep(1000);
-//    }
-//  	
+	FM_Register(driver, "repairbot", "!123456", "Repairer", "1001161980", "test", "test", "test@uta.edu", "1234567890", "UTA ERB", "Arlington", "Texas", "RepairerTestRegister");
+	Thread.sleep(1000);
+  }
+  
+  
+  @Test
+  @FileParameters("./test/facility_maintenance/selenium/RepairViewAssigned.csv")
+  public void testRepairerTC01bAssigned(int testcaseNum, String Idx, String Type, String Name, String Urgency, String Description,
+		  String Reported, String Date, String Assigneddate, String Estimate, String Reservation) throws Exception {
+	  driver.get(appURL);
+	  
+	  FM_Login(driver, username, password);
+	  Thread.sleep(1000);
+	  
+	  takeScreenshot(driver, "RepairTest" + "RepairerHome" + testcaseNum);
+	  driver.findElement(By.linkText(prop.getProperty("Lnk_RepairerMenu_View"))).click();
+	  Thread.sleep(1000);
+	  
+	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Date"))).clear();
+	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Date"))).sendKeys("11/25/2019");
+	  new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerReserved_Time")))).selectByVisibleText("00:00");
+	  takeScreenshot(driver, "RepairTest" + "RepairerSearch" + testcaseNum);
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_Register_Submit"))).click();
+	  Thread.sleep(1000);
+	  
+	  assertEquals(Idx, driver.findElement(By.xpath("/html/body/table/tbody/tr["+(testcaseNum+1)+"]/td[1]")).getText());
+	  driver.findElement(By.xpath("html/body/table/tbody/tr["+(testcaseNum+1)+"]/td[2]/a")).click();
+	  assertEquals(Type, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Type"))).getText());
+	  assertEquals(Name, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Name"))).getText());
+	  assertEquals(Urgency, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Urgency"))).getText());
+	  assertEquals(Description, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Description"))).getText());
+	  assertEquals(Reported, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Reported"))).getText());
+	  assertEquals(Date, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_AddDate"))).getText());
+	  assertEquals(Idx, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Idx"))).getText());
+	  assertEquals(username, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Assigned"))).getText());
+	  assertEquals(Assigneddate, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_AssignedDate"))).getText());
+	  assertEquals(Estimate, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Estimate"))).getText());
+	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
+	  takeScreenshot(driver, "RepairTest" + "RepairerDetail" + testcaseNum);
+	  
+	  driver.findElement(By.linkText(prop.getProperty("Txt_Home"))).click();
+	  Thread.sleep(1000);
+	  driver.findElement(By.linkText(prop.getProperty("Lnk_RepairerMenu_Reservation"))).click();
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_RepairerRequest_Search"))).click();
+	  Thread.sleep(1000);
+	  takeScreenshot(driver, "RepairTest" + "RepairerFacilityError" + testcaseNum);
+	  new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerRequest_Name")))).selectByVisibleText("BMC1");
+	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerRequest_Date"))).clear();
+	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerRequest_Date"))).sendKeys("11/30/2019");
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_RepairerRequest_Search"))).click();
+	  Thread.sleep(1000);
+	  takeScreenshot(driver, "RepairTest" + "RepairerDateError" + testcaseNum);
+	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerRequest_Date"))).clear();
+	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerRequest_Date"))).sendKeys("11/26/2019");
+	  new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerRequest_Time")))).selectByVisibleText("00:00");
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_RepairerRequest_Search"))).click();
+	  Thread.sleep(1000);
+	  driver.findElement(By.linkText(prop.getProperty("Lnk_Txt_RepairerRequest_Book"))).click();
+	  Thread.sleep(1000);
+	  
+	  driver.findElement(By.linkText(prop.getProperty("Lnk_RepairerMenu_View"))).click();
+	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Date"))).clear();
+	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Date"))).sendKeys("11/25/2019");
+	  new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerReserved_Time")))).selectByVisibleText("00:00");
+	  Thread.sleep(1000);
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_Register_Submit"))).click();
+	  Thread.sleep(1000);
+	  driver.findElement(By.xpath("html/body/table/tbody/tr["+(testcaseNum+1)+"]/td[2]/a")).click();
+	  Thread.sleep(1000);
+	  assertEquals(Reservation, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Reservation"))).getText().replace('\n', ' '));
+	  takeScreenshot(driver, "RepairTest" + "RepairerRequestDetail" + testcaseNum);
+	  FM_Logout(driver);
+	  Thread.sleep(1000);
+	  
+	  
+}
+
+  	@Test
+  	@FileParameters("./test/facility_maintenance/selenium/RepairerModify.csv")
+  	public void testRepairerTC01cModify(int testcaseNum, String hours) throws Exception {
+  	  driver.get(appURL);
+	  
+  	  FM_Login(driver, username, password);
+  	  Thread.sleep(1000);
+  	  
+  	  driver.findElement(By.linkText(prop.getProperty("Lnk_RepairerMenu_View"))).click();
+  	  Thread.sleep(1000);
+  	  
+  	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Date"))).clear();
+  	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Date"))).sendKeys("11/25/2019");
+  	  new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerReserved_Time")))).selectByVisibleText("00:00");
+  	  driver.findElement(By.cssSelector(prop.getProperty("Btn_Register_Submit"))).click();
+  	  Thread.sleep(1000);
+  	  
+  	  driver.findElement(By.xpath("html/body/table/tbody/tr["+( testcaseNum + 1)+"]/td[2]/a")).click();
+  	  new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerReserved_ChangeTime")))).selectByVisibleText(hours);
+  	  
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_RepairerReserved_ChangeTime"))).click();
+	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
+	  takeScreenshot(driver, "RepairTest" + methodName + testcaseNum);
+	  
+	  FM_Logout(driver);
+	  Thread.sleep(1000);
+    }
+  	
   	@Test
   	@FileParameters("./test/facility_maintenance/selenium/RepairerCancel.csv")
-  	public void testRepairerCancel(int testcaseNum) throws Exception {
+  	public void testRepairerTC01dCancel(int testcaseNum) throws Exception {
     	  driver.get(appURL);
   	  
     	  FM_Login(driver, username, password);
