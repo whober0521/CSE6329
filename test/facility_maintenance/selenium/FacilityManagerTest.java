@@ -11,6 +11,8 @@ import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
@@ -40,6 +42,7 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
     prop.load(new FileInputStream(prop.getProperty("SharedUIMap")));
   }
 
+  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_registration.csv")
   public void Registration(int testcaseNum, 
@@ -107,7 +110,9 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  Thread.sleep(1000);
 	  //driver.findElement(By.linkText("Logout")).click();
   }
+  */
 
+  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_assignMAR.csv")
   public void assignMAR(int testcaseNum, String repairer, String urgency, String estimate) throws Exception {
@@ -148,6 +153,77 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 
     FM_Logout(driver);
   }  
+  */
+
+  @Test
+  @FileParameters("./test/facility_maintenance/selenium/FM_assignMARToOther.csv")
+  public void assignMARToOther(int testcaseNum, String time, String facilityName, String newRepairer) throws Exception {
+	  driver.get(appURL);
+	  FM_Login(driver, "fmfive", "test1");    
+
+	  driver.findElement(By.linkText("View Assignment Problems")).click();
+	  //driver.findElement(By.linkText("Search facility")).click();
+	  //new Select(driver.findElement(By.name("assigntime"))).selectByVisibleText("11:00");
+	  new Select(driver.findElement(By.name("assigntime"))).selectByVisibleText(time);
+//	  new Select(driver.findElement(By.name("facilitytype"))).selectByVisibleText("Badminton courts");
+	  new Select(driver.findElement(By.name("facilitytype"))).selectByVisibleText(facilityName);
+	  //driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+	  //driver.findElement(By.xpath("html/body/div[1]/form/center/button")).click();
+	  //driver.findElement(By.xpath("//button[@type='submit']")).click();
+	  
+	  WebDriverWait wait = new WebDriverWait(driver, 5);
+	  wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@type='submit']"))).click();
+	  Thread.sleep(500);
+	  driver.findElement(By.xpath("//button[@type='submit']")).click();
+
+	  wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("View")));
+	  driver.findElement(By.linkText("View")).click();
+
+//	  new Select(driver.findElement(By.name("repairer"))).selectByVisibleText("r1");
+	  new Select(driver.findElement(By.name("repairer"))).selectByVisibleText(newRepairer);
+	  driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+
+	  FM_Logout(driver);
+  }
+
+  /*
+  @Test
+  @FileParameters("./test/facility_maintenance/selenium/FM_searchFacility.csv")
+  public void searchFacility(int testcaseNum, String facilityName) throws Exception {
+	  //driver.get(baseUrl + "/CSE6329/UserController?action=logout");
+	  driver.findElement(By.name("username")).clear();
+	  driver.findElement(By.name("username")).sendKeys("fmtwo");
+	  driver.findElement(By.name("password")).clear();
+	  driver.findElement(By.name("password")).sendKeys("test1");
+	  driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+//	  driver.findElement(By.linkText("Search facility")).click();
+	  driver.findElement(By.linkText(facilityName)).click();
+	  driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+	  driver.findElement(By.linkText("Logout")).click();
+  }
+
+  @Test
+  @FileParameters("./test/facility_maintenance/selenium/FM_addFacility.csv")
+  public void addFacility(int testcaseNum, String facilityName, String number, String interval, String duration) throws Exception {
+	  //driver.get(baseUrl + "/CSE6329/UserController?action=logout");
+	  driver.findElement(By.name("username")).clear();
+	  driver.findElement(By.name("username")).sendKeys("fmtwo");
+	  driver.findElement(By.name("password")).clear();
+	  driver.findElement(By.name("password")).sendKeys("test1");
+	  driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+	  driver.findElement(By.linkText("Add new facility")).click();
+//	  new Select(driver.findElement(By.name("master"))).selectByVisibleText("Volleyball courts");
+	  new Select(driver.findElement(By.name("master"))).selectByVisibleText(facilityName);
+	  driver.findElement(By.name("number")).clear();
+//	  driver.findElement(By.name("number")).sendKeys("2");
+	  driver.findElement(By.name("number")).sendKeys(number);
+//	  new Select(driver.findElement(By.name("interval"))).selectByVisibleText("1 hour");
+	  new Select(driver.findElement(By.name("interval"))).selectByVisibleText(interval);
+//	  new Select(driver.findElement(By.name("duration"))).selectByVisibleText("4 days");
+	  new Select(driver.findElement(By.name("duration"))).selectByVisibleText(duration);
+	  driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
+  }
+  */
 
   @After
   public void tearDown() throws Exception {
