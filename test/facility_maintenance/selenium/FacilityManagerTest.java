@@ -183,7 +183,6 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 
 	  FM_Logout(driver);
   }
-  */
 
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_searchFacility.csv")
@@ -198,17 +197,14 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  //driver.findElement(By.linkText("Logout")).click();
 	  FM_Logout(driver);
   }
+  */
 
-  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_addFacility.csv")
   public void addFacility(int testcaseNum, String facilityName, String number, String interval, String duration) throws Exception {
-	  //driver.get(baseUrl + "/CSE6329/UserController?action=logout");
-	  driver.findElement(By.name("username")).clear();
-	  driver.findElement(By.name("username")).sendKeys("fmtwo");
-	  driver.findElement(By.name("password")).clear();
-	  driver.findElement(By.name("password")).sendKeys("test1");
-	  driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+	  driver.get(appURL);
+	  FM_Login(driver, "fmfive", "test1");    
+
 	  driver.findElement(By.linkText("Add new facility")).click();
 //	  new Select(driver.findElement(By.name("master"))).selectByVisibleText("Volleyball courts");
 	  new Select(driver.findElement(By.name("master"))).selectByVisibleText(facilityName);
@@ -220,8 +216,12 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 //	  new Select(driver.findElement(By.name("duration"))).selectByVisibleText("4 days");
 	  new Select(driver.findElement(By.name("duration"))).selectByVisibleText(duration);
 	  driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
+
+	  driver.navigate().back();
+	  driver.navigate().back();
+	  Thread.sleep(100);
+	  FM_Logout(driver);
   }
-  */
 
   @After
   public void tearDown() throws Exception {
