@@ -155,31 +155,34 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
   }  
   */
 
-  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_assignMARToOther.csv")
   public void assignMARToOther(int testcaseNum, String time, String facilityName, String newRepairer) throws Exception {
 	  driver.get(appURL);
 	  FM_Login(driver, "fmfive", "test1");    
 
-	  driver.findElement(By.linkText("View Assignment Problems")).click();
+	  driver.findElement(By.linkText(prop.getProperty("Txt_FM_ViewAssignedMAR"))).click();
 	  //new Select(driver.findElement(By.name("assigntime"))).selectByVisibleText("11:00");
-	  new Select(driver.findElement(By.name("assigntime"))).selectByVisibleText(time);
+//	  new Select(driver.findElement(By.name("assigntime"))).selectByVisibleText(time);
+	  new Select(driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedTime")))).selectByVisibleText(time);
 //	  new Select(driver.findElement(By.name("facilitytype"))).selectByVisibleText("Badminton courts");
-	  new Select(driver.findElement(By.name("facilitytype"))).selectByVisibleText(facilityName);
+//	  new Select(driver.findElement(By.name("facilitytype"))).selectByVisibleText(facilityName);
+	  new Select(driver.findElement(By.name(prop.getProperty("Txt_FAM_FacilityType")))).selectByVisibleText(facilityName);
 	  
 	   //For unknown reason, I have to give it 2 click with 500ms delay or the selenium won't click the button.
 	  WebDriverWait wait = new WebDriverWait(driver, 5);
-	  wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@type='submit']"))).click();
+//	  wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@type='submit']"))).click();
+	  wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_FAM_Submit")))).click();
 	  Thread.sleep(500);
-	  driver.findElement(By.xpath("//button[@type='submit']")).click();
+	  driver.findElement(By.xpath(prop.getProperty("Btn_FAM_Submit"))).click();
 
-	  wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("View")));
-	  driver.findElement(By.linkText("View")).click();
+	  wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText(prop.getProperty("Txt_UAM_View"))));
+	  driver.findElement(By.linkText(prop.getProperty("Txt_UAM_View"))).click();
 
 //	  new Select(driver.findElement(By.name("repairer"))).selectByVisibleText("r1");
 	  new Select(driver.findElement(By.name("repairer"))).selectByVisibleText(newRepairer);
-	  driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+//	  driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_MM_Submit"))).click();
 
 	  FM_Logout(driver);
   }
@@ -190,14 +193,15 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  driver.get(appURL);
 	  FM_Login(driver, "fmfive", "test1");    
 
-	  driver.findElement(By.linkText("Search facility")).click();
-	  new Select(driver.findElement(By.name("facilityname"))).selectByVisibleText(facilityName);
-	  driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+	  driver.findElement(By.linkText(prop.getProperty("Txt_FM_SearchFacility"))).click();
+//	  new Select(driver.findElement(By.name("facilityname"))).selectByVisibleText(facilityName);
+	  new Select(driver.findElement(By.name(prop.getProperty("Txt_SF_FacilityName")))).selectByVisibleText(facilityName);
+//	  driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_SF_Submit"))).click();
 	  driver.navigate().back();
 	  //driver.findElement(By.linkText("Logout")).click();
 	  FM_Logout(driver);
   }
-  */
 
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_addFacility.csv")
@@ -205,17 +209,17 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  driver.get(appURL);
 	  FM_Login(driver, "fmfive", "test1");    
 
-	  driver.findElement(By.linkText("Add new facility")).click();
+	  driver.findElement(By.linkText(prop.getProperty("Txt_FM_AddNewFacility"))).click();
 //	  new Select(driver.findElement(By.name("master"))).selectByVisibleText("Volleyball courts");
-	  new Select(driver.findElement(By.name("master"))).selectByVisibleText(facilityName);
-	  driver.findElement(By.name("number")).clear();
+	  new Select(driver.findElement(By.name(prop.getProperty("Txt_ANF_Master")))).selectByVisibleText(facilityName);
+	  driver.findElement(By.name(prop.getProperty("Txt_ANF_Number"))).clear();
 //	  driver.findElement(By.name("number")).sendKeys("2");
-	  driver.findElement(By.name("number")).sendKeys(number);
+	  driver.findElement(By.name(prop.getProperty("Txt_ANF_Number"))).sendKeys(number);
 //	  new Select(driver.findElement(By.name("interval"))).selectByVisibleText("1 hour");
-	  new Select(driver.findElement(By.name("interval"))).selectByVisibleText(interval);
+	  new Select(driver.findElement(By.name(prop.getProperty("Txt_ANF_Interval")))).selectByVisibleText(interval);
 //	  new Select(driver.findElement(By.name("duration"))).selectByVisibleText("4 days");
-	  new Select(driver.findElement(By.name("duration"))).selectByVisibleText(duration);
-	  driver.findElement(By.cssSelector("input[type=\"submit\"]")).click();
+	  new Select(driver.findElement(By.name(prop.getProperty("Txt_ANF_Duration")))).selectByVisibleText(duration);
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_ANF_Submit"))).click();
 
 	  driver.navigate().back();
 	  driver.navigate().back();
