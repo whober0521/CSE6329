@@ -155,33 +155,43 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
   }  
   */
 
+  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_assignMARToOther.csv")
-  public void assignMARToOther(int testcaseNum, String time, String facilityName, String newRepairer) throws Exception {
+//  public void assignMARToOther(int testcaseNum, String time, String facilityName, String newRepairer) throws Exception {
+  public void assignMARToOther(int testcaseNum, String MARIdx, String facilityType, 
+		  String facilityName, String oldRepairer, String date, String time, String newRepairer) throws Exception {
 	  driver.get(appURL);
 	  FM_Login(driver, "fmfive", "test1");    
 
 	  driver.findElement(By.linkText(prop.getProperty("Txt_FM_ViewAssignedMAR"))).click();
-	  //new Select(driver.findElement(By.name("assigntime"))).selectByVisibleText("11:00");
+
+	  driver.findElement(By.name(prop.getProperty("Txt_FAM_Idx"))).clear();
+	  driver.findElement(By.name(prop.getProperty("Txt_FAM_Idx"))).sendKeys(MARIdx);
+
+	  driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).clear();
+	  driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).sendKeys(date);
+
 //	  new Select(driver.findElement(By.name("assigntime"))).selectByVisibleText(time);
 	  new Select(driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedTime")))).selectByVisibleText(time);
-//	  new Select(driver.findElement(By.name("facilitytype"))).selectByVisibleText("Badminton courts");
 //	  new Select(driver.findElement(By.name("facilitytype"))).selectByVisibleText(facilityName);
-	  new Select(driver.findElement(By.name(prop.getProperty("Txt_FAM_FacilityType")))).selectByVisibleText(facilityName);
+	  new Select(driver.findElement(By.name(prop.getProperty("Txt_FAM_FacilityType")))).selectByVisibleText(facilityType);
+	  new Select(driver.findElement(By.name(prop.getProperty("Txt_FAM_FacilityName")))).selectByVisibleText(facilityName);
+
+	  new Select(driver.findElement(By.name(prop.getProperty("Txt_FAM_OldRepairer")))).selectByVisibleText(oldRepairer);
 	  
 	   //For unknown reason, I have to give it 2 click with 500ms delay or the selenium won't click the button.
 	  WebDriverWait wait = new WebDriverWait(driver, 5);
-//	  wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@type='submit']"))).click();
-	  wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_FAM_Submit")))).click();
+//	  wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_FAM_Submit")))).click();
+	  Thread.sleep(500);
+	  wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_FAM_Submit"))));
 	  Thread.sleep(500);
 	  driver.findElement(By.xpath(prop.getProperty("Btn_FAM_Submit"))).click();
 
 	  wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText(prop.getProperty("Txt_UAM_View"))));
 	  driver.findElement(By.linkText(prop.getProperty("Txt_UAM_View"))).click();
 
-//	  new Select(driver.findElement(By.name("repairer"))).selectByVisibleText("r1");
-	  new Select(driver.findElement(By.name("repairer"))).selectByVisibleText(newRepairer);
-//	  driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+	  new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Repairer")))).selectByVisibleText(newRepairer);
 	  driver.findElement(By.cssSelector(prop.getProperty("Btn_MM_Submit"))).click();
 
 	  FM_Logout(driver);
@@ -202,6 +212,7 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  //driver.findElement(By.linkText("Logout")).click();
 	  FM_Logout(driver);
   }
+  */
 
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_addFacility.csv")

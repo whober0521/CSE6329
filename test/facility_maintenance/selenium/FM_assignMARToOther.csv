@@ -1,1 +1,6 @@
-1,09:00,Conference rooms,rrr
+1,63,Conference rooms,CR1,rrr,2019-11-25,09:00,rrr
+2,,Conference rooms,CR1,rrr,2019-11-25,09:00,rrr
+3,63,,CR1,rrr,2019-11-25,09:00,rrr
+4,63,Conference rooms,,rrr,2019-11-25,09:00,rrr
+5,63,Conference rooms,CR1,,2019-11-25,09:00,rrr
+6,63,Conference rooms,CR1,rrr,,09:00,rrr
