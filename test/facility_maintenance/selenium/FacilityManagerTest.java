@@ -155,6 +155,7 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
   }  
   */
 
+  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_assignMARToOther.csv")
   public void assignMARToOther(int testcaseNum, String time, String facilityName, String newRepairer) throws Exception {
@@ -162,15 +163,12 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  FM_Login(driver, "fmfive", "test1");    
 
 	  driver.findElement(By.linkText("View Assignment Problems")).click();
-	  //driver.findElement(By.linkText("Search facility")).click();
 	  //new Select(driver.findElement(By.name("assigntime"))).selectByVisibleText("11:00");
 	  new Select(driver.findElement(By.name("assigntime"))).selectByVisibleText(time);
 //	  new Select(driver.findElement(By.name("facilitytype"))).selectByVisibleText("Badminton courts");
 	  new Select(driver.findElement(By.name("facilitytype"))).selectByVisibleText(facilityName);
-	  //driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
-	  //driver.findElement(By.xpath("html/body/div[1]/form/center/button")).click();
-	  //driver.findElement(By.xpath("//button[@type='submit']")).click();
 	  
+	   //For unknown reason, I have to give it 2 click with 500ms delay or the selenium won't click the button.
 	  WebDriverWait wait = new WebDriverWait(driver, 5);
 	  wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@type='submit']"))).click();
 	  Thread.sleep(500);
@@ -185,23 +183,23 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 
 	  FM_Logout(driver);
   }
+  */
 
-  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_searchFacility.csv")
   public void searchFacility(int testcaseNum, String facilityName) throws Exception {
-	  //driver.get(baseUrl + "/CSE6329/UserController?action=logout");
-	  driver.findElement(By.name("username")).clear();
-	  driver.findElement(By.name("username")).sendKeys("fmtwo");
-	  driver.findElement(By.name("password")).clear();
-	  driver.findElement(By.name("password")).sendKeys("test1");
+	  driver.get(appURL);
+	  FM_Login(driver, "fmfive", "test1");    
+
+	  driver.findElement(By.linkText("Search facility")).click();
+	  new Select(driver.findElement(By.name("facilityname"))).selectByVisibleText(facilityName);
 	  driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
-//	  driver.findElement(By.linkText("Search facility")).click();
-	  driver.findElement(By.linkText(facilityName)).click();
-	  driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
-	  driver.findElement(By.linkText("Logout")).click();
+	  driver.navigate().back();
+	  //driver.findElement(By.linkText("Logout")).click();
+	  FM_Logout(driver);
   }
 
+  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_addFacility.csv")
   public void addFacility(int testcaseNum, String facilityName, String number, String interval, String duration) throws Exception {
