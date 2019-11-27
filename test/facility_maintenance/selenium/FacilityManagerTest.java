@@ -42,7 +42,6 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
     prop.load(new FileInputStream(prop.getProperty("SharedUIMap")));
   }
 
-  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_registration.csv")
   public void Registration(int testcaseNum, 
@@ -63,6 +62,7 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	FM_Register(driver, username, pwd, "Facility Manager", utaid, firstName, lastName, email, phone, address, city, state, "FacilityManagerTest" + methodName + testcaseNum);
   }
 
+  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_verifyHomelink.csv")
   public void verifyAllLinks(int testcaseNum, String link, String title) throws Exception {
@@ -112,7 +112,6 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
   }
   */
 
-  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_assignMAR.csv")
   public void assignMAR(int testcaseNum, String repairer, String urgency, String estimate) throws Exception {
@@ -153,9 +152,7 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 
     FM_Logout(driver);
   }  
-  */
 
-  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_assignMARToOther.csv")
 //  public void assignMARToOther(int testcaseNum, String time, String facilityName, String newRepairer) throws Exception {
@@ -166,16 +163,30 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 
 	  driver.findElement(By.linkText(prop.getProperty("Txt_FM_ViewAssignedMAR"))).click();
 
+	  Thread.sleep(500);
 	  driver.findElement(By.name(prop.getProperty("Txt_FAM_Idx"))).clear();
+	  Thread.sleep(500);
 	  driver.findElement(By.name(prop.getProperty("Txt_FAM_Idx"))).sendKeys(MARIdx);
+	  Thread.sleep(500);
 
+	  String[] ds = date.split("-");
 	  Thread.sleep(1000);
 	  driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).clear();
 	  Thread.sleep(1000);
-	  driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).sendKeys(date);
+	  //driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).sendKeys(date);
+	  if ( ds.length > 1 )
+	  {
+		  driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).sendKeys(ds[0]);
+		  Thread.sleep(500);
+		  driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).sendKeys(Keys.TAB);
+		  Thread.sleep(500);
+		  driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).sendKeys(ds[1]);
+		  Thread.sleep(100);
+		  driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).sendKeys(ds[2]);
+		  Thread.sleep(100);
+	  }
 	  //driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).sendKeys("11/25/2019");
-	  System.out.println(date);
-	  Thread.sleep(2000);
+	  //System.out.println(date);
 
 //	  new Select(driver.findElement(By.name("assigntime"))).selectByVisibleText(time);
 	  new Select(driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedTime")))).selectByVisibleText(time);
@@ -197,11 +208,14 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  driver.findElement(By.linkText(prop.getProperty("Txt_UAM_View"))).click();
 
 	  new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Repairer")))).selectByVisibleText(newRepairer);
+
+	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
+	  takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
+
 	  driver.findElement(By.cssSelector(prop.getProperty("Btn_MM_Submit"))).click();
 
 	  FM_Logout(driver);
   }
-  */
 
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_searchFacility.csv")
@@ -217,12 +231,13 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  Thread.sleep(500);
 	  driver.findElement(By.cssSelector(prop.getProperty("Btn_SF_Submit"))).click();
 	  Thread.sleep(500);
+	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
+	  takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
 	  driver.navigate().back();
 	  //driver.findElement(By.linkText("Logout")).click();
 	  FM_Logout(driver);
   }
 
-  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_addFacility.csv")
   public void addFacility(int testcaseNum, String facilityName, String number, String interval, String duration) throws Exception {
@@ -239,6 +254,8 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  new Select(driver.findElement(By.name(prop.getProperty("Txt_ANF_Interval")))).selectByVisibleText(interval);
 //	  new Select(driver.findElement(By.name("duration"))).selectByVisibleText("4 days");
 	  new Select(driver.findElement(By.name(prop.getProperty("Txt_ANF_Duration")))).selectByVisibleText(duration);
+	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
+	  takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
 	  driver.findElement(By.cssSelector(prop.getProperty("Btn_ANF_Submit"))).click();
 
 	  driver.navigate().back();
@@ -246,7 +263,6 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  Thread.sleep(100);
 	  FM_Logout(driver);
   }
-  */
 
   @After
   public void tearDown() throws Exception {
