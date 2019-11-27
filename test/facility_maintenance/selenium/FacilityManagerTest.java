@@ -169,8 +169,13 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  driver.findElement(By.name(prop.getProperty("Txt_FAM_Idx"))).clear();
 	  driver.findElement(By.name(prop.getProperty("Txt_FAM_Idx"))).sendKeys(MARIdx);
 
+	  Thread.sleep(1000);
 	  driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).clear();
+	  Thread.sleep(1000);
 	  driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).sendKeys(date);
+	  //driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).sendKeys("11/25/2019");
+	  System.out.println(date);
+	  Thread.sleep(2000);
 
 //	  new Select(driver.findElement(By.name("assigntime"))).selectByVisibleText(time);
 	  new Select(driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedTime")))).selectByVisibleText(time);
@@ -196,6 +201,7 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 
 	  FM_Logout(driver);
   }
+  */
 
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_searchFacility.csv")
@@ -206,14 +212,17 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  driver.findElement(By.linkText(prop.getProperty("Txt_FM_SearchFacility"))).click();
 //	  new Select(driver.findElement(By.name("facilityname"))).selectByVisibleText(facilityName);
 	  new Select(driver.findElement(By.name(prop.getProperty("Txt_SF_FacilityName")))).selectByVisibleText(facilityName);
+	  new Select(driver.findElement(By.name("starttime"))).selectByVisibleText("11:00");
 //	  driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+	  Thread.sleep(500);
 	  driver.findElement(By.cssSelector(prop.getProperty("Btn_SF_Submit"))).click();
+	  Thread.sleep(500);
 	  driver.navigate().back();
 	  //driver.findElement(By.linkText("Logout")).click();
 	  FM_Logout(driver);
   }
-  */
 
+  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_addFacility.csv")
   public void addFacility(int testcaseNum, String facilityName, String number, String interval, String duration) throws Exception {
@@ -237,6 +246,7 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  Thread.sleep(100);
 	  FM_Logout(driver);
   }
+  */
 
   @After
   public void tearDown() throws Exception {
