@@ -79,8 +79,8 @@ public class RepairerTest extends facility_maintenance.FMFunctions {
 	  driver.findElement(By.cssSelector(prop.getProperty("Btn_Register_Submit"))).click();
 	  Thread.sleep(1000);
 	  
-	  assertEquals(Idx, driver.findElement(By.xpath("/html/body/table/tbody/tr["+(testcaseNum+1)+"]/td[1]")).getText());
-	  driver.findElement(By.xpath("html/body/table/tbody/tr["+(testcaseNum+1)+"]/td[2]/a")).click();
+	  assertEquals(Idx, driver.findElement(By.xpath(prop.getProperty("Lab_RepairerReserved_Idx"))).getText());
+	  driver.findElement(By.xpath(prop.getProperty("Lnk_RepairerReserved_View"))).click();
 	  assertEquals(Type, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Type"))).getText());
 	  assertEquals(Name, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Name"))).getText());
 	  assertEquals(Urgency, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Urgency"))).getText());
@@ -93,16 +93,20 @@ public class RepairerTest extends facility_maintenance.FMFunctions {
 	  assertEquals(Estimate, driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Estimate"))).getText());
 	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
 	  takeScreenshot(driver, "RepairTest" + "RepairerDetail" + testcaseNum);
-	  
-	  driver.findElement(By.linkText(prop.getProperty("Txt_Home"))).click();
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_RepairerReserved_ChangeTime"))).click();
+
 	  Thread.sleep(1000);
 	  driver.findElement(By.linkText(prop.getProperty("Lnk_RepairerMenu_Reservation"))).click();
 	  driver.findElement(By.cssSelector(prop.getProperty("Btn_RepairerRequest_Search"))).click();
 	  Thread.sleep(1000);
 	  takeScreenshot(driver, "RepairTest" + "RepairerFacilityError" + testcaseNum);
-	  new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerRequest_Name")))).selectByVisibleText("BMC1");
 	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerRequest_Date"))).clear();
 	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerRequest_Date"))).sendKeys("11/30/2019");
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_RepairerRequest_Search"))).click();
+	  Thread.sleep(1000);
+	  takeScreenshot(driver, "RepairTest" + "RepairerFullError" + testcaseNum);
+	  
+	  new Select(driver.findElement(By.xpath(prop.getProperty("Lst_RepairerRequest_Name")))).selectByVisibleText("BMC1");
 	  driver.findElement(By.cssSelector(prop.getProperty("Btn_RepairerRequest_Search"))).click();
 	  Thread.sleep(1000);
 	  takeScreenshot(driver, "RepairTest" + "RepairerDateError" + testcaseNum);
@@ -113,7 +117,6 @@ public class RepairerTest extends facility_maintenance.FMFunctions {
 	  Thread.sleep(1000);
 	  driver.findElement(By.linkText(prop.getProperty("Lnk_Txt_RepairerRequest_Book"))).click();
 	  Thread.sleep(1000);
-	  
 	  driver.findElement(By.linkText(prop.getProperty("Lnk_RepairerMenu_View"))).click();
 	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Date"))).clear();
 	  driver.findElement(By.xpath(prop.getProperty("Txt_RepairerReserved_Date"))).sendKeys("11/25/2019");
@@ -127,8 +130,6 @@ public class RepairerTest extends facility_maintenance.FMFunctions {
 	  takeScreenshot(driver, "RepairTest" + "RepairerRequestDetail" + testcaseNum);
 	  FM_Logout(driver);
 	  Thread.sleep(1000);
-	  
-	  
 }
 
   	@Test
@@ -178,7 +179,7 @@ public class RepairerTest extends facility_maintenance.FMFunctions {
     	  
     	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
     	  takeScreenshot(driver, "RepairTest" + methodName + testcaseNum);
-    	  driver.findElement(By.xpath("html/body/table/tbody/tr["+( testcaseNum + 1)+"]/td[3]/a")).click();
+    	  driver.findElement(By.xpath(prop.getProperty("Lnk_RepairerReserved_Cancel"))).click();
     	  
     	  FM_Logout(driver);
     	  Thread.sleep(1000);
