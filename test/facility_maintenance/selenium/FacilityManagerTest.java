@@ -11,6 +11,8 @@ import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import junitparams.FileParameters;
 import junitparams.JUnitParamsRunner;
@@ -40,6 +42,7 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
     prop.load(new FileInputStream(prop.getProperty("SharedUIMap")));
   }
 
+  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_registration.csv")
   public void Registration(int testcaseNum, 
@@ -107,7 +110,9 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  Thread.sleep(1000);
 	  //driver.findElement(By.linkText("Logout")).click();
   }
+  */
 
+  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_assignMAR.csv")
   public void assignMAR(int testcaseNum, String repairer, String urgency, String estimate) throws Exception {
@@ -148,6 +153,100 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 
     FM_Logout(driver);
   }  
+  */
+
+  /*
+  @Test
+  @FileParameters("./test/facility_maintenance/selenium/FM_assignMARToOther.csv")
+//  public void assignMARToOther(int testcaseNum, String time, String facilityName, String newRepairer) throws Exception {
+  public void assignMARToOther(int testcaseNum, String MARIdx, String facilityType, 
+		  String facilityName, String oldRepairer, String date, String time, String newRepairer) throws Exception {
+	  driver.get(appURL);
+	  FM_Login(driver, "fmfive", "test1");    
+
+	  driver.findElement(By.linkText(prop.getProperty("Txt_FM_ViewAssignedMAR"))).click();
+
+	  driver.findElement(By.name(prop.getProperty("Txt_FAM_Idx"))).clear();
+	  driver.findElement(By.name(prop.getProperty("Txt_FAM_Idx"))).sendKeys(MARIdx);
+
+	  Thread.sleep(1000);
+	  driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).clear();
+	  Thread.sleep(1000);
+	  driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).sendKeys(date);
+	  //driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).sendKeys("11/25/2019");
+	  System.out.println(date);
+	  Thread.sleep(2000);
+
+//	  new Select(driver.findElement(By.name("assigntime"))).selectByVisibleText(time);
+	  new Select(driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedTime")))).selectByVisibleText(time);
+//	  new Select(driver.findElement(By.name("facilitytype"))).selectByVisibleText(facilityName);
+	  new Select(driver.findElement(By.name(prop.getProperty("Txt_FAM_FacilityType")))).selectByVisibleText(facilityType);
+	  new Select(driver.findElement(By.name(prop.getProperty("Txt_FAM_FacilityName")))).selectByVisibleText(facilityName);
+
+	  new Select(driver.findElement(By.name(prop.getProperty("Txt_FAM_OldRepairer")))).selectByVisibleText(oldRepairer);
+	  
+	   //For unknown reason, I have to give it 2 click with 500ms delay or the selenium won't click the button.
+	  WebDriverWait wait = new WebDriverWait(driver, 5);
+//	  wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_FAM_Submit")))).click();
+	  Thread.sleep(500);
+	  wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_FAM_Submit"))));
+	  Thread.sleep(500);
+	  driver.findElement(By.xpath(prop.getProperty("Btn_FAM_Submit"))).click();
+
+	  wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText(prop.getProperty("Txt_UAM_View"))));
+	  driver.findElement(By.linkText(prop.getProperty("Txt_UAM_View"))).click();
+
+	  new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Repairer")))).selectByVisibleText(newRepairer);
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_MM_Submit"))).click();
+
+	  FM_Logout(driver);
+  }
+  */
+
+  @Test
+  @FileParameters("./test/facility_maintenance/selenium/FM_searchFacility.csv")
+  public void searchFacility(int testcaseNum, String facilityName) throws Exception {
+	  driver.get(appURL);
+	  FM_Login(driver, "fmfive", "test1");    
+
+	  driver.findElement(By.linkText(prop.getProperty("Txt_FM_SearchFacility"))).click();
+//	  new Select(driver.findElement(By.name("facilityname"))).selectByVisibleText(facilityName);
+	  new Select(driver.findElement(By.name(prop.getProperty("Txt_SF_FacilityName")))).selectByVisibleText(facilityName);
+	  new Select(driver.findElement(By.name("starttime"))).selectByVisibleText("11:00");
+//	  driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
+	  Thread.sleep(500);
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_SF_Submit"))).click();
+	  Thread.sleep(500);
+	  driver.navigate().back();
+	  //driver.findElement(By.linkText("Logout")).click();
+	  FM_Logout(driver);
+  }
+
+  /*
+  @Test
+  @FileParameters("./test/facility_maintenance/selenium/FM_addFacility.csv")
+  public void addFacility(int testcaseNum, String facilityName, String number, String interval, String duration) throws Exception {
+	  driver.get(appURL);
+	  FM_Login(driver, "fmfive", "test1");    
+
+	  driver.findElement(By.linkText(prop.getProperty("Txt_FM_AddNewFacility"))).click();
+//	  new Select(driver.findElement(By.name("master"))).selectByVisibleText("Volleyball courts");
+	  new Select(driver.findElement(By.name(prop.getProperty("Txt_ANF_Master")))).selectByVisibleText(facilityName);
+	  driver.findElement(By.name(prop.getProperty("Txt_ANF_Number"))).clear();
+//	  driver.findElement(By.name("number")).sendKeys("2");
+	  driver.findElement(By.name(prop.getProperty("Txt_ANF_Number"))).sendKeys(number);
+//	  new Select(driver.findElement(By.name("interval"))).selectByVisibleText("1 hour");
+	  new Select(driver.findElement(By.name(prop.getProperty("Txt_ANF_Interval")))).selectByVisibleText(interval);
+//	  new Select(driver.findElement(By.name("duration"))).selectByVisibleText("4 days");
+	  new Select(driver.findElement(By.name(prop.getProperty("Txt_ANF_Duration")))).selectByVisibleText(duration);
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_ANF_Submit"))).click();
+
+	  driver.navigate().back();
+	  driver.navigate().back();
+	  Thread.sleep(100);
+	  FM_Logout(driver);
+  }
+  */
 
   @After
   public void tearDown() throws Exception {
