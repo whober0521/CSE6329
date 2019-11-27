@@ -214,7 +214,7 @@ public class MARsDAO {
 				if(mars.getString("repairdate").compareTo(result.get(i).getRepairdate()) < 0)
 					continue;
 				
-				while(mars.getString("repairdate").compareTo(result.get(i).getRepairdate()) > 0 && i<result.size()) {
+				while( i < result.size() && mars.getString("repairdate").compareTo(result.get(i).getRepairdate()) > 0 ) {
 					i += 1;
 				}
 				
@@ -223,7 +223,7 @@ public class MARsDAO {
 				if(mars.getString("endtime").compareTo(result.get(i).getStarttime()) < 0)
 					break;
 				
-				while(mars.getString("starttime").compareTo(result.get(i).getEndtime()) >= 0 && i<result.size()) {
+				while( i < result.size() && mars.getString("starttime").compareTo(result.get(i).getEndtime()) >= 0 ) {
 					i += 1;
 				}
 				
