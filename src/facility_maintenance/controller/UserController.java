@@ -73,7 +73,8 @@ public class UserController extends HttpServlet {
 			session.removeAttribute("username");
 			url="/index.jsp";
 		}
-		else if (action.equalsIgnoreCase("search") ) {
+		else {
+			//"search"
 			session.setAttribute("admin", request.getParameter("admin"));
 			url="/userSearch.jsp";
 		}
@@ -204,7 +205,8 @@ public class UserController extends HttpServlet {
 				url="/userSearch.jsp";				
 			}
 		}
-		else if (action.equalsIgnoreCase("update") ) {
+		else {
+			//"update"
 			user.setUser(
 					request.getParameter("username"),
 					request.getParameter("pwd"),

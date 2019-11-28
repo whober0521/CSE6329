@@ -104,7 +104,8 @@ public class MARController extends HttpServlet {
 			
 			url="/reserved.jsp";
 		}
-		else if (action.equalsIgnoreCase("MARRepairer") ) {
+		else {
+			//"MARRepairer"
 			mar = MARsDAO.getMAR(request.getParameter("idx"));
 			
 			session.setAttribute("MAR", mar);
@@ -240,7 +241,8 @@ public class MARController extends HttpServlet {
 			
 			url="/MARRepairer.jsp";
 		}
-		else if (action.equalsIgnoreCase("request") ) {
+		else {
+			//"request"
 			String date = request.getParameter("repairdate");
 			
 			mar.setMAR("", "", 

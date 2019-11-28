@@ -38,15 +38,13 @@ public class FacilityController extends HttpServlet {
 		Facility facility = new Facility();
 		
 		session.setAttribute("username", username);
-		
-		if (action.equalsIgnoreCase("add") ) {
-			session.setAttribute("types", FacilitiesDAO.getTypes(""));
-			session.setAttribute("intervals", facility.getIntervals(""));
-			session.setAttribute("durations", facility.getDurations(""));
-			session.setAttribute("venues", facility.getVenues(""));
-			
-			url="/facility.jsp";
-		}
+
+		session.setAttribute("types", FacilitiesDAO.getTypes(""));
+		session.setAttribute("intervals", facility.getIntervals(""));
+		session.setAttribute("durations", facility.getDurations(""));
+		session.setAttribute("venues", facility.getVenues(""));
+
+		url="/facility.jsp";
 
 		getServletContext().getRequestDispatcher(url).forward(request, response);
 	}
@@ -62,42 +60,38 @@ public class FacilityController extends HttpServlet {
 		Facility facility = new Facility();
 
 		session.removeAttribute("errorMsgs");
-		
-		if (action.equalsIgnoreCase("add") ) {
-			facility.setFacility(request.getParameter("master"), -1,
+
+		facility.setFacility(request.getParameter("master"), -1,
 								request.getParameter("interval"),
 								request.getParameter("duration"),
 								request.getParameter("venue"),
 								request.getParameter("number"));
-			
-			facility.validate(action, facility, errorMsgs);
-			
-			session.setAttribute("username", username);
 
-			if (!errorMsgs.getErrorMsg().equals("")) {
-				// if error messages
-				session.setAttribute("types", FacilitiesDAO.getTypes(facility.getMaster()));
-				session.setAttribute("intervals", facility.getIntervals(facility.getInterval()));
-				session.setAttribute("durations", facility.getDurations(facility.getDuration()));
-				session.setAttribute("venues", facility.getVenues(facility.getVenue()));
-				
-				session.setAttribute("facility", facility);
-				session.setAttribute("errorMsgs", errorMsgs);
-				url="/facility.jsp";
-			}
-			else {
-				// if no error messages
-				FacilitiesDAO.insert(facility);
-				
-				session.setAttribute("types", FacilitiesDAO.getTypes(""));
-				session.setAttribute("intervals", facility.getIntervals(""));
-				session.setAttribute("durations", facility.getDurations(""));
-				session.setAttribute("venues", facility.getVenues(""));
-				
-				url="/facility.jsp";
-			}
+		facility.validate(action, facility, errorMsgs);
+
+		session.setAttribute("username", username);
+
+		if (!errorMsgs.getErrorMsg().equals("")) {
+			// if error messages
+			session.setAttribute("types", FacilitiesDAO.getTypes(facility.getMaster()));
+			session.setAttribute("intervals", facility.getIntervals(facility.getInterval()));
+			session.setAttribute("durations", facility.getDurations(facility.getDuration()));
+			session.setAttribute("venues", facility.getVenues(facility.getVenue()));
+			session.setAttribute("facility", facility);
+			session.setAttribute("errorMsgs", errorMsgs);
+			url="/facility.jsp";
 		}
-		
+		else {
+			// if no error messages
+			FacilitiesDAO.insert(facility);
+			session.setAttribute("types", FacilitiesDAO.getTypes(""));
+			session.setAttribute("intervals", facility.getIntervals(""));
+			session.setAttribute("durations", facility.getDurations(""));
+			session.setAttribute("venues", facility.getVenues(""));
+
+			url="/facility.jsp";
+		}
+
 		getServletContext().getRequestDispatcher(url).forward(request, response);	
 	}
 }

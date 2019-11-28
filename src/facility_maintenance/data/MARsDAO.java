@@ -96,7 +96,7 @@ public class MARsDAO {
 	}
 	
 	public static ArrayList<MAR> getAssigned(MAR mar) {
-		String queryString = "SELECT * from mars WHERE 1 ";
+		String queryString = "SELECT * from mars WHERE `assigntime` >= '" + mar.getAssigntime() + "' ";
 		
 		if (!mar.getIdx().equals(""))
 			queryString += " AND `idx`='" + mar.getIdx() + "' ";
@@ -112,9 +112,6 @@ public class MARsDAO {
 		
 		if (!mar.getAssigndate().equals(""))
 			queryString += " AND `assigndate`='" + mar.getAssigndate() + "' ";
-		
-		if (!mar.getAssigntime().equals(""))
-			queryString += " AND `assigntime` >= '" + mar.getAssigntime() + "' ";
 		
 		ArrayList<MAR> result = new ArrayList<MAR>();
 		Connection conn = SQLConnection.getDBConnection();
@@ -209,8 +206,6 @@ public class MARsDAO {
 			ResultSet mars = stmt.executeQuery(queryString);
 			
 			while (mars.next()) {
-				if(i>=result.size()) break;
-				
 				if(mars.getString("repairdate").compareTo(result.get(i).getRepairdate()) < 0)
 					continue;
 				
