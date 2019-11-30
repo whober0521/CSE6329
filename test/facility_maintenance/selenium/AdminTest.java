@@ -35,10 +35,10 @@ import junitparams.JUnitParamsRunner;
 	driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	
     prop = new Properties();
-    prop.load(new FileInputStream("Configurations/Configuration.properties"));
+    prop.load(new FileInputStream("Configuration/Configuration.properties"));
     prop.load(new FileInputStream(prop.getProperty("SharedUIMap")));
     
-    sAppURL = prop.getProperty("AppURL");
+    sAppURL = prop.getProperty("sAppURL");
 
     System.out.print(prop.getProperty("Txt_Register_Password"));
 	System.out.print(prop.getProperty("Txt_Register_UTAID"));
@@ -107,14 +107,47 @@ import junitparams.JUnitParamsRunner;
 	  
 	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
 	  
-	  admin_Update(driver, user, "AdminTest" + methodName + testcaseNum);
+	  Update(driver, user, "AdminTest" + methodName + testcaseNum);
 	  
 	  Thread.sleep(500);
 	  
 	  FM_Logout(driver);
   }
   
-  public void admin_Update(WebDriver driver, String user, String screenshotname) throws InterruptedException {
+  @Test
+  @FileParameters("./test/facility_maintenance/selenium/admin_updateagain.csv")
+  public void Updateagain (int testcaseNum, String user) throws Exception {
+	  driver.get(sAppURL);
+	  
+	  FM_Login(driver, "admin", "admin");
+	  
+	  Thread.sleep(1000);
+	  
+	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
+	  
+	  Updateagain(driver, user, "AdminTest" + methodName + testcaseNum);
+	  
+	  Thread.sleep(500);
+	  
+	  FM_Logout(driver);
+  }
+  
+  public void Update(WebDriver driver, String user, String screenshotname) throws InterruptedException {
+	  driver.findElement(By.linkText(prop.getProperty("Lnk_SearchUser"))).click();
+	  driver.findElement(By.name(prop.getProperty("Txt_SearchUser_Username"))).clear();
+	  driver.findElement(By.name(prop.getProperty("Txt_SearchUser_Username"))).sendKeys(user);
+	  driver.findElement(By.xpath(prop.getProperty("Btn_SearchUser_Submit"))).click();
+	  new Select(driver.findElement(By.xpath(prop.getProperty("Lst_Update_Role")))).selectByVisibleText("Repairer");
+	  Thread.sleep(1000);
+	  driver.findElement(By.xpath(prop.getProperty("Btn_Update_Update"))).click();
+	  driver.findElement(By.name(prop.getProperty("Txt_SearchUser_Username"))).clear();
+	  driver.findElement(By.name(prop.getProperty("Txt_SearchUser_Username"))).sendKeys(user);
+	  driver.findElement(By.xpath(prop.getProperty("Btn_SearchUser_Submit"))).click();
+	  takeScreenshot(driver, screenshotname);
+	  driver.findElement(By.xpath(prop.getProperty("Btn_Update_Update"))).click();
+  }
+
+  public void Updateagain (WebDriver driver, String user, String screenshotname) throws InterruptedException {
 	  driver.findElement(By.linkText(prop.getProperty("Lnk_SearchUser"))).click();
 	  driver.findElement(By.name(prop.getProperty("Txt_SearchUser_Username"))).clear();
 	  driver.findElement(By.name(prop.getProperty("Txt_SearchUser_Username"))).sendKeys(user);
