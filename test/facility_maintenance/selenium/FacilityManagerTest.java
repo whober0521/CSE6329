@@ -156,7 +156,6 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
     try {
     	String xpath = prop.getProperty("Txt_MM_ErrMsg");
     	xpath = xpath.replace("^", Integer.toString(errMsgIdx));
-    	System.out.println(xpath);
     	if ( 1 != errMsgIdx )
     	{
     		assertTrue(isElementPresent(By.xpath(xpath)));
@@ -232,7 +231,6 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 
 	  FM_Logout(driver);
   }
-  */
 
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_searchFacility.csv")
@@ -250,19 +248,19 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 
 	  WebElement TogetRows = driver.findElement(By.xpath(prop.getProperty("Table_SF_ResultTable")));
 	  List<WebElement> TotalRowsList = TogetRows.findElements(By.tagName("tr"));
-
-	  assertEquals(numberOfSlot, TotalRowsList.size() - 1/* the title */);
+	  
+	  assertEquals(numberOfSlot, TotalRowsList.size() - 1); // The 1 is the table title
 
 	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
 	  takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
 	  driver.navigate().back();
 	  FM_Logout(driver);
   }
+  */
 
-  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_addFacility.csv")
-  public void addFacility(int testcaseNum, String facilityName, String number, String interval, String duration) throws Exception {
+  public void addFacility(int testcaseNum, String facilityName, String number, String interval, String duration, int errMsgIdx, String errMsg) throws Exception {
 	  driver.get(appURL);
 	  FM_Login(driver, "fmfive", "test1");    
 
@@ -272,16 +270,22 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  driver.findElement(By.name(prop.getProperty("Txt_ANF_Number"))).sendKeys(number);
 	  new Select(driver.findElement(By.name(prop.getProperty("Txt_ANF_Interval")))).selectByVisibleText(interval);
 	  new Select(driver.findElement(By.name(prop.getProperty("Txt_ANF_Duration")))).selectByVisibleText(duration);
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_ANF_Submit"))).click();
+	  try {
+		  String xpath = prop.getProperty("Txt_ANF_ErrMsg");
+		  xpath = xpath.replace("^", Integer.toString(errMsgIdx));
+		  assertEquals(errMsg, driver.findElement(By.xpath(xpath)).getAttribute("value"));
+	  } catch (Error e) {
+		  verificationErrors.append(e.toString());
+	  }
 	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
 	  takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
-	  driver.findElement(By.cssSelector(prop.getProperty("Btn_ANF_Submit"))).click();
 
 	  driver.navigate().back();
 	  driver.navigate().back();
 	  Thread.sleep(100);
 	  FM_Logout(driver);
   }
-  */
 
   @After
   public void tearDown() throws Exception {
