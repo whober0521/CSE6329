@@ -43,7 +43,6 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
     prop.load(new FileInputStream(prop.getProperty("SharedUIMap")));
   }
 
-  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_registration.csv")
   public void Registration(int testcaseNum, 
@@ -63,59 +62,7 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 
 	FM_Register(driver, username, pwd, "Facility Manager", utaid, firstName, lastName, email, phone, address, city, state, "FacilityManagerTest" + methodName + testcaseNum);
   }
-  */
 
-  /*
-  @Test
-  @FileParameters("./test/facility_maintenance/selenium/FM_verifyHomelink.csv")
-  public void verifyAllLinks(int testcaseNum, String link, String title) throws Exception {
-	  driver.get(appURL);
-	  Thread.sleep(1000);
-	  FM_Login(driver, "fmfive", "test1");    
-	  Thread.sleep(1000);
-	  driver.findElement(By.linkText(prop.getProperty(link))).click();
-	  try {
-		  String methodName = new Throwable().getStackTrace()[0].getMethodName();
-		  takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
-		  assertEquals(title, driver.getTitle());
-	  } catch (Error e) {
-		  verificationErrors.append(e.toString());
-	  }
-	  Thread.sleep(1000);
-	  FM_Logout(driver);
-	  //driver.findElement(By.linkText("Logout")).click();
-  }
-
-  @Test
-  public void verifyAddNewFacility() throws Exception {
-	  driver.get(appURL);
-	  Thread.sleep(1000);
-	  FM_Login(driver, "fmfive", "test1");    
-	  Thread.sleep(1000);
-	  driver.findElement(By.linkText(prop.getProperty("Txt_FM_AddNewFacility"))).click();
-	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
-	  takeScreenshot(driver, "FacilityManagerTest" + methodName);
-	  assertTrue(isElementPresent(By.cssSelector("form")));
-	  Thread.sleep(1000);
-	  //driver.findElement(By.linkText("Logout")).click();
-  }
-
-  @Test
-  public void verifyUnassignedMAR() throws Exception {
-	  driver.get(appURL);
-	  Thread.sleep(1000);
-	  FM_Login(driver, "fmfive", "test1");    
-	  Thread.sleep(1000);
-	  driver.findElement(By.linkText(prop.getProperty("Txt_FM_ViewUnassignedMAR"))).click();
-	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
-	  takeScreenshot(driver, "FacilityManagerTest" + methodName);
-	  assertTrue(isElementPresent(By.cssSelector("th")));
-	  Thread.sleep(1000);
-	  //driver.findElement(By.linkText("Logout")).click();
-  }
-  */
-
-  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_assignMAR.csv")
   public void assignMAR(int testcaseNum, String repairer, String urgency, String estimate, int errMsgIdx) throws Exception {
@@ -256,7 +203,6 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  driver.navigate().back();
 	  FM_Logout(driver);
   }
-  */
 
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_addFacility.csv")
