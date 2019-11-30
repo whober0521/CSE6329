@@ -42,6 +42,7 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
     prop.load(new FileInputStream(prop.getProperty("SharedUIMap")));
   }
 
+  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_registration.csv")
   public void Registration(int testcaseNum, 
@@ -61,6 +62,7 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 
 	FM_Register(driver, username, pwd, "Facility Manager", utaid, firstName, lastName, email, phone, address, city, state, "FacilityManagerTest" + methodName + testcaseNum);
   }
+  */
 
   /*
   @Test
@@ -114,7 +116,7 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_assignMAR.csv")
-  public void assignMAR(int testcaseNum, String repairer, String urgency, String estimate) throws Exception {
+  public void assignMAR(int testcaseNum, String repairer, String urgency, String estimate, int errMsgIdx) throws Exception {
 	driver.get(appURL);
 	
 	FM_Login(driver, "fmfive", "test1");    
@@ -149,13 +151,30 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
     Thread.sleep(500);
     String methodName = new Throwable().getStackTrace()[0].getMethodName();
     takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
+    try {
+    	String xpath = prop.getProperty("Txt_MM_ErrMsg");
+    	xpath = xpath.replace("^", Integer.toString(errMsgIdx));
+    	System.out.println(xpath);
+    	if ( 1 != errMsgIdx )
+    	{
+    		assertTrue(isElementPresent(By.xpath(xpath)));
+    	}
+    	else
+    	{
+    		driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+    		assertFalse(isElementPresent(By.xpath(xpath)));
+    		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    	}
+    } catch (Error e) {
+    	verificationErrors.append(e.toString());
+    }
 
     FM_Logout(driver);
   }  
 
+  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_assignMARToOther.csv")
-//  public void assignMARToOther(int testcaseNum, String time, String facilityName, String newRepairer) throws Exception {
   public void assignMARToOther(int testcaseNum, String MARIdx, String facilityType, 
 		  String facilityName, String oldRepairer, String date, String time, String newRepairer) throws Exception {
 	  driver.get(appURL);
@@ -173,7 +192,6 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  Thread.sleep(1000);
 	  driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).clear();
 	  Thread.sleep(1000);
-	  //driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).sendKeys(date);
 	  if ( ds.length > 1 )
 	  {
 		  driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).sendKeys(ds[0]);
@@ -185,12 +203,8 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 		  driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).sendKeys(ds[2]);
 		  Thread.sleep(100);
 	  }
-	  //driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedDate"))).sendKeys("11/25/2019");
-	  //System.out.println(date);
 
-//	  new Select(driver.findElement(By.name("assigntime"))).selectByVisibleText(time);
 	  new Select(driver.findElement(By.name(prop.getProperty("Txt_FAM_AssignedTime")))).selectByVisibleText(time);
-//	  new Select(driver.findElement(By.name("facilitytype"))).selectByVisibleText(facilityName);
 	  new Select(driver.findElement(By.name(prop.getProperty("Txt_FAM_FacilityType")))).selectByVisibleText(facilityType);
 	  new Select(driver.findElement(By.name(prop.getProperty("Txt_FAM_FacilityName")))).selectByVisibleText(facilityName);
 
@@ -198,7 +212,6 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  
 	   //For unknown reason, I have to give it 2 click with 500ms delay or the selenium won't click the button.
 	  WebDriverWait wait = new WebDriverWait(driver, 5);
-//	  wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_FAM_Submit")))).click();
 	  Thread.sleep(500);
 	  wait.until(ExpectedConditions.elementToBeClickable(By.xpath(prop.getProperty("Btn_FAM_Submit"))));
 	  Thread.sleep(500);
@@ -224,17 +237,14 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  FM_Login(driver, "fmfive", "test1");    
 
 	  driver.findElement(By.linkText(prop.getProperty("Txt_FM_SearchFacility"))).click();
-//	  new Select(driver.findElement(By.name("facilityname"))).selectByVisibleText(facilityName);
 	  new Select(driver.findElement(By.name(prop.getProperty("Txt_SF_FacilityName")))).selectByVisibleText(facilityName);
 	  new Select(driver.findElement(By.name("starttime"))).selectByVisibleText("11:00");
-//	  driver.findElement(By.cssSelector("button[type=\"submit\"]")).click();
 	  Thread.sleep(500);
 	  driver.findElement(By.cssSelector(prop.getProperty("Btn_SF_Submit"))).click();
 	  Thread.sleep(500);
 	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
 	  takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
 	  driver.navigate().back();
-	  //driver.findElement(By.linkText("Logout")).click();
 	  FM_Logout(driver);
   }
 
@@ -245,14 +255,10 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  FM_Login(driver, "fmfive", "test1");    
 
 	  driver.findElement(By.linkText(prop.getProperty("Txt_FM_AddNewFacility"))).click();
-//	  new Select(driver.findElement(By.name("master"))).selectByVisibleText("Volleyball courts");
 	  new Select(driver.findElement(By.name(prop.getProperty("Txt_ANF_Master")))).selectByVisibleText(facilityName);
 	  driver.findElement(By.name(prop.getProperty("Txt_ANF_Number"))).clear();
-//	  driver.findElement(By.name("number")).sendKeys("2");
 	  driver.findElement(By.name(prop.getProperty("Txt_ANF_Number"))).sendKeys(number);
-//	  new Select(driver.findElement(By.name("interval"))).selectByVisibleText("1 hour");
 	  new Select(driver.findElement(By.name(prop.getProperty("Txt_ANF_Interval")))).selectByVisibleText(interval);
-//	  new Select(driver.findElement(By.name("duration"))).selectByVisibleText("4 days");
 	  new Select(driver.findElement(By.name(prop.getProperty("Txt_ANF_Duration")))).selectByVisibleText(duration);
 	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
 	  takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
@@ -263,6 +269,7 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 	  Thread.sleep(100);
 	  FM_Logout(driver);
   }
+  */
 
   @After
   public void tearDown() throws Exception {
