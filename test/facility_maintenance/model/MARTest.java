@@ -154,36 +154,6 @@ public class MARTest {
 		assertEquals("", marErrMsg.getDatetimeError());
 	}
 
-	/*
-	@Test
-	@FileParameters("TestCaseTable_CSV/MAR_validateFacilityName.csv")
-	public void testValidateFacilityName(int testcaseNum, String repairer, String expectMsg) {
-		expectMsg = expectMsg.replace("\"", "");
-		repairer = repairer.replace("\"", "");
-		mar.setRepairer(repairer);
-		assertEquals(expectMsg, mar.validateFacilityName(mar));
-	}
-	*/
-	/*
-	@Test
-	@FileParameters("TestCaseTable_CSV/MAR_validateDescription.csv")
-	public void testValidateDescription(int testcaseNum, String desc, String expectMsg) {
-		expectMsg = expectMsg.replace("\"", "");
-		desc = desc.replace("\"", "");
-		assertEquals(expectMsg, mar.validateDescription(desc));
-	}
-	*/
-
-	/*
-	@Test
-	@FileParameters("TestCaseTable_CSV/MAR_validateUrgency.csv")
-	public void testValidateUrgency(int testcaseNum, String urgency, String expectMsg) {
-		expectMsg = expectMsg.replace("\"", "");
-		urgency = urgency.replace("\"", "");
-		assertEquals(expectMsg, mar.validateUrgency(urgency));
-	}
-	*/
-
 	@Test
 	@FileParameters("./test/facility_maintenance/model/MAR_validateRepairerAssignedMAR.csv")
 	public void testValidateRepairerAssignedMAR(
@@ -195,33 +165,11 @@ public class MARTest {
 		assertEquals(expectMsg, mar.validateRepairer(repairerName));
 	}
 
-	/*
-	@Test
-	@FileParameters("TestCaseTable_CSV/MAR_validateEstimate.csv")
-	public void testValidateEstimate(int testcaseNum, String estimateStr, String expectMsg) {
-		expectMsg = expectMsg.replace("\"", "");
-		estimateStr = estimateStr.replace("\"", "");
-		assertEquals(expectMsg, mar.validateEstimate(estimateStr));
-	}
-	*/
-
 	@Test
 	@FileParameters("./test/facility_maintenance/model/MAR_validateDateTime.csv")
-	//public void testValidateDateTime(int testcaseNum, String date, String time, int lenOfMsg) {
 	public void testValidateDateTime(int testcaseNum, String facilityName, String date, int timeOffset, int lenOfMsg) {
 		date = date.replace("\"", "");
 		facilityName = facilityName.replace("\"", "");
-		//time = time.replace("\"", "");
-		/*
-		Date expire = new Date();
-		Calendar c = Calendar.getInstance(); 
-		c.setTime(expire); 
-		c.add(Calendar.DATE, defaultDuration + duration);
-		expire = c.getTime();
-
-		String repairdate = new SimpleDateFormat("yyyy-MM-dd").format(expire);
-		String starttime = new SimpleDateFormat("HH:mm").format(Calendar.getInstance().getTime());
-		*/
 		Calendar c = Calendar.getInstance(); 
 		c.add(Calendar.SECOND, timeOffset);
 		String starttime = new SimpleDateFormat("HH:mm:ss").format(c.getTime());
@@ -267,7 +215,6 @@ public class MARTest {
 	}
 
 	@Test
-	//@FileParameters("TestCaseTable_CSV/MAR_getTime.csv")
 	@FileParameters("./test/facility_maintenance/model/MAR_getTime.csv")
 	public void testGetTime(int testcaseNum, String time) {
 		time = time.replace("\"", "");
