@@ -114,6 +114,7 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
   }
   */
 
+  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_assignMAR.csv")
   public void assignMAR(int testcaseNum, String repairer, String urgency, String estimate, int errMsgIdx) throws Exception {
@@ -171,12 +172,12 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 
     FM_Logout(driver);
   }  
+  */
 
-  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_assignMARToOther.csv")
   public void assignMARToOther(int testcaseNum, String MARIdx, String facilityType, 
-		  String facilityName, String oldRepairer, String date, String time, String newRepairer) throws Exception {
+		  String facilityName, String oldRepairer, String date, String time, String newRepairer, String ResultPageName) throws Exception {
 	  driver.get(appURL);
 	  FM_Login(driver, "fmfive", "test1");    
 
@@ -222,14 +223,17 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 
 	  new Select(driver.findElement(By.name(prop.getProperty("Lst_MM_Repairer")))).selectByVisibleText(newRepairer);
 
+	  driver.findElement(By.cssSelector(prop.getProperty("Btn_MM_Submit"))).click();
+
 	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
 	  takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
 
-	  driver.findElement(By.cssSelector(prop.getProperty("Btn_MM_Submit"))).click();
+	  assertEquals(ResultPageName, driver.getTitle());
 
 	  FM_Logout(driver);
   }
 
+  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_searchFacility.csv")
   public void searchFacility(int testcaseNum, String facilityName) throws Exception {
