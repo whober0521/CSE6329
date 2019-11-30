@@ -30,7 +30,7 @@ public class FacilityTest{
 	}
 
 	@Test
-	@FileParameters("TestCaseTable_CSV/Facility.csv")
+	@FileParameters("./test/facility_maintenance/model/Facility.csv")
 	public void test(String action, String master,int id, String interval, String duration, String venue, String number, String Errormsgs, String numberErr){
 		fac.setFacility(master, id,  interval,  duration,  venue,  number);
 		fac.validate(action, fac, facerr);
