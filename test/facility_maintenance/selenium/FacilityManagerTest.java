@@ -1,6 +1,7 @@
 package facility_maintenance.selenium;
 
 import java.io.FileInputStream;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -172,7 +173,6 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 
     FM_Logout(driver);
   }  
-  */
 
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_assignMARToOther.csv")
@@ -232,26 +232,34 @@ public class FacilityManagerTest extends facility_maintenance.FMFunctions {
 
 	  FM_Logout(driver);
   }
+  */
 
-  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_searchFacility.csv")
-  public void searchFacility(int testcaseNum, String facilityName) throws Exception {
+  public void searchFacility(int testcaseNum, String facilityName, String time, int numberOfSlot) throws Exception {
 	  driver.get(appURL);
 	  FM_Login(driver, "fmfive", "test1");    
 
 	  driver.findElement(By.linkText(prop.getProperty("Txt_FM_SearchFacility"))).click();
 	  new Select(driver.findElement(By.name(prop.getProperty("Txt_SF_FacilityName")))).selectByVisibleText(facilityName);
-	  new Select(driver.findElement(By.name("starttime"))).selectByVisibleText("11:00");
+//	  new Select(driver.findElement(By.name("starttime"))).selectByVisibleText("11:00");
+	  new Select(driver.findElement(By.name("starttime"))).selectByVisibleText(time);
 	  Thread.sleep(500);
 	  driver.findElement(By.cssSelector(prop.getProperty("Btn_SF_Submit"))).click();
 	  Thread.sleep(500);
+
+	  WebElement TogetRows = driver.findElement(By.xpath(prop.getProperty("Table_SF_ResultTable")));
+	  List<WebElement> TotalRowsList = TogetRows.findElements(By.tagName("tr"));
+
+	  assertEquals(numberOfSlot, TotalRowsList.size() - 1/* the title */);
+
 	  String methodName = new Throwable().getStackTrace()[0].getMethodName();
 	  takeScreenshot(driver, "FacilityManagerTest" + methodName + testcaseNum);
 	  driver.navigate().back();
 	  FM_Logout(driver);
   }
 
+  /*
   @Test
   @FileParameters("./test/facility_maintenance/selenium/FM_addFacility.csv")
   public void addFacility(int testcaseNum, String facilityName, String number, String interval, String duration) throws Exception {
