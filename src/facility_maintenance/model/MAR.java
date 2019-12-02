@@ -183,6 +183,7 @@ public class MAR implements Serializable{
 		else if (action.compareTo("request") == 0) {
 			errorMsgs.setNameError(validateFacilityName(mar));
 			errorMsgs.setDateTimeError(validateDateTime(mar.getFacilityname(), mar.getRepairdate(), mar.getStarttime()));
+			//errorMsgs.setDateTimeError(validateDateTime(mar.getFacilityname(), mar.getRepairdate(), ""));
 			//errorMsgs.setDateTimeError(validateDateTime(mar.getFacilityname(), mar.getRepairdate()));
 		}
 
